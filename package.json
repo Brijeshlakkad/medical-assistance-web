@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "bowser": "^2.11.0",
     "classnames": "^2.3.2",
+    "keymirror": "^0.1.1",
     "minilog": "^3.1.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
