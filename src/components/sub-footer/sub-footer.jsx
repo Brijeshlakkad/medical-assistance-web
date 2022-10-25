@@ -1,8 +1,8 @@
 import React from 'react'
-import SubFooterContactUsComponent from './contact-us'
+import ContactUs from '../../containers/contact-us'
 import './sub-footer.css'
 
-export default function SubFooterComponent() {
+export function SubFooterComponent() {
     return (
         <div className='footer-container'>
             <div className='container'>
@@ -19,7 +19,7 @@ export default function SubFooterComponent() {
                     <strong>Email:</strong> <a href="mailto:help@lifeline.ca">help@lifeline.ca</a>
                 </div>
                 <div className='col-1'>
-                    <SubFooterContactUsComponent></SubFooterContactUsComponent>
+                    <ContactUs></ContactUs>
                 </div>
             </div>
         </div >
