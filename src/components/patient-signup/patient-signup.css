@@ -1,4 +1,4 @@
-.login-form {
+.signup-form {
     max-width: 500px;
     display: block;
     margin: auto;
@@ -15,7 +15,7 @@
     text-align: center;
 }
 
-.dateOfBirth {
+.date-of-birth {
     float: right;
     width: 150px;
     font-size: medium;
@@ -72,5 +72,18 @@
 }
 
 .extra {
-    margin-bottom: 3%;
+    height: 10px;
+}
+
+input[type=email],
+input[type=text],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
 }

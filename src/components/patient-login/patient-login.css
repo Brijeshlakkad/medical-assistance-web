@@ -64,7 +64,7 @@
 }
 
 .loginbutton {
-    font-size: 14px;
+    font-size: 1.2rem;
     background-color: white;
     text-align: center;
     padding: 12px;
@@ -114,5 +114,14 @@
 }
 
 .signup .signuplink {
+    border: 0;
+    background: white;
     color: dodgerblue;
+    margin-top: 0.3rem;
+    font-size: 1rem;
+}
+
+.signup .signuplink:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }

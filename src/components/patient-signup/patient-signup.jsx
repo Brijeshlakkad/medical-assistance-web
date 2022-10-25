@@ -1,11 +1,11 @@
 import React from "react"
-import './signup.css'
+import './patient-signup.css'
 
-export function SignupComponent(props) {
+export function PatientSignupComponent(props) {
     return (
         <>
 
-            <div className='login-form'>
+            <div className='signup-form'>
                 <h2 className='h2'>LIFELINE</h2>
                 <form>
                     <label>First Name</label>
@@ -24,7 +24,7 @@ export function SignupComponent(props) {
                     <input type='text' placeholder='Re-type your password'></input>
 
                     <label>Date of Birth</label>
-                    <input type='date' placeholder='Date Of Birth' className='dateOfBirth'></input>
+                    <input type='date' placeholder='Date Of Birth' className='date-of-birth'></input>
 
                     <br></br>
                     <br></br>
@@ -34,7 +34,7 @@ export function SignupComponent(props) {
                     <label>City</label>
                     <input type='text' placeholder='Enter your city'></input>
 
-                    <label for="country">Province</label>
+                    <label>Province</label>
                     <select id="province" name="province" className="province">
                         <option value="Quebec">Quebec</option>
                         <option value="British Columbia">British Columbia</option>
@@ -51,7 +51,7 @@ export function SignupComponent(props) {
                     <label>Phone Number</label>
                     <input type='text' placeholder='Enter your mobile number'></input>
 
-                    <span>By creating an account, you agree to our <a href="">Terms & Privacy</a> </span>
+                    <span>By creating an account, you agree to our <button>Terms & Privacy</button> </span>
                     <div>
                         <button type='submit' className='signupbutton'><span>Sign Up</span></button>
                     </div>
@@ -59,7 +59,6 @@ export function SignupComponent(props) {
                 </form >
             </div >
             <div className='extra'>
-                H
             </div>
         </>
     )

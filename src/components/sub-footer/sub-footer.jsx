@@ -1,5 +1,5 @@
 import React from 'react'
-import SubFooterContactUsComponent from './sub-footer-contact-us'
+import SubFooterContactUsComponent from './contact-us'
 import './sub-footer.css'
 
 export default function SubFooterComponent() {

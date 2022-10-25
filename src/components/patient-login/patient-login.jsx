@@ -1,9 +1,9 @@
 import React from 'react'
-import './login.css'
-<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+import { Link } from 'react-router-dom'
+import { PathConstants } from '../../lib/path-constants'
+import './patient-login.css'
 
-
-export default function LoginComponent() {
+export function PatientLoginComponent() {
     return (
         <div className='login-form'>
             <h2 className='h2'>LIFELINE</h2>
@@ -19,7 +19,9 @@ export default function LoginComponent() {
                 </div>
             </form>
             <div className='signup'>
-                <span>No Account?</span><a href='' className='signuplink'> Sign Up</a>
+                <span>No Account?</span>
+                <br />
+                <Link relative="path" to={PathConstants.PatientSignup} className='signuplink'>Sign Up</Link>
             </div>
         </div>
     )
