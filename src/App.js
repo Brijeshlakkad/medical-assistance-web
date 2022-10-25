@@ -3,13 +3,15 @@ import { compose } from 'redux';
 import './App.css';
 
 import Home from './containers/home.jsx';
+import Login from './containers/login.jsx';
+import Signup from './containers/signup';
 import AppStateHOC from './lib/app-state-hoc';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,118 @@
+.input-container {
+    display: -ms-flexbox;
+    /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.icon {
+    padding: 10px;
+    background: dodgerblue;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+
+.input-field:focus {
+    border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+.btn {
+    background-color: dodgerblue;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+
+.form {
+    max-width: 500px;
+    margin: auto;
+}
+
+.h2 {
+    text-align: center;
+}
+
+.signup {
+    padding: 30px;
+}
+
+.login-form {
+    max-width: 350px;
+    display: block;
+    margin: auto;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-top: 5%;
+    background-color: #fff;
+}
+
+.loginbutton {
+    font-size: 14px;
+    background-color: white;
+    text-align: center;
+    padding: 12px;
+    border-radius: 12px;
+
+    width: 100%;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.loginbutton:hover {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.loginbutton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.loginbutton span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.loginbutton:hover span {
+    padding-right: 25px;
+}
+
+.loginbutton:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.signup {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.signup .signuplink {
+    color: dodgerblue;
+}

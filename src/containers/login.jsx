@@ -1,6 +1,7 @@
 import React from "react";
-import { LoginComponent } from "../components/login/login";
+import { LoginComponent } from "../components/login/login-page";
+import { LoginPageComponent } from "../components/login/login-page";
 
-export default function Login(props) {
-    return <LoginComponent {...props} />
+export default function Login() {
+    return <LoginPageComponent />
 }

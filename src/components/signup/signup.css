@@ -1,0 +1,76 @@
+.login-form {
+    max-width: 500px;
+    display: block;
+    margin: auto;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-top: 2%;
+    background-color: #fff;
+    margin-bottom: 4%;
+    padding-bottom: 10px;
+}
+
+.h2 {
+    text-align: center;
+}
+
+.dateOfBirth {
+    float: right;
+    width: 150px;
+    font-size: medium;
+}
+
+.province {
+    float: right;
+    width: 200px;
+    font-size: medium;
+}
+
+.signupbutton {
+    font-size: 24px;
+    background-color: white;
+    text-align: center;
+    padding: 12px;
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    transition: all 0.5s;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.signupbutton:hover {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.signupbutton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.signupbutton span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.signupbutton:hover span {
+    padding-right: 25px;
+}
+
+.signupbutton:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.extra {
+    margin-bottom: 3%;
+}
