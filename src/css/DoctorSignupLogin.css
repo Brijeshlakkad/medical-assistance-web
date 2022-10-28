@@ -1,0 +1,71 @@
+.base {
+    background-size: cover;
+    display: flex;
+    background-color: blueviolet;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+  }
+  .left-panel {
+    background-color: rgb(232, 232, 232);
+    height: 100vh;
+    width: 20vw;
+  
+  }
+  
+  .right-panel {
+    background-color: white;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    width: 80vw;
+  }
+
+  .title
+  {
+    height: 20vh;
+    font-size: 30px;
+    font-weight: 100;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(0, 144, 0);
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 20vw;
+    text-shadow: 4px 4px 5px gray;
+  }
+  .links
+  {
+    height: 69vh;
+    font-size: 20px;
+    font-weight: 100;
+    color: rgb(0, 42, 255);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(252, 251, 251);
+    width: 20vw;
+    padding: auto;
+    text-align: center;
+  }
+  a{
+    color: rgb(7, 0, 101);
+    text-decoration: none;
+  }
+
+  .lifeline{
+    height: 10vh;
+    font-size: 30px;
+    font-weight: 100;
+    color: rgb(103, 0, 247);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(255, 255, 255);
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 20vw;
+    text-shadow: 4px 4px 5px gray;
+    border: 3px solid  rgb(103, 0, 247); ;
+
+  }
+  
