@@ -1,15 +1,21 @@
 import axios from "axios"
 
-const PUBLIC_BASE_URL = "localhost:3000";
+const PUBLIC_BASE_URL = "http://127.0.0.1:3010/api/v1";
 
-export default function request(url, params = {}, data = {}) {
+export default function request(url, method, params = {}, data = {}) {
 	return new Promise((resolve) => {
+		const accessToken = localStorage.getItem("USER");
+		const headers = {
+			"Access-Control-Allow-Origin": "*",
+			"Content-Type": "application/json"
+		};
+		if (accessToken) {
+			headers["Authorization"] = `Bearer ${accessToken}`;
+		}
 		axios({
-			method: "get",
+			method: method,
 			url: `${PUBLIC_BASE_URL}/${url}`,
-			headers: {
-				"content-type": "application/json",
-			},
+			headers,
 			params: params,
 			data: data,
 		})
