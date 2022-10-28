@@ -1,16 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { RedTertiary } from '../../css/colors'
 import { PathConstants } from '../../lib/path-constants'
+import { ErrorMessage } from '../elements/error-message'
 import './patient-login.css'
-
-const ErrorMessage = styled.div`
-    color: ${RedTertiary};
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-`
 
 export function PatientLoginComponent({
     email,

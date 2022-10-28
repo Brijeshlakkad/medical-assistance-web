@@ -1,10 +1,13 @@
 import { PatientLoginSignupState } from "../actions/patient";
-import { PATIENT_LOGIN_SIGNUP_ERROR, PATIENT_LOGIN_SIGNUP_FETCHING, PATIENT_LOGIN_SIGNUP_SUCCESS } from "../types";
+import { NULL_STATE, PATIENT_ASSESSMENT_QUESTIONS_ERROR, PATIENT_ASSESSMENT_QUESTIONS_FETCHING, PATIENT_ASSESSMENT_QUESTIONS_SUCCESS, PATIENT_ASSESSMENT_SUBMIT_ERROR, PATIENT_ASSESSMENT_SUBMIT_FETCHING, PATIENT_ASSESSMENT_SUBMIT_SUCCESS, PATIENT_LOGIN_SIGNUP_ERROR, PATIENT_LOGIN_SIGNUP_FETCHING, PATIENT_LOGIN_SIGNUP_SUCCESS } from "../types";
 
 const initialState = {
 	state: PatientLoginSignupState.NULL,
 	errorMessage: "",
-	user: {}
+	user: {},
+	questionsState: NULL_STATE,
+	questions: null,
+	questionSubmitState: NULL_STATE
 }
 
 const reducer = (state, action) => {
@@ -27,6 +30,44 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				state: PatientLoginSignupState.ERROR,
+				errorMessage: action.errorMessage
+			}
+		case PATIENT_ASSESSMENT_QUESTIONS_FETCHING:
+			return {
+				...state,
+				questionsState: PATIENT_ASSESSMENT_QUESTIONS_FETCHING,
+				errorMessage: ""
+			}
+		case PATIENT_ASSESSMENT_QUESTIONS_SUCCESS:
+			return {
+				...state,
+				questions: action.questions,
+				errorMessage: "",
+				questionsState: PATIENT_ASSESSMENT_QUESTIONS_SUCCESS
+			}
+		case PATIENT_ASSESSMENT_QUESTIONS_ERROR:
+			return {
+				...state,
+				questions: null,
+				errorMessage: action.errorMessage,
+				questionsState: PATIENT_ASSESSMENT_QUESTIONS_ERROR
+			}
+		case PATIENT_ASSESSMENT_SUBMIT_FETCHING:
+			return {
+				...state,
+				questionSubmitState: PATIENT_ASSESSMENT_SUBMIT_FETCHING,
+				errorMessage: ""
+			}
+		case PATIENT_ASSESSMENT_SUBMIT_SUCCESS:
+			return {
+				...state,
+				questionSubmitState: PATIENT_ASSESSMENT_SUBMIT_SUCCESS,
+				errorMessage: ""
+			}
+		case PATIENT_ASSESSMENT_SUBMIT_ERROR:
+			return {
+				...state,
+				questionSubmitState: PATIENT_ASSESSMENT_SUBMIT_ERROR,
 				errorMessage: action.errorMessage
 			}
 		default:
