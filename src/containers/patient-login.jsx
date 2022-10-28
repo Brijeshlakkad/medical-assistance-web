@@ -5,7 +5,7 @@ import FooterComponent from "../components/footer/footer";
 import HeaderComponent from "../components/header/header";
 import { PatientLoginComponent } from "../components/patient-login/patient-login";
 import { PathConstants } from "../lib/path-constants";
-import { login, PatientLoginState } from "../store/actions/patient";
+import { login, PatientLoginSignupState } from "../store/actions/patient";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ export default function Login() {
     }
 
     useEffect(() => {
-        if (loginState === PatientLoginState.COMPLETED) {
+        if (loginState === PatientLoginSignupState.COMPLETED) {
             // redirect to PatientHome page.
             navigate(PathConstants.PatientHome);
         }
