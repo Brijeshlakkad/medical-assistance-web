@@ -30,3 +30,7 @@ export const DataPrimary = "hsla(30, 100%, 55%, 1)"; /* #FF8C1A */
 export const ErrorPrimary = "hsla(30, 100%, 55%, 1)"; /* #FF8C1A */
 export const ErrorLight = "hsla(30, 100%, 70%, 1)"; /* #FFB366 */
 export const ErrorTransparent = "hsla(30, 100%, 55%, 0.25)"; /* #FF8C1A */
+
+export const GreenPrimary = "hsla(106, 100%, 38%, 1)" /* #2dc200 */
+
+export const YellowPrimary = "hsla(51, 100%, 55%, 1)" /* #ffdd1a */

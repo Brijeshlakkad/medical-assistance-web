@@ -3,7 +3,6 @@ import { compose } from "redux";
 import "./App.css";
 import AssessmentPage from "./containers/assessment-page";
 import LandingPage from './containers/landing-page';
-import PatientHome from './containers/patient-home';
 import Login from "./containers/patient-login";
 import Signup from "./containers/patient-signup";
 import AppStateHOC from "./lib/app-state-hoc";
@@ -16,11 +15,7 @@ function App() {
         <Route path={PathConstants.Home} element={<LandingPage />} />
         <Route path={PathConstants.PatientLogin} element={<Login />} />
         <Route path={PathConstants.PatientSignup} element={<Signup />} />
-        <Route
-          path={PathConstants.AssessmentPage}
-          element={<AssessmentPage />}
-        />
-        <Route path={PathConstants.PatientHome} element={<PatientHome />} />
+        <Route path={PathConstants.AssessmentPage} element={<AssessmentPage />} />
       </Routes>
     </BrowserRouter>
   );

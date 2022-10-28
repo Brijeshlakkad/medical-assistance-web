@@ -1,14 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-import { RedTertiary } from "../../css/colors";
+import { ErrorMessage } from "../elements/error-message";
 import './patient-signup.css';
-
-const ErrorMessage = styled.div`
-    color: ${RedTertiary};
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-`
 
 export function PatientSignupComponent({
     user,
