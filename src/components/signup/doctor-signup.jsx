@@ -7,9 +7,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from "@material-ui/core/InputLabel";
 
-export function Signup() {
+export function DoctorSignup() {
     const paperStyle = { padding: '20px 20px', width: 500, margin: "auto" }
-    const headerStyle = { margin: 0, color:'Green', fontWeight:"bold" }
+    const headerStyle = { margin: 0, color: 'Green', fontWeight: "bold" }
     const marginTop = { marginTop: 10 }
     const [Province, setProvince] = React.useState('');
 
@@ -90,21 +90,21 @@ export function Signup() {
                         </Grid>
                         <Grid item xs={6}>
                             <TextField fullWidth label='Password' type='password' placeholder="Enter your password" />
-                        </Grid> 
+                        </Grid>
                         <Grid item xs={6}>
                             <TextField fullWidth label='Confirm Password' type='password' placeholder="Confirm your password" />
                         </Grid>
                         <Grid item xs={2}>
                         </Grid>
-                         <Grid item xs={7}>
-                         <Button type='submit' variant='contained' color='primary' style={{width:'300px',backgroundColor: "green"}}>Sign up</Button>
+                        <Grid item xs={7}>
+                            <Button type='submit' variant='contained' color='primary' style={{ width: '300px', backgroundColor: "green" }}>Sign up</Button>
                         </Grid>
                         <Grid item xs={2}>
                         </Grid>
 
                     </Grid>
 
-                    
+
                 </form>
             </Paper>
         </Grid>

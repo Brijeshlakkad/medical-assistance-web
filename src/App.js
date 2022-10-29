@@ -2,29 +2,32 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { compose } from 'redux';
 import './App.css';
 
-import Home from './containers/home.jsx';
+import "./App.css";
+import AssessmentPage from "./containers/assessment-page";
+import CounselorSignupLogin from './containers/counselor-signup-login';
+import DoctorSignupLogin from './containers/doctor-signup-login';
+import LandingPage from './containers/landing-page';
+import Login from "./containers/patient-login";
+import Signup from "./containers/patient-signup";
 import AppStateHOC from './lib/app-state-hoc';
-import DoctorSignupLogin from './containers/doctorSignupLogin';
-import CounselorSignupLogin from './containers/counselorSignupLogin';
+import { PathConstants } from "./lib/path-constants";
 
 function App() {
   return (
-    
+
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        
-        <Route path="/counselor-signup-login" element={<CounselorSignupLogin/>} />
-        <Route path="/doctor-signup-login" element={<DoctorSignupLogin/>} />
-
+        <Route path={PathConstants.Home} element={<LandingPage />} />
+        <Route path={PathConstants.PatientLogin} element={<Login />} />
+        <Route path={PathConstants.PatientSignup} element={<Signup />} />
+        <Route path={PathConstants.AssessmentPage} element={<AssessmentPage />} />
+        <Route path={PathConstants.CounselorLogin} element={<CounselorSignupLogin />} />
+        <Route path={PathConstants.DoctorLogin} element={<DoctorSignupLogin />} />
       </Routes>
     </BrowserRouter>
-   );
+  );
 }
 
-const WrappedApp = compose(
-  AppStateHOC
-)(App);
+const WrappedApp = compose(AppStateHOC)(App);
 
 export default WrappedApp;
-

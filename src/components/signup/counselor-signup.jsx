@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from "@material-ui/core/InputLabel";
 
-export function Signup() {
+export function CounselorSignup() {
     const paperStyle = { padding: '20px 20px', width: 500, margin: "auto" }
     const headerStyle = { margin: 0, color:'Blue', fontWeight:"bold" }
     const marginTop = { marginTop: 10 }
