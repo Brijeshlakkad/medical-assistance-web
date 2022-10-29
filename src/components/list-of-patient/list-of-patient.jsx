@@ -7,7 +7,6 @@ export default function ListOfPatient(props) {
 
     const { role } = props;
     const patientDetails = [{
-
         patientname: "Urvish",
         date: "12-09-2001"
     },

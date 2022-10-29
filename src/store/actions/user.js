@@ -27,7 +27,8 @@ export const login = (emailId, password, role) => async (dispatch) => {
                 localStorage.setItem("USER", resp.data.accessToken);
                 dispatch({
                     type: USER_LOGIN_SIGNUP_SUCCESS,
-                    user: resp.data.user
+                    user: resp.data.user,
+                    role: role
                 });
             } else {
                 dispatch({
@@ -57,7 +58,8 @@ export const signup = (user, role) => async (dispatch) => {
                 localStorage.setItem("USER", resp.data.accessToken);
                 dispatch({
                     type: USER_LOGIN_SIGNUP_SUCCESS,
-                    user: resp.data.user
+                    user: resp.data.user,
+                    role: role
                 });
             } else if (resp.data) {
                 dispatch({

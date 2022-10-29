@@ -14,19 +14,22 @@ const reducer = (state, action) => {
 				...state,
 				state: RequestState.COMPLETED,
 				errorMessage: "",
-				user: action.user
+				user: action.user,
+				role: action.role
 			}
 		case USER_LOGIN_SIGNUP_FETCHING:
 			return {
 				...state,
 				state: RequestState.FETCHING,
-				errorMessage: ""
+				errorMessage: "",
+				role: UserRole.NULL
 			}
 		case USER_LOGIN_SIGNUP_ERROR:
 			return {
 				...state,
 				state: RequestState.ERROR,
-				errorMessage: action.errorMessage
+				errorMessage: action.errorMessage,
+				role: UserRole.NULL
 			}
 		default:
 			return state;
