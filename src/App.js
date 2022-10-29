@@ -4,7 +4,9 @@ import './App.css';
 
 import "./App.css";
 import AssessmentPage from "./containers/assessment-page";
+import CounselorLOP from "./containers/counselor-list-of-patient";
 import CounselorSignupLogin from './containers/counselor-signup-login';
+import DoctorLOP from "./containers/doctor-list-of-patient";
 import DoctorSignupLogin from './containers/doctor-signup-login';
 import LandingPage from './containers/landing-page';
 import Login from "./containers/patient-login";
@@ -23,6 +25,8 @@ function App() {
         <Route path={PathConstants.AssessmentPage} element={<AssessmentPage />} />
         <Route path={PathConstants.CounselorLogin} element={<CounselorSignupLogin />} />
         <Route path={PathConstants.DoctorLogin} element={<DoctorSignupLogin />} />
+        <Route path={PathConstants.CounselorLOP} element={<CounselorLOP />} />
+        <Route path={PathConstants.DoctorLOP} element={<DoctorLOP />} />
       </Routes>
     </BrowserRouter>
   );

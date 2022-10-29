@@ -12,9 +12,11 @@ export const PathConstants = {
   CounselorLogin: "/counselor/login",
   CounselorSignup: "/counselor/signup",
   CounselorHome: "/counselor/home",
+  CounselorLOP: "/counselor/patients",
 
   /* Doctor */
   DoctorLogin: "/doctor/login",
   DoctorSignup: "/doctor/signup",
   DoctorHome: "/doctor/home",
-}
+  DoctorLOP: "/doctor/patients",
+};
