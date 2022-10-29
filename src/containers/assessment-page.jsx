@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import AssessmentForm from '../components/assessment-form/assessment-form'
 import FooterComponent from '../components/footer/footer'
 import HeaderComponent from '../components/header/header'
+import { RequestState } from '../lib/types'
 import { getAssessmentQuestions, submitAssessmentQuestions } from '../store/actions/patient'
-import { NULL_STATE } from '../store/types'
 
 export default function AssessmentPage(props) {
     const questions = useSelector(state => state.patient.questions);
@@ -16,7 +16,7 @@ export default function AssessmentPage(props) {
     const [attemptedQuestions, setAttemptedQuestions] = useState({});
 
     useEffect(() => {
-        if (questionsState === NULL_STATE) {
+        if (questionsState === RequestState.NULL) {
             dispatch(getAssessmentQuestions())
         }
     }, [dispatch, questionsState]);

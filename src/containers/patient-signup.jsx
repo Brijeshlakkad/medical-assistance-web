@@ -5,7 +5,8 @@ import FooterComponent from "../components/footer/footer";
 import HeaderComponent from "../components/header/header";
 import { PatientSignupComponent } from "../components/patient-signup/patient-signup";
 import { PathConstants } from "../lib/path-constants";
-import { PatientLoginSignupState, signup } from "../store/actions/patient";
+import { RequestState, UserRole } from "../lib/types";
+import { signup } from "../store/actions/user";
 
 export default function Signup(props) {
     const [user, setUser] = useState({
@@ -32,16 +33,16 @@ export default function Signup(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        dispatch(signup(user));
+        dispatch(signup(user, UserRole.PATIENT));
     }
 
-    const signupState = useSelector(state => state.patient.state);
-    const errorMessage = useSelector(state => state.patient.errorMessage);
+    const signupState = useSelector(state => state.user.state);
+    const errorMessage = useSelector(state => state.user.errorMessage);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (signupState === PatientLoginSignupState.COMPLETED) {
+        if (signupState === RequestState.COMPLETED) {
             // redirect to PatientHome page.
             navigate(PathConstants.PatientHome);
         }
