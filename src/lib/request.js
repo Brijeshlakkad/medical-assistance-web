@@ -1,6 +1,4 @@
-import axios from "axios"
-
-const PUBLIC_BASE_URL = "http://127.0.0.1:3010/api/v1";
+import axios from "axios";
 
 export default function request(url, method, params = {}, data = {}) {
 	return new Promise((resolve) => {
@@ -14,7 +12,7 @@ export default function request(url, method, params = {}, data = {}) {
 		}
 		axios({
 			method: method,
-			url: `${PUBLIC_BASE_URL}/${url}`,
+			url: `${process.env.REACT_APP_BASE_URL}/${url}`,
 			headers,
 			params: params,
 			data: data,

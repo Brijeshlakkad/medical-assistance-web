@@ -9,7 +9,7 @@ export const UIWhiteDim = "hsla(0, 100%, 100%, 0.75)"; /* 25% transparent versio
 export const UIWhiteTransparent = "hsla(0, 100%, 100%, 0.25)"; /* 25% transparent version of ui-white */
 export const UITransparent = "hsla(0, 100%, 100%, 0)"; /* 25% transparent version of ui-white */
 
-
+export const ButtonTextPrimary = "hsla(210, 100%, 56%, 1)"; /* #1E90FF */
 
 export const MotionPrimary = "hsla(215, 100%, 65%, 1)"; /* #4C97FF */
 export const MotionTertiary = "hsla(215, 60%, 50%, 1)"; /* #3373CC */
