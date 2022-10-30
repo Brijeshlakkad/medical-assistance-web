@@ -1,20 +1,24 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+import { PathConstants } from '../../lib/path-constants';
 import { ErrorMessage } from '../elements/error-message';
 
-export default function DoctorSignupComponent(
+export function DoctorSignupComponent({
     user,
     onFieldChange,
     onSubmit,
     signupState,
     errorMessage
-) {
+}) {
     return (
         <>
             <div className='signup-form'>
                 <h2 className='h2'>LIFELINE</h2>
                 <form>
                     <label>Doctor Registration Number</label>
-                    <input type='text' placeholder='Please Enter Your Registration Number' ></input>
+                    <input type='text' placeholder='Please Enter Your Registration Number' value={user.registrationNumber} onChange={(e) => {
+                        onFieldChange("registrationNumber", e.target.value);
+                    }} />
 
                     <label>Full Name</label>
                     <input type='text' placeholder='Enter your first name' value={user.fullName} onChange={(e) => {
@@ -84,6 +88,11 @@ export default function DoctorSignupComponent(
                     }
                 </form >
             </div >
+            <div className='login-box'>
+                <span>No Account?</span>
+                <br />
+                <Link relative="path" to={PathConstants.DoctorLogin} className='login-link'>Already have an account?</Link>
+            </div>
             <div className='extra'>
             </div>
         </>

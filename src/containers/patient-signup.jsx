@@ -8,7 +8,7 @@ import { PathConstants } from "../lib/path-constants";
 import { RequestState, UserRole } from "../lib/types";
 import { signup } from "../store/actions/user";
 
-export default function Signup(props) {
+export default function PatientSignup(props) {
     const [user, setUser] = useState({
         fullName: "",
         emailAddress: "",

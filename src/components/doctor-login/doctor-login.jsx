@@ -1,8 +1,10 @@
-import React from 'react'
-import '../patient-login/patient-login.css'
-import { ErrorMessage } from '../elements/error-message'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { PathConstants } from '../../lib/path-constants';
+import { ErrorMessage } from '../elements/error-message';
+import '../patient-login/patient-login.css';
 
-export default function DoctorLoginComponent(
+export default function DoctorLoginComponent({
     email,
     setEmail,
     password,
@@ -10,15 +12,17 @@ export default function DoctorLoginComponent(
     onClick,
     errorMessage,
     loginState
-) {
+}) {
     return (
         <div className='login-form'>
             <h2 className='h2'>LIFELINE</h2>
             <form action=''>
                 <label>Doctor's Email</label>
                 <input type="email" placeholder='Enter your email address'
-
-                ></input>
+                    value={email}
+                    onChange={(e) => {
+                        setEmail(e.target.value);
+                    }} />
 
 
                 <label>Password</label>
@@ -39,6 +43,11 @@ export default function DoctorLoginComponent(
                 {errorMessage}
             </ErrorMessage>
             }
+            <div className='signup-box'>
+                <span>No Account?</span>
+                <br />
+                <Link relative="path" to={PathConstants.DoctorSignup} className='signup-link'>Sign Up</Link>
+            </div>
         </div>
     )
 }

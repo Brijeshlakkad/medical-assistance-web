@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FooterComponent from "../components/footer/footer";
-import HeaderComponent from "../components/header/header";
 import { PatientLoginComponent } from "../components/patient-login/patient-login";
 import { PathConstants } from "../lib/path-constants";
 import { RequestState, UserRole } from "../lib/types";
 import { login } from "../store/actions/user";
+import Header from "./header";
 
-export default function Login() {
+export default function PatientLogin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -31,7 +31,7 @@ export default function Login() {
     }, [navigate, loginState]);
 
     return <>
-        <HeaderComponent></HeaderComponent>
+        <Header />
         <PatientLoginComponent
             email={email}
             setEmail={setEmail}

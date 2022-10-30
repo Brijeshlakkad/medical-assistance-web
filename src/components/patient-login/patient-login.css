@@ -108,12 +108,15 @@
     right: 0;
 }
 
-.signup {
-    margin-top: 10px;
-    text-align: center;
+.signup-box {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    flex-direction: column;
+    align-items: center;
 }
 
-.signup .signuplink {
+.signup-box .signup-link {
     border: 0;
     background: white;
     color: dodgerblue;

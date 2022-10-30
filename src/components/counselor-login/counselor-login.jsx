@@ -1,6 +1,8 @@
-import React from 'react'
-import { ErrorMessage } from '../elements/error-message'
-import '../patient-login/patient-login.css'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { PathConstants } from '../../lib/path-constants';
+import { ErrorMessage } from '../elements/error-message';
+import '../patient-login/patient-login.css';
 
 export default function CounselorLoginComponent({
     email,
@@ -41,7 +43,11 @@ export default function CounselorLoginComponent({
                 {errorMessage}
             </ErrorMessage>
             }
-
+            <div className='signup-box'>
+                <span>No Account?</span>
+                <br />
+                <Link relative="path" to={PathConstants.CounselorSignup} className='signup-link'>Sign Up</Link>
+            </div>
         </div>
     )
 }

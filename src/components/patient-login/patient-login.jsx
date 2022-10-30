@@ -42,10 +42,10 @@ export function PatientLoginComponent({
                 {errorMessage}
             </ErrorMessage>
             }
-            <div className='signup'>
+            <div className='signup-box'>
                 <span>No Account?</span>
                 <br />
-                <Link relative="path" to={PathConstants.PatientSignup} className='signuplink'>Sign Up</Link>
+                <Link relative="path" to={PathConstants.PatientSignup} className='signup-link'>Sign Up</Link>
             </div>
         </div>
     )

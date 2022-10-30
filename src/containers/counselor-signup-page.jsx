@@ -1,12 +1,12 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { PathConstants } from '../lib/path-constants'
-import { RequestState, UserRole } from '../lib/types'
-import CounselorSignup from '../components/counselor-signup/counselor-signup'
-import FooterComponent from '../components/footer/footer'
-import { Header } from './header'
+import { CounselorSignupComponent } from '../components/counselor-signup/counselor-signup';
+import FooterComponent from '../components/footer/footer';
+import { PathConstants } from '../lib/path-constants';
+import { RequestState, UserRole } from '../lib/types';
+import { signup } from '../store/actions/user';
+import Header from './header';
 
 export default function CounselorSignupPage(props) {
     const [user, setUser] = useState({
@@ -19,7 +19,8 @@ export default function CounselorSignupPage(props) {
         dateOfBirth: "",
         phoneNumber: "",
         password: "",
-        rePassword: ""
+        rePassword: "",
+        registrationNumber: ""
     });
 
     const onFieldChange = (fieldName, value) => {
@@ -31,10 +32,10 @@ export default function CounselorSignupPage(props) {
 
     const dispatch = useDispatch();
 
-    // const onSubmit = (e) => {
-    //     e.preventDefault();
-    //     dispatch(signup(user, UserRole.PATIENT));
-    // }
+    const onSubmit = (e) => {
+        e.preventDefault();
+        dispatch(signup(user, UserRole.COUNSELOR));
+    }
 
     const signupState = useSelector(state => state.user.state);
     const errorMessage = useSelector(state => state.user.errorMessage);
@@ -43,21 +44,22 @@ export default function CounselorSignupPage(props) {
 
     useEffect(() => {
         if (signupState === RequestState.COMPLETED) {
-            // redirect to PatientHome page.
-            navigate(PathConstants.PatientHome);
+            // redirect to CounselorLOP page.
+            navigate(PathConstants.CounselorLOP);
         }
     }, [navigate, signupState]);
 
 
     return (
         <>
-            <Header></Header>
-            <CounselorSignup
+            <Header />
+            <CounselorSignupComponent
                 user={user}
                 onFieldChange={onFieldChange}
-                //onSubmit={onSubmit}
+                onSubmit={onSubmit}
                 signupState={signupState}
-                errorMessage={errorMessage}></CounselorSignup>
+                errorMessage={errorMessage}
+            />
             <FooterComponent></FooterComponent>
         </>
     )
