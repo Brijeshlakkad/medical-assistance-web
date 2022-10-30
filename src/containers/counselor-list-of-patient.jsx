@@ -1,23 +1,30 @@
 import React from 'react'
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FooterComponent from '../components/footer/footer';
 import HeaderComponent from '../components/header/header';
 import ListOfPatient from '../components/list-of-patient/list-of-patient';
+import { RequestState } from '../lib/types';
 import { fetchPatientList } from '../store/actions/couselor';
 
 export default function CounselorLOP(props) {
     const dispatch = useDispatch();
 
-    useEffect(()=>{
-        dispatch(fetchPatientList());
-    });
-    
+    const patientListState = useSelector(state => state.counselor.patientListState);
+
+    useEffect(() => {
+        if (patientListState === RequestState.NULL) {
+            dispatch(fetchPatientList());
+        }
+    }, [dispatch, patientListState]);
+
+    const patientList = useSelector(state => state.counselor.patientList);
+
     return (
         <>
             <HeaderComponent />
-            <ListOfPatient role="counselor"/>
-            <FooterComponent/>
+            <ListOfPatient role="counselor" patientList={patientList} />
+            <FooterComponent />
         </>
     );
 }

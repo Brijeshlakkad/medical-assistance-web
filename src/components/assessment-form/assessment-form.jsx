@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { PATIENT_ASSESSMENT_QUESTIONS_SUCCESS, PATIENT_ASSESSMENT_SUBMIT_ERROR, PATIENT_ASSESSMENT_SUBMIT_FETCHING, PATIENT_ASSESSMENT_SUBMIT_SUCCESS } from '../../store/types';
+import { RequestState } from '../../lib/types';
 import { BooleanRadioGroupComponent } from '../boolean-radio-group/boolean-radio-group';
 import { ErrorMessage } from '../elements/error-message';
 import { PrepareMessage } from '../elements/prepare-message';
@@ -16,24 +16,24 @@ export default function AssessmentForm({ questionsState, questions, onAttempt, o
                     <div className='question-count'>Question {index + 1} of 9</div>
                     <div className='assessment-question'>{questionRecord.question}</div>
                     <div className='radio-group'>
-                        <BooleanRadioGroupComponent onChange={(e) => {
-                            onAttempt(questionRecord.questionId, e.target.value);
+                        <BooleanRadioGroupComponent onChange={(value) => {
+                            onAttempt(questionRecord.questionId, value);
                         }} />
                     </div>
                 </div>
             )
         })
     }
-    return questionsState === PATIENT_ASSESSMENT_QUESTIONS_SUCCESS ? <div className='aform-container'>
+    return questionsState === RequestState.COMPLETED ? <div className='aform-container'>
         <QuestionList questions={questions} />
         {
-            questionSubmitState === PATIENT_ASSESSMENT_SUBMIT_SUCCESS && <SucessMessage>Your assessment submitted successfully!</SucessMessage>
+            questionSubmitState === RequestState.COMPLETED && <SucessMessage>Your assessment submitted successfully!</SucessMessage>
         }
         {
-            questionSubmitState === PATIENT_ASSESSMENT_SUBMIT_FETCHING && <PrepareMessage>Please, wait while we submit your assessment!</PrepareMessage>
+            questionSubmitState === RequestState.FETCHING && <PrepareMessage>Please, wait while we submit your assessment!</PrepareMessage>
         }
         {
-            questionSubmitState === PATIENT_ASSESSMENT_SUBMIT_ERROR && <ErrorMessage>{errorMessage}</ErrorMessage>
+            questionSubmitState === RequestState.ERROR && <ErrorMessage>{errorMessage}</ErrorMessage>
         }
         <br />
         <div className='submit-button-container'>

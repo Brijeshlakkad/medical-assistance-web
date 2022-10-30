@@ -2,7 +2,8 @@ import { RequestState } from "../../lib/types";
 import { COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS } from "../types";
 
 const initialState = {
-	patientListState: RequestState.NULL
+	patientListState: RequestState.NULL,
+	patientList: []
 }
 
 const reducer = (state, action) => {
@@ -16,7 +17,8 @@ const reducer = (state, action) => {
 		case COUNSELOR_PATIENT_LIST_SUCCESS:
 			return {
 				...state,
-				patientListState: RequestState.COMPLETED
+				patientListState: RequestState.COMPLETED,
+				patientList: action.patientList || []
 			}
 		case COUNSELOR_PATIENT_LIST_ERROR:
 			return {
