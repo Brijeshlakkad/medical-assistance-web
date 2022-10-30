@@ -5,9 +5,11 @@ import './App.css';
 import "./App.css";
 import AssessmentPage from "./containers/assessment-page";
 import CounselorLOP from "./containers/counselor-list-of-patient";
-import CounselorSignupLogin from './containers/counselor-signup-login';
+import CounselorLogin from "./containers/counselor-login-page";
+import CounselorSignupPage from './containers/counselor-signup-page';
 import DoctorLOP from "./containers/doctor-list-of-patient";
-import DoctorSignupLogin from './containers/doctor-signup-login';
+import DoctorLoginPage from './containers/doctor-login-page';
+import DoctorSignupPage from './containers/doctor-signup-page';
 import LandingPage from './containers/landing-page';
 import Login from "./containers/patient-login";
 import Signup from "./containers/patient-signup";
@@ -23,8 +25,10 @@ function App() {
         <Route path={PathConstants.PatientLogin} element={<Login />} />
         <Route path={PathConstants.PatientSignup} element={<Signup />} />
         <Route path={PathConstants.AssessmentPage} element={<AssessmentPage />} />
-        <Route path={PathConstants.CounselorLogin} element={<CounselorSignupLogin />} />
-        <Route path={PathConstants.DoctorLogin} element={<DoctorSignupLogin />} />
+        <Route path={PathConstants.CounselorLogin} element={<CounselorLogin />} />
+        <Route path={PathConstants.CounselorSignup} element={<CounselorSignupPage />} />
+        <Route path={PathConstants.DoctorLogin} element={<DoctorLoginPage />} />
+        <Route path={PathConstants.DoctorSignup} element={<DoctorSignupPage />} />
         <Route path={PathConstants.CounselorLOP} element={<CounselorLOP />} />
         <Route path={PathConstants.DoctorLOP} element={<DoctorLOP />} />
       </Routes>
