@@ -20,7 +20,7 @@ export default function CardOtherLoginComponent() {
                 <img src={LoginImage2} className="doctor-image" alt='Mental Health' />
                 <div className='middle'>
                     <div className='login-text'>
-                        Are you a Doctor?
+                        <Link to={PathConstants.DoctorLogin} className='login-text'>Are you a Doctor?</Link>
                     </div>
                 </div>
             </div>

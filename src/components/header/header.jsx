@@ -5,18 +5,19 @@ import { UserRole } from '../../lib/types'
 import './header.css'
 
 export default function HeaderComponent({
-    userRole
+    userRole,
+    loginPath
 }) {
     return (
-        < div className="header" >
+        <div className="header" >
             <Link to={PathConstants.Home} className="logo">Lifeline</Link>
             <div className="header-right">
                 {/* <a className="active" href="#home">Home</a> */}
-                <Link to={PathConstants.PatientLogin}>Log In</Link>
+                {loginPath && <Link to={loginPath}>Log In</Link>}
                 {userRole === UserRole.PATIENT && <Link to={PathConstants.AssessmentPage}>Take Assesement</Link>}
                 {userRole === UserRole.PATIENT && <a href="#about">Status</a>}
                 {userRole === UserRole.COUNSELOR && <Link to={PathConstants.CounselorLOP}>List of Patients</Link>}
             </div>
-        </ div >
+        </div>
     )
 }
