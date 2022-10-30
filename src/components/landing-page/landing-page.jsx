@@ -1,13 +1,13 @@
 import React from 'react'
-import { SubFooterComponent } from '../sub-footer/sub-footer'
+import Header from '../../containers/header'
 import CardComponent from '../cards/card'
 import FooterComponent from '../footer/footer'
-import HeaderComponent from '../header/header'
+import { SubFooterComponent } from '../sub-footer/sub-footer'
 
 export default function LandingPageComponent() {
     return (
         <>
-            <HeaderComponent></HeaderComponent>
+            <Header />
             <CardComponent></CardComponent>
             <SubFooterComponent></SubFooterComponent>
             <FooterComponent></FooterComponent>

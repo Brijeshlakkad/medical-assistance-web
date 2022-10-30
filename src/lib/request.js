@@ -22,6 +22,9 @@ export default function request(url, method, params = {}, data = {}) {
 				resolve({ data: response.data })
 			})
 			.catch((exception) => {
+				if (exception && exception.response && exception.response.status === 403) {
+					localStorage.removeItem("USER");
+				}
 				resolve({ exception })
 			})
 	})

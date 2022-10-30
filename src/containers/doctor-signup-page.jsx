@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { DoctorSignupComponent } from "../components/doctor-signup/doctor-signup";
 import FooterComponent from "../components/footer/footer";
-import HeaderComponent from "../components/header/header";
-import { PatientSignupComponent } from "../components/patient-signup/patient-signup";
 import { PathConstants } from "../lib/path-constants";
 import { RequestState, UserRole } from "../lib/types";
 import { signup } from "../store/actions/user";
+import Header from "./header";
 
-export default function PatientSignup(props) {
+export default function DoctorSignup(props) {
     const [user, setUser] = useState({
         fullName: "",
         emailAddress: "",
@@ -19,7 +19,8 @@ export default function PatientSignup(props) {
         dateOfBirth: "",
         phoneNumber: "",
         password: "",
-        rePassword: ""
+        rePassword: "",
+        registrationNumber: ""
     });
 
     const onFieldChange = (fieldName, value) => {
@@ -33,7 +34,7 @@ export default function PatientSignup(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        dispatch(signup(user, UserRole.PATIENT));
+        dispatch(signup(user, UserRole.DOCTOR));
     }
 
     const signupState = useSelector(state => state.user.state);
@@ -43,22 +44,22 @@ export default function PatientSignup(props) {
 
     useEffect(() => {
         if (signupState === RequestState.COMPLETED) {
-            // redirect to PatientHome page.
-            navigate(PathConstants.PatientHome);
+            // redirect to DoctorLOP page.
+            navigate(PathConstants.DoctorLOP);
         }
     }, [navigate, signupState]);
 
     return (
         <>
-            <HeaderComponent></HeaderComponent>
-            <PatientSignupComponent
+            <Header />
+            <DoctorSignupComponent
                 user={user}
                 onFieldChange={onFieldChange}
                 onSubmit={onSubmit}
                 signupState={signupState}
                 errorMessage={errorMessage}
-            ></PatientSignupComponent>
-            <FooterComponent></FooterComponent>
+            />
+            <FooterComponent />
         </>
     )
 }

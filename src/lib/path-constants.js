@@ -1,8 +1,22 @@
 export const PathConstants = {
   Home: "/",
+
+  /* Patient */
   PatientLogin: "/patient/login",
   PatientSignup: "/patient/signup",
   PatientHome: "/patient/home",
   AssessmentPage: "/patient/assessment",
-  PatientDetails: "/patientdetails",
+
+  /* Counselor */
+  CounselorLogin: "/counselor/login",
+  CounselorSignup: "/counselor/signup",
+  CounselorHome: "/counselor/home",
+  CounselorLOP: "/counselor/patients",
+  PatientDetails: "counselor/patientdetails",
+
+  /* Doctor */
+  DoctorLogin: "/doctor/login",
+  DoctorSignup: "/doctor/signup",
+  DoctorHome: "/doctor/home",
+  DoctorLOP: "/doctor/patients",
 };
