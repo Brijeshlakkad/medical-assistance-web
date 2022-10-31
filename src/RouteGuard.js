@@ -12,7 +12,6 @@ const RouteGuard = ({ component: Component, ...rest }) => {
 
         if (accessToken) {
             const user = jwtDecode(accessToken); // decode your token here
-            console.log("user", user);
         }
         return flag
     }

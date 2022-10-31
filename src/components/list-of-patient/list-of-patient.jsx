@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ScheduleMeeting } from 'react-schedule-meeting';
 import styled from 'styled-components';
 import { PathConstants } from '../../lib/path-constants';
+import { UserRole } from '../../lib/types';
 import './list-of-patient.css';
 
 const Button = styled.div`
@@ -96,7 +97,9 @@ export default function ListOfPatient({ role, patientList }) {
     const navigate = useNavigate();
 
     const onViewAssessment = (patientRecordId) => {
-        navigate(PathConstants.Internal_CounselorPatientDetails + patientRecordId);
+        const patientDetailsPagePath = role === UserRole.DOCTOR ?
+            PathConstants.Internal_DoctorPatientDetails : PathConstants.Internal_CounselorPatientDetails;
+        navigate(patientDetailsPagePath + patientRecordId);
     }
 
     const counselorcColumn = [{
@@ -110,7 +113,7 @@ export default function ListOfPatient({ role, patientList }) {
         }
     },
     {
-        title: 'View Assessment Form', key: '', render: ({data}) =>
+        title: 'View Assessment Form', key: '', render: ({ data }) =>
             <Button title="View Assessment" className='view-assessment' onClick={(e) => {
                 e.preventDefault();
                 onViewAssessment(data.patientRecordId);
@@ -130,12 +133,18 @@ export default function ListOfPatient({ role, patientList }) {
             return `${(new Date(row['assessmentCreatedAt'])).toISOString()}`
         }
     },
-    { title: 'View Assessment Form', key: '', render: (data) => <Button title="View Assessment" className='view-assessment'>View Assessment</Button> },
+    {
+        title: 'View Assessment Form', key: '', render: ({ data }) =>
+            <Button title="View Assessment" className='view-assessment' onClick={(e) => {
+                e.preventDefault();
+                onViewAssessment(data.patientRecordId);
+            }}>View Assessment</Button>
+    },
     { title: 'Schedule Appointment', key: '', render: (data) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
     { title: 'reject Patient', key: '', render: (data) => <Button title="Reject" danger ghost>Reject</Button> },
     ]
 
-    const columnSchema = role === 'doctor' ? doctorColumn : counselorcColumn
+    const columnSchema = role === UserRole.DOCTOR ? doctorColumn : counselorcColumn
 
     return (
         <>

@@ -6,7 +6,6 @@ export const fetchPatientList = () => async (dispatch) => {
     dispatch({ type: COUNSELOR_PATIENT_LIST_FETCHING });
     request(`counselor/patients`, "GET", null, null)
         .then((resp) => {
-            console.log("patients", resp);
             if (resp.data) {
                 dispatch({
                     type: COUNSELOR_PATIENT_LIST_SUCCESS,

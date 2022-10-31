@@ -18,7 +18,6 @@ export default function request(url, method, params = {}, data = {}) {
 			data: data,
 		})
 			.then((response) => {
-				// console.log(response.data)
 				resolve({ data: response.data })
 			})
 			.catch((exception) => {

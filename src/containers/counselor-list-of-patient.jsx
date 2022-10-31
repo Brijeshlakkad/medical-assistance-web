@@ -1,10 +1,9 @@
-import React from 'react'
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FooterComponent from '../components/footer/footer';
 import HeaderComponent from '../components/header/header';
 import ListOfPatient from '../components/list-of-patient/list-of-patient';
-import { RequestState } from '../lib/types';
+import { RequestState, UserRole } from '../lib/types';
 import { fetchPatientList } from '../store/actions/couselor';
 
 export default function CounselorLOP(props) {
@@ -23,7 +22,7 @@ export default function CounselorLOP(props) {
     return (
         <>
             <HeaderComponent />
-            <ListOfPatient role="counselor" patientList={patientList} />
+            <ListOfPatient role={UserRole.COUNSELOR} patientList={patientList} />
             <FooterComponent />
         </>
     );
