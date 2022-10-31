@@ -121,7 +121,7 @@ export default function ListOfPatient({ role, patientList }) {
     },
     { title: 'Schedule Appointment', key: '', render: (data) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
     { title: 'Forward to a Doctor', key: '', render: (data) => <Button title="Forward to a Doctor">Forward to a Doctor</Button> },
-    { title: 'reject Patient', key: '', render: (data) => <Button title="Reject" className={classNames('dangerous')} >Reject</Button> },
+    { title: 'Reject Patient', key: '', render: (data) => <Button title="Reject" className={classNames('dangerous')} >Reject</Button> },
     ]
     const doctorColumn = [{
         title: 'Patient Name', key: 'patientname', align: 'center', getValue: (row, index) => {

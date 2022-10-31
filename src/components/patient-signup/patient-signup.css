@@ -19,12 +19,6 @@
     font-size: medium;
 }
 
-.province {
-    float: right;
-    width: 200px;
-    font-size: medium;
-}
-
 .signupbutton {
     font-size: 24px;
     background-color: white;
@@ -69,12 +63,19 @@
 }
 
 .extra {
-    height: 2rem;
+    height: 4rem;
+}
+
+.show-passowrd-text {
+    font-size: 0.8rem;
 }
 
 input[type=email],
 input[type=text],
 input[type=password],
+input[type=tel],
+input[type=date],
+select,
 textarea {
     width: 100%;
     padding: 12px;
@@ -84,6 +85,10 @@ textarea {
     margin-top: 6px;
     margin-bottom: 16px;
     resize: vertical;
+}
+
+select {
+    float: left;
 }
 
 .login-box {

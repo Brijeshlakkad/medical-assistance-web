@@ -14,11 +14,12 @@ export default function HeaderComponent({
             <Link to={PathConstants.Home} className="logo">Lifeline</Link>
             <div className="header-right">
                 {/* <a className="active" href="#home">Home</a> */}
-                {loginPath && <Link to={loginPath}>Log In</Link>}
+                {userRole === UserRole.NULL && <Link to={loginPath}>Log In</Link>}
                 {userRole !== UserRole.NULL && <button onClick={onLogout}>Log out</button>}
                 {userRole === UserRole.PATIENT && <Link to={PathConstants.AssessmentPage}>Take Assesement</Link>}
                 {userRole === UserRole.PATIENT && <a href="#about">Status</a>}
                 {userRole === UserRole.COUNSELOR && <Link to={PathConstants.CounselorLOP}>List of Patients</Link>}
+                {userRole === UserRole.DOCTOR && <Link to={PathConstants.DoctorLOP}>List of Patients</Link>}
             </div>
         </div>
     )
