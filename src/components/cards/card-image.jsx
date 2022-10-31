@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
+import './card-content.css';
+import Step4Image from "./images/counselor.jpg";
+import Step2Image from "./images/create-account.jpg";
+import Step5Image from "./images/doctor.png";
 import Step1Image from "./images/mental-health.jpg";
 import Step3Image from "./images/patient-checklist.jpg";
-import Step2Image from "./images/create-account.jpg";
-import Step4Image from "./images/counselor.jpg";
-import Step5Image from "./images/doctor.png";
-import './card-content.css'
 
 
 export default function CardImageComponent() {
