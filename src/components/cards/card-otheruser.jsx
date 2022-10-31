@@ -7,7 +7,8 @@ import LoginImage2 from './images/doctors-login.jpg'
 import { PathConstants } from '../../lib/path-constants'
 
 export default function CardOtherLoginComponent() {
-    return (
+    return (<div className='card-login-container'>
+        <h2>Access Account</h2>
         <div className='columns'>
             <div className='row image-container-login' style={{ paddingRight: "20px" }}>
                 <img src={LoginImage0} className="doctor-image" alt='Mental Health' />
@@ -34,5 +35,6 @@ export default function CardOtherLoginComponent() {
                 </div>
             </div>
         </div >
+    </div>
     )
 }

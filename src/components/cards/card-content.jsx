@@ -4,7 +4,7 @@ import "./card-content.css"
 export default function CardContentComponent() {
     return (
         <div className='what-we-do'>
-            <h3>Why Lifeline?</h3>
+            <h2>Why Lifeline?</h2>
             <div className='container'>
                 <div className='col-4'>
                     <p className='side-heading'><i className='fas'></i>Have productive, healthy relationships</p>
