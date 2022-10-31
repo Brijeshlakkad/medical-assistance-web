@@ -13,7 +13,7 @@
     src: url(./fonts/Roboto/Roboto-Light.ttf);
 }
 
-.what-we-do h3 {
+.what-we-do h2 {
     margin-bottom: 3rem;
     text-align: center;
 }
@@ -37,8 +37,12 @@
 }
 
 .col-4 {
+    width: 33%;
     flex-shrink: 2;
     justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: justify;
 }
 
 .image-row {
@@ -63,7 +67,7 @@
 
 .intro-img {
     padding: 2rem;
-    width: 210px;
+    width: 10rem;
 }
 
 .col-3 {
@@ -72,4 +76,11 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+}
+
+@media screen and (min-width=500px) {
+    .image-row {
+        float: none;
+        display: inline;
+    }
 }
