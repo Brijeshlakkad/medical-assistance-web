@@ -1,6 +1,6 @@
 .patient-info-container {
+  align-self: center;
     text-align: center;
-    display: grid;  
     align-content: center;
     justify-content: center;
     margin-top: 70px;
@@ -27,7 +27,7 @@
   }
   .pi-header{
     background-color: white;
-    width: 35%;
+    width: 40%;
     padding: 10px;
   }
   .pi-description{

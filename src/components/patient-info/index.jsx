@@ -16,7 +16,7 @@ export default function PatientInfo({ patient, createdAt }) {
         </tr>
         <tr className="pi-row">
           <th className="pi-header">Assessment Date:</th>
-          <td className="pi-description">{`${(new Date(createdAt)).toISOString()}`}</td>
+          <td className="pi-description">{`${(new Date(createdAt)).toLocaleString()}`}</td>
         </tr>
         {patient.addressLine && <tr className="pi-row">
           <th className="pi-header">Address:</th>

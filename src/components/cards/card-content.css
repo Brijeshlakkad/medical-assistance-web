@@ -37,8 +37,12 @@
 }
 
 .col-4 {
+    width: 33%;
     flex-shrink: 2;
     justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: justify;
 }
 
 .image-row {

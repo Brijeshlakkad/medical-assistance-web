@@ -60,6 +60,7 @@ const Button = styled.div`
 `
 
 const Table = styled.table`
+    padding:10px;
     width: 100%;
     text-align: left;
     border-radius: 2px 2px 0 0;
@@ -109,7 +110,7 @@ export default function ListOfPatient({ role, patientList }) {
     },
     {
         title: 'Submission Date', key: 'assessmentCreatedAt', getValue: (row, index) => {
-            return `${(new Date(row['assessmentCreatedAt'])).toISOString()}`
+            return `${(new Date(row['assessmentCreatedAt'])).toLocaleString()}`
         }
     },
     {
@@ -121,7 +122,7 @@ export default function ListOfPatient({ role, patientList }) {
     },
     { title: 'Schedule Appointment', key: '', render: (data) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
     { title: 'Forward to a Doctor', key: '', render: (data) => <Button title="Forward to a Doctor">Forward to a Doctor</Button> },
-    { title: 'reject Patient', key: '', render: (data) => <Button title="Reject" className={classNames('dangerous')} >Reject</Button> },
+    { title: 'Reject Patient', key: '', render: (data) => <Button title="Reject" className={classNames('dangerous')} >Reject</Button> },
     ]
     const doctorColumn = [{
         title: 'Patient Name', key: 'patientname', align: 'center', getValue: (row, index) => {
@@ -141,7 +142,7 @@ export default function ListOfPatient({ role, patientList }) {
             }}>View Assessment</Button>
     },
     { title: 'Schedule Appointment', key: '', render: (data) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
-    { title: 'reject Patient', key: '', render: (data) => <Button title="Reject" danger ghost>Reject</Button> },
+    { title: 'Reject Patient', key: '', render: (data) => <Button title="Reject" danger ghost>Reject</Button> },
     ]
 
     const columnSchema = role === UserRole.DOCTOR ? doctorColumn : counselorcColumn

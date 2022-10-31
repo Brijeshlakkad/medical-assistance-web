@@ -1,6 +1,5 @@
 .header {
     overflow: hidden;
-
     /* Fixed Header */
     position: sticky;
     top: 0;
