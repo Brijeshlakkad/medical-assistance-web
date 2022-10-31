@@ -12,7 +12,7 @@ export function SubFooterContactUsComponent({
 }) {
     return (
         <div className='form-container'>
-            <h5 className="text"><strong>Send us a Messgae</strong></h5>
+            <h5 className="text"><strong>Send us a Message</strong></h5>
             <form>
                 <div className="form-group">
                     <input type="text" className="form-control" id="Name" placeholder="Your Name" value={name}
