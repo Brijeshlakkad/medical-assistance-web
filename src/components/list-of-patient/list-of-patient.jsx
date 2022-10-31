@@ -110,7 +110,7 @@ export default function ListOfPatient({ role, patientList }) {
     },
     {
         title: 'Submission Date', key: 'assessmentCreatedAt', getValue: (row, index) => {
-            return `${(new Date(row['assessmentCreatedAt'])).toLocaleString()}`
+            return `${(new Date(row['assessmentCreatedAt'])).toDateString()}`
         }
     },
     {
