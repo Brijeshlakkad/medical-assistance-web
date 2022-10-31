@@ -142,7 +142,7 @@ export default function ListOfPatient({ role, patientList }) {
             }}>View Assessment</Button>
     },
     { title: 'Schedule Appointment', key: '', render: (data) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
-    { title: 'Reject Patient', key: '', render: (data) => <Button title="Reject" danger ghost>Reject</Button> },
+    { title: 'Reject Patient', key: '', render: (data) => <Button title="Reject" className={classNames('dangerous')}>Reject</Button> },
     ]
 
     const columnSchema = role === UserRole.DOCTOR ? doctorColumn : counselorcColumn
