@@ -131,7 +131,7 @@ export default function ListOfPatient({ role, patientList }) {
     },
     {
         title: 'Submission Date', key: 'assessmentCreatedAt', align: 'assessmentCreatedAt', getValue: (row, index) => {
-            return `${(new Date(row['assessmentCreatedAt'])).toISOString()}`
+            return `${(new Date(row['assessmentCreatedAt'])).toDateString()}`
         }
     },
     {
