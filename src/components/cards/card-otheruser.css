@@ -10,7 +10,8 @@
 
 .image-container-login {
     position: relative;
-    width: 50%;
+    width: 33%;
+
 }
 
 .doctor-image {
@@ -43,5 +44,5 @@
     background-color: dodgerblue;
     color: white;
     font-size: 16px;
-    padding: 16px 32px;
+    padding: 10px 16px;
 }
