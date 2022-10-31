@@ -47,16 +47,22 @@ export const submitAssessmentQuestions = (attemptedQuestions) => async (dispatch
     request(url, "POST", null, {
         questions: attemptedQuestions
     }).then((resp) => {
-        if (resp) {
+        if (resp && resp.exception) {
+            dispatch({
+                type: PATIENT_ASSESSMENT_SUBMIT_ERROR,
+                errorMessage: resp.exception.response.data.errorMessage
+            });
+            return;
+        } else if (resp) {
             dispatch({
                 type: PATIENT_ASSESSMENT_SUBMIT_SUCCESS
             });
-            return;
+        } else {
+            dispatch({
+                type: PATIENT_ASSESSMENT_SUBMIT_ERROR,
+                errorMessage: SOMETHING_WENT_WRONG
+            });
         }
-        dispatch({
-            type: PATIENT_ASSESSMENT_SUBMIT_ERROR,
-            errorMessage: SOMETHING_WENT_WRONG
-        });
     })
         .catch((exception) => {
             // handle error.
