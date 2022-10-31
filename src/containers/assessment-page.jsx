@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import AssessmentForm from '../components/assessment-form/assessment-form'
 import FooterComponent from '../components/footer/footer'
-import HeaderComponent from '../components/header/header'
 import { RequestState } from '../lib/types'
 import { getAssessmentQuestions, submitAssessmentQuestions } from '../store/actions/patient'
+import Header from './header'
 
 export default function AssessmentPage(props) {
     const questions = useSelector(state => state.patient.questions);
@@ -43,7 +43,7 @@ export default function AssessmentPage(props) {
 
     return (
         <>
-            <HeaderComponent />
+            <Header />
             <AssessmentForm
                 questionsState={questionsState}
                 questions={questions}

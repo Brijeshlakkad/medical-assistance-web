@@ -25,8 +25,8 @@ export default function PatientLogin() {
 
     useEffect(() => {
         if (loginState === RequestState.COMPLETED) {
-            // redirect to PatientHome page.
-            navigate(PathConstants.PatientHome);
+            // redirect to AssessmentPage page.
+            navigate(PathConstants.AssessmentPage);
         }
     }, [navigate, loginState]);
 

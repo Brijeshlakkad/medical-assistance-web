@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import HeaderComponent from '../components/header/header';
 import { PathConstants } from '../lib/path-constants';
+import { logout } from '../store/actions/user';
 
 export default function Header() {
     const userRole = useSelector(state => state.user.role);
     const [loginPath, setLoginPath] = useState(PathConstants.PatientLogin);
     const location = useLocation();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (location.pathname === PathConstants.DoctorLogin || location.pathname === PathConstants.DoctorSignup) {
@@ -23,7 +26,18 @@ export default function Header() {
         }
     }, [location, setLoginPath]);
 
+    const onLogout = (e) => {
+        e.preventDefault();
+        localStorage.removeItem("USER");
+        dispatch(logout());
+        navigate(PathConstants.Home);
+    }
+
     return (
-        <HeaderComponent userRole={userRole} loginPath={loginPath} />
+        <HeaderComponent
+            userRole={userRole}
+            loginPath={loginPath}
+            onLogout={onLogout}
+        />
     )
 }

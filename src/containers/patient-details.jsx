@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import FooterComponent from '../components/footer/footer'
-import HeaderComponent from '../components/header/header'
 import { LoadingComponent } from '../components/loading/landing-page'
 import PatientInfo from '../components/patient-info'
 import ViewAssessment from '../components/view-assessment'
 import { RequestState } from '../lib/types'
 import { fetchPatient } from '../store/actions/couselor'
+import Header from './header'
 
 export default function PatientDetails(props) {
     const { patientId } = useParams();
@@ -23,7 +23,7 @@ export default function PatientDetails(props) {
         <>
             {
                 activePatientState === RequestState.COMPLETED && <>
-                    <HeaderComponent />
+                    <Header />
                     <PatientInfo patient={activePatient.patient} createdAt={activePatient.createdAt} />
                     <ViewAssessment assessmentResult={activePatient.assessmentResult} />
                     <FooterComponent />

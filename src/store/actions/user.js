@@ -1,7 +1,7 @@
 import { PLEASE_TRY_AGAIN } from "../../lib/messages";
 import request from "../../lib/request";
 import { UserRole } from "../../lib/types";
-import { USER_LOGIN_SIGNUP_ERROR, USER_LOGIN_SIGNUP_FETCHING, USER_LOGIN_SIGNUP_SUCCESS } from "../types";
+import { USER_LOGIN_SIGNUP_ERROR, USER_LOGIN_SIGNUP_FETCHING, USER_LOGIN_SIGNUP_SUCCESS, USER_LOGOUT } from "../types";
 
 const LOGIN_APIS = {
     [UserRole.PATIENT]: `patient/login`,
@@ -47,7 +47,7 @@ export const login = (emailId, password, role) => async (dispatch) => {
 }
 
 export const signup = (user, role) => async (dispatch) => {
-    if(!role || !SIGNUP_APIS[role]){
+    if (!role || !SIGNUP_APIS[role]) {
         return;
     }
     dispatch({ type: USER_LOGIN_SIGNUP_FETCHING });
@@ -78,4 +78,10 @@ export const signup = (user, role) => async (dispatch) => {
                 errorMessage: PLEASE_TRY_AGAIN
             });
         });
+}
+
+export const logout = () => (dispatch) => {
+    dispatch({
+        type: USER_LOGOUT
+    })
 }

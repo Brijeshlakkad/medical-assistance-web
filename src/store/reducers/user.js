@@ -1,5 +1,5 @@
 import { RequestState, UserRole } from "../../lib/types";
-import { USER_LOGIN_SIGNUP_ERROR, USER_LOGIN_SIGNUP_FETCHING, USER_LOGIN_SIGNUP_SUCCESS } from "../types";
+import { USER_LOGIN_SIGNUP_ERROR, USER_LOGIN_SIGNUP_FETCHING, USER_LOGIN_SIGNUP_SUCCESS, USER_LOGOUT } from "../types";
 
 const initialState = {
 	state: RequestState.NULL,
@@ -31,6 +31,8 @@ const reducer = (state, action) => {
 				errorMessage: action.errorMessage,
 				role: UserRole.NULL
 			}
+		case USER_LOGOUT:
+			return initialState;
 		default:
 			return state;
 	}

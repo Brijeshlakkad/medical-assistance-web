@@ -6,7 +6,8 @@ import './header.css'
 
 export default function HeaderComponent({
     userRole,
-    loginPath
+    loginPath,
+    onLogout
 }) {
     return (
         <div className="header" >
@@ -14,6 +15,7 @@ export default function HeaderComponent({
             <div className="header-right">
                 {/* <a className="active" href="#home">Home</a> */}
                 {loginPath && <Link to={loginPath}>Log In</Link>}
+                {userRole !== UserRole.NULL && <button onClick={onLogout}>Log out</button>}
                 {userRole === UserRole.PATIENT && <Link to={PathConstants.AssessmentPage}>Take Assesement</Link>}
                 {userRole === UserRole.PATIENT && <a href="#about">Status</a>}
                 {userRole === UserRole.COUNSELOR && <Link to={PathConstants.CounselorLOP}>List of Patients</Link>}
