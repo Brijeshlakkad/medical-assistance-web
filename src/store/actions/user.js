@@ -85,3 +85,11 @@ export const logout = () => (dispatch) => {
         type: USER_LOGOUT
     })
 }
+
+export const setUser = (user, role) => (dispatch) => {
+    dispatch({
+        type: USER_LOGIN_SIGNUP_SUCCESS,
+        user: user,
+        role: role
+    })
+}

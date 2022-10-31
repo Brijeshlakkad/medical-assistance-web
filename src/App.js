@@ -17,10 +17,31 @@ import Login from "./containers/patient-login";
 import Signup from "./containers/patient-signup";
 import AppStateHOC from './lib/app-state-hoc';
 import { PathConstants } from "./lib/path-constants";
+import jwtDecode from 'jwt-decode';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { logout, setUser } from './store/actions/user';
+import { ServerUserRoleToUserRole } from './lib/types';
 
 function App() {
-  return (
+  const dispatch = useDispatch();
 
+  // Decode token to extract user information.
+  useEffect(() => {
+    const accessToken = localStorage.getItem("USER");
+    if (accessToken) {
+      const user = jwtDecode(accessToken); // decode your token here
+      if (user.role && user.role.length) {
+        dispatch(setUser({
+          emailAddress: user.sub
+        }, ServerUserRoleToUserRole[user.role[0].authority]));
+      } else {
+        dispatch(logout());
+      }
+    }
+  })
+
+  return (
     <BrowserRouter>
       <Routes>
         <Route path={PathConstants.Home} element={<LandingPage />} />

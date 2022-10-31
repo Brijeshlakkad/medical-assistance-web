@@ -24,3 +24,9 @@ export const UserRoleToRedux = {
     [UserRole.COUNSELOR]: "counselor",
     [UserRole.DOCTOR]: "doctor",
 }
+
+export const ServerUserRoleToUserRole = {
+    "ROLE_PATIENT": UserRole.PATIENT,
+    "ROLE_COUNSELOR": UserRole.COUNSELOR,
+    "ROLE_DOCTOR": UserRole.DOCTOR,
+}
