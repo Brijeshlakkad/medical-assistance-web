@@ -30,7 +30,8 @@ const reducer = (state, action) => {
 		case DOCTOR_PATIENT_FETCHING:
 			return {
 				...state,
-				activePatientState: RequestState.FETCHING
+				activePatientState: RequestState.FETCHING,
+				activePatient: {}
 			}
 		case DOCTOR_PATIENT_SUCCESS:
 			return {
@@ -41,7 +42,8 @@ const reducer = (state, action) => {
 		case DOCTOR_PATIENT_ERROR:
 			return {
 				...state,
-				activePatientState: RequestState.ERROR
+				activePatientState: RequestState.ERROR,
+				activePatient: {}
 			}
 		default:
 			return state;

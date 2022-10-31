@@ -1,11 +1,10 @@
 import React from 'react'
 import './index.css'
 
-export default function ViewAssessment({assessmentResult}) {
-    const value = true;
+export default function ViewAssessment({ assessmentResult }) {
     return (
         <div className="view-assessment-container">
-          <div className="table-header">Assessment Data</div>
+            <div className="table-header">Assessment Data</div>
             <table className="va-table">
                 <tr className='va-row'>
                     {/* <thead className='va-header'> */}
@@ -23,15 +22,14 @@ export default function ViewAssessment({assessmentResult}) {
                 {(assessmentResult.attemptedQuestions || []).map((attemptedQuestion, index) => {
                     return (
                         <tr className="va-row" key={`attempted-question-${index}`}>
-                            <td className="va-index" >{index+1}</td>
-                            <td className="va-question">{ attemptedQuestion.question}</td>
-                            <td className="va-description">{value?'YES':'NO' }</td>
-        </tr>
+                            <td className="va-index" >{index + 1}</td>
+                            <td className="va-question">{attemptedQuestion.question}</td>
+                            <td className="va-description">{attemptedQuestion.answer ? 'YES' : 'NO'}</td>
+                        </tr>
                     )
                 })
-
                 }
-      </table>
-    </div>
+            </table>
+        </div>
     )
 }
