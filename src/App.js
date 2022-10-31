@@ -11,7 +11,7 @@ import DoctorLOP from "./containers/doctor-list-of-patient";
 import DoctorLoginPage from './containers/doctor-login-page';
 import DoctorSignupPage from './containers/doctor-signup-page';
 import LandingPage from "./containers/landing-page";
-import PatientDetails from "./containers/patient-details";
+import PatientDetails from "./containers/counselor-patient-details";
 import Login from "./containers/patient-login";
 import Signup from "./containers/patient-signup";
 import AppStateHOC from './lib/app-state-hoc';
@@ -25,7 +25,7 @@ function App() {
         <Route path={PathConstants.Home} element={<LandingPage />} />
         <Route path={PathConstants.PatientLogin} element={<Login />} />
         <Route path={PathConstants.PatientSignup} element={<Signup />} />
-        <Route path={PathConstants.PatientDetails} element={<PatientDetails />} />
+        <Route path={PathConstants.CounselorPatientDetails} element={<PatientDetails />} />
         <Route path={PathConstants.AssessmentPage} element={<AssessmentPage />} />
         <Route path={PathConstants.CounselorLogin} element={<CounselorLogin />} />
         <Route path={PathConstants.CounselorSignup} element={<CounselorSignupPage />} />

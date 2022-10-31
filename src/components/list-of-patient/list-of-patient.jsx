@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ScheduleMeeting } from 'react-schedule-meeting';
 import styled from 'styled-components';
+import { PathConstants } from '../../lib/path-constants';
 import './list-of-patient.css';
 
 const Button = styled.div`
@@ -91,6 +93,12 @@ export default function ListOfPatient({ role, patientList }) {
         )
     }
 
+    const navigate = useNavigate();
+
+    const onViewAssessment = (patientRecordId) => {
+        navigate(PathConstants.Internal_CounselorPatientDetails + patientRecordId);
+    }
+
     const counselorcColumn = [{
         title: 'Patient Name', key: 'patientname', align: 'center', getValue: (row, index) => {
             return row['patient'] ? row['patient']['fullName'] : `Patient ${index + 1}`;
@@ -101,7 +109,13 @@ export default function ListOfPatient({ role, patientList }) {
             return `${(new Date(row['assessmentCreatedAt'])).toISOString()}`
         }
     },
-    { title: 'View Assessment Form', key: '', render: (data) => <Button title="View Assessment" className='view-assessment'>View Assessment</Button> },
+    {
+        title: 'View Assessment Form', key: '', render: ({data}) =>
+            <Button title="View Assessment" className='view-assessment' onClick={(e) => {
+                e.preventDefault();
+                onViewAssessment(data.patientRecordId);
+            }}>View Assessment</Button>
+    },
     { title: 'Schedule Appointment', key: '', render: (data) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
     { title: 'Forward to a Doctor', key: '', render: (data) => <Button title="Forward to a Doctor">Forward to a Doctor</Button> },
     { title: 'reject Patient', key: '', render: (data) => <Button title="Reject" className={classNames('dangerous')} >Reject</Button> },

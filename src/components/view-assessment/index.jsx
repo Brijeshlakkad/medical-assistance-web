@@ -1,8 +1,7 @@
 import React from 'react'
-import { assessmentQuestions } from '../../lib/assessment-questions';
 import './index.css'
 
-export default function ViewAssessment(props) {
+export default function ViewAssessment({assessmentResult}) {
     const value = true;
     return (
         <div className="view-assessment-container">
@@ -21,11 +20,11 @@ export default function ViewAssessment(props) {
                     </th>
                     {/* </thead> */}
                 </tr>
-                {Object.keys(assessmentQuestions).map((key, index) => {
+                {(assessmentResult.attemptedQuestions || []).map((attemptedQuestion, index) => {
                     return (
-                        <tr className="va-row" key={key}>
+                        <tr className="va-row" key={`attempted-question-${index}`}>
                             <td className="va-index" >{index+1}</td>
-                            <td className="va-question">{ assessmentQuestions[key]}</td>
+                            <td className="va-question">{ attemptedQuestion.question}</td>
                             <td className="va-description">{value?'YES':'NO' }</td>
         </tr>
                     )

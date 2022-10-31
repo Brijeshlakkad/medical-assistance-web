@@ -1,9 +1,11 @@
 import { RequestState } from "../../lib/types";
-import { COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS } from "../types";
+import { COUNSELOR_PATIENT_ERROR, COUNSELOR_PATIENT_FETCHING, COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS, COUNSELOR_PATIENT_SUCCESS } from "../types";
 
 const initialState = {
 	patientListState: RequestState.NULL,
-	patientList: []
+	patientList: [],
+	activePatientState: RequestState.NULL,
+	activePatient: {}
 }
 
 const reducer = (state, action) => {
@@ -24,6 +26,22 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				patientListState: RequestState.ERROR
+			}
+		case COUNSELOR_PATIENT_FETCHING:
+			return {
+				...state,
+				activePatientState: RequestState.FETCHING
+			}
+		case COUNSELOR_PATIENT_SUCCESS:
+			return {
+				...state,
+				activePatientState: RequestState.COMPLETED,
+				activePatient: action.activePatient
+			}
+		case COUNSELOR_PATIENT_ERROR:
+			return {
+				...state,
+				activePatientState: RequestState.ERROR
 			}
 		default:
 			return state;
