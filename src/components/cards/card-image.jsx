@@ -21,8 +21,8 @@ export default function CardImageComponent() {
                     <h4>Step 2: Create Account</h4>
                 </div>
                 <div className="col-3">
-                    <img src={Step3Image} className="intro-img" alt='Self Assesment Test' />
-                    <h4>Step 3: Take Self Assesment Test</h4>
+                    <img src={Step3Image} className="intro-img" alt='Self Assessment Test' />
+                    <h4>Step 3: Take Self Assessment Test</h4>
                 </div>
                 <div className="col-3">
                     <img src={Step4Image} className="intro-img" alt='Counselor Patient' />
