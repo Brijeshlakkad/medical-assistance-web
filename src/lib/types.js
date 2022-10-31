@@ -18,3 +18,9 @@ export const UserRole = KeyMirror({
     COUNSELOR: null,
     DOCTOR: null
 });
+
+export const UserRoleToRedux = {
+    [UserRole.PATIENT]: "patient",
+    [UserRole.COUNSELOR]: "counselor",
+    [UserRole.DOCTOR]: "doctor",
+}

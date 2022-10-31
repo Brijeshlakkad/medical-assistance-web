@@ -1,11 +1,11 @@
 import { RequestState } from "../../lib/types";
-import { COUNSELOR_PATIENT_ERROR, COUNSELOR_PATIENT_FETCHING, COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS, COUNSELOR_PATIENT_SUCCESS } from "../types";
+import { COUNSELOR_PATIENT_CLEAR, COUNSELOR_PATIENT_ERROR, COUNSELOR_PATIENT_FETCHING, COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS, COUNSELOR_PATIENT_SUCCESS } from "../types";
 
 const initialState = {
 	patientListState: RequestState.NULL,
 	patientList: [],
 	activePatientState: RequestState.NULL,
-	activePatient: {}
+	activePatients: {}
 }
 
 const reducer = (state, action) => {
@@ -28,20 +28,46 @@ const reducer = (state, action) => {
 				patientListState: RequestState.ERROR
 			}
 		case COUNSELOR_PATIENT_FETCHING:
-			return {
-				...state,
-				activePatientState: RequestState.FETCHING
+			if (action.patientId) {
+				const activePatients = state.activePatients;
+				activePatients[action.patientId] = {
+					state: RequestState.NULL
+				};
+				return {
+					...state,
+					activePatientState: RequestState.FETCHING,
+					activePatients: activePatients,
+				}
 			}
+			return state;
 		case COUNSELOR_PATIENT_SUCCESS:
-			return {
-				...state,
-				activePatientState: RequestState.COMPLETED,
-				activePatient: action.activePatient
+			if (action.activePatient.recordId) {
+				const activePatients = state.activePatients;
+				activePatients[action.activePatient.recordId] = action.activePatient;
+				activePatients[action.activePatient.recordId].state = RequestState.COMPLETED;
+				return {
+					...state,
+					activePatientState: RequestState.COMPLETED,
+					activePatients: activePatients
+				}
 			}
+			return state;
 		case COUNSELOR_PATIENT_ERROR:
+			if (action.activePatient.recordId) {
+				const activePatients = state.activePatients;
+				activePatients[action.patientId].state = RequestState.ERROR;
+				return {
+					...state,
+					activePatientState: RequestState.ERROR,
+					activePatients: activePatients
+				}
+			}
+			return state;
+		case COUNSELOR_PATIENT_CLEAR:
 			return {
 				...state,
-				activePatientState: RequestState.ERROR
+				activePatientState: RequestState.NULL,
+				activePatients: {}
 			}
 		default:
 			return state;

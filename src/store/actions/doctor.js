@@ -1,10 +1,10 @@
 import { PLEASE_TRY_AGAIN } from "../../lib/messages";
 import request from "../../lib/request";
-import { DOCTOR_PATIENT_ERROR, DOCTOR_PATIENT_FETCHING, DOCTOR_PATIENT_LIST_ERROR, DOCTOR_PATIENT_LIST_FETCHING, DOCTOR_PATIENT_LIST_SUCCESS, DOCTOR_PATIENT_SUCCESS } from "../types";
+import { DOCTOR_PATIENT_CLEAR, DOCTOR_PATIENT_ERROR, DOCTOR_PATIENT_FETCHING, DOCTOR_PATIENT_LIST_ERROR, DOCTOR_PATIENT_LIST_FETCHING, DOCTOR_PATIENT_LIST_SUCCESS, DOCTOR_PATIENT_SUCCESS } from "../types";
 
 export const fetchPatientList = () => async (dispatch) => {
     dispatch({ type: DOCTOR_PATIENT_LIST_FETCHING });
-    request(`counselor/patients`, "GET", null, null)
+    request(`doctor/patients`, "GET", null, null)
         .then((resp) => {
             if (resp.data) {
                 dispatch({
@@ -28,8 +28,8 @@ export const fetchPatientList = () => async (dispatch) => {
 }
 
 export const fetchPatient = (patientId) => async (dispatch) => {
-    dispatch({ type: DOCTOR_PATIENT_FETCHING });
-    request(`counselor/patient/${patientId}`, "GET", null, null)
+    dispatch({ type: DOCTOR_PATIENT_FETCHING, patientId: patientId });
+    request(`doctor/patient/${patientId}`, "GET", null, null)
         .then((resp) => {
             if (resp.data) {
                 dispatch({
@@ -39,7 +39,8 @@ export const fetchPatient = (patientId) => async (dispatch) => {
             } else {
                 dispatch({
                     type: DOCTOR_PATIENT_ERROR,
-                    errorMessage: resp.data.errorMessage
+                    errorMessage: resp.data.errorMessage,
+                    patientId: patientId
                 });
             }
         })
@@ -47,7 +48,14 @@ export const fetchPatient = (patientId) => async (dispatch) => {
             // handle error.
             dispatch({
                 type: DOCTOR_PATIENT_ERROR,
-                errorMessage: PLEASE_TRY_AGAIN
+                errorMessage: PLEASE_TRY_AGAIN,
+                patientId: patientId
             });
         });
+}
+
+export const clearPatient = () => (dispatch) => {
+    dispatch({
+        type: DOCTOR_PATIENT_CLEAR
+    })
 }
