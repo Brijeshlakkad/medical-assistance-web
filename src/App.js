@@ -8,6 +8,7 @@ import CounselorLOP from "./containers/counselor-list-of-patient";
 import CounselorLogin from "./containers/counselor-login-page";
 import CounselorPatientDetails from './containers/counselor-patient-details';
 import CounselorSignupPage from './containers/counselor-signup-page';
+import CounselorViewSchedule from './containers/counselor-view-schedule';
 import DoctorLOP from "./containers/doctor-list-of-patient";
 import DoctorLoginPage from './containers/doctor-login-page';
 import DoctorPatientDetails from './containers/doctor-patient-details';
@@ -22,6 +23,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { logout, setUser } from './store/actions/user';
 import { ServerUserRoleToUserRole } from './lib/types';
+import DoctorViewSchedule from './containers/doctor-view-schedule';
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +53,8 @@ function App() {
         <Route path={PathConstants.AssessmentPage} element={<AssessmentPage />} />
         <Route path={PathConstants.CounselorLogin} element={<CounselorLogin />} />
         <Route path={PathConstants.CounselorSignup} element={<CounselorSignupPage />} />
+        <Route path={PathConstants.CounselorSchedule} element={<CounselorViewSchedule />} />
+        <Route path={PathConstants.DoctorSchedule} element={<DoctorViewSchedule />} />
         <Route path={PathConstants.DoctorLogin} element={<DoctorLoginPage />} />
         <Route path={PathConstants.DoctorSignup} element={<DoctorSignupPage />} />
         <Route path={PathConstants.CounselorLOP} element={<CounselorLOP />} />

@@ -12,6 +12,7 @@ export const PathConstants = {
   CounselorSignup: "/counselor/signup",
   CounselorHome: "/counselor/home",
   CounselorLOP: "/counselor/patients",
+  CounselorSchedule: "/counselor/view-schedule",
 
   //
   CounselorPatientDetails: "/counselor/patient/:patientId",
@@ -22,6 +23,7 @@ export const PathConstants = {
   DoctorSignup: "/doctor/signup",
   DoctorHome: "/doctor/home",
   DoctorLOP: "/doctor/patients",
+  DoctorSchedule: "/doctor/view-schedule",
   DoctorPatientDetails: "/doctor/patient/:patientId",
   Internal_DoctorPatientDetails: "/doctor/patient/",
 };
