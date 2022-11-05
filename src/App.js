@@ -22,6 +22,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { logout, setUser } from './store/actions/user';
 import { ServerUserRoleToUserRole } from './lib/types';
+import StatusPage from './containers/status-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function App() {
         <Route path={PathConstants.Home} element={<LandingPage />} />
         <Route path={PathConstants.PatientLogin} element={<Login />} />
         <Route path={PathConstants.PatientSignup} element={<Signup />} />
+        <Route path={PathConstants.StatusPage} element={<StatusPage />} />
         <Route path={PathConstants.CounselorPatientDetails} element={<CounselorPatientDetails />} />
         <Route path={PathConstants.AssessmentPage} element={<AssessmentPage />} />
         <Route path={PathConstants.CounselorLogin} element={<CounselorLogin />} />
@@ -56,6 +58,7 @@ function App() {
         <Route path={PathConstants.CounselorLOP} element={<CounselorLOP />} />
         <Route path={PathConstants.DoctorLOP} element={<DoctorLOP />} />
         <Route path={PathConstants.DoctorPatientDetails} element={<DoctorPatientDetails />} />
+      
       </Routes>
     </BrowserRouter>
   );
