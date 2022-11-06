@@ -1,15 +1,17 @@
-table {
+.schedule {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+    padding-right: 0rem;
 }
 
-#myInput {
-    background-image: url('../doctor-view-schedule/images/search.png');
-    background-position: 10px 10px;
-    background-repeat: no-repeat;
+#myScheduleTable {
+    border-radius: 0.8rem;
+}
+
+#mySearch {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -19,24 +21,23 @@ table {
     margin-bottom: 12px;
     display: flex;
     justify-content: center;
+    border-radius: 0.8rem;
 }
 
-.table-header {
+.schedule-table-header {
     text-align: center;
 }
 
 .schedule th {
-    padding: 1.2rem;
-}
-
-th {
     background-color: black;
     color: white;
-    padding: 13rem;
+    padding: 1.2rem;
+    border-bottom: 1px solid black;
+    text-align: left;
+    font-size: 1.2rem;
 }
 
-td,
-th {
+.schedule td {
     border-bottom: 1px solid black;
     text-align: left;
     padding: 8px;
@@ -46,9 +47,6 @@ th {
     padding: 1.2rem;
 }
 
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
 
 .schedule tr:nth-child(even) {
     background-color: #f2f2f2;
@@ -58,28 +56,45 @@ tr:nth-child(even) {
     background-color: #ddd;
 }
 
-.schedule {}
+.view-file-button {
+    background-color: #f2f2f2;
+    color: black;
+    border: 2px solid dodgerblue;
+    font-size: 1rem;
+    border-radius: 0.8rem;
+    width: 11rem;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
 
-.pagination {
+.view-file-button:hover {
+    background-color: dodgerblue;
+    color: black;
+}
+
+.schedule-pagination {
     display: inline-block;
     display: flex;
     justify-content: center;
 }
 
-.pagination a {
+.schedule-pagination a {
     color: black;
     float: left;
     padding: 8px 16px;
     text-decoration: none;
 }
 
-.pagination a.active {
+.schedule-pagination a.active {
     background-color: dodgerblue;
     color: white;
     border-radius: 5px;
 }
 
-.pagination a:hover:not(.active) {
+.schedule-pagination a:hover:not(.active) {
     background-color: #ddd;
     border-radius: 5px;
 }
