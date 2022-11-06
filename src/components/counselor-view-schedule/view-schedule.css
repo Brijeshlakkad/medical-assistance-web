@@ -70,6 +70,10 @@
     cursor: pointer;
 }
 
+.hi{
+    color: gr;
+}
+
 .view-file-button:hover {
     background-color: dodgerblue;
     color: black;

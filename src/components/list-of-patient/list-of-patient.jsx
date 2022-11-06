@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { PathConstants } from '../../lib/path-constants';
 import { UserRole } from '../../lib/types';
 import './list-of-patient.css';
+import { Link } from 'react-router-dom';
 
 const Button = styled.div`
     position: relative;
@@ -26,11 +27,12 @@ const Button = styled.div`
     touch-action: manipulation;
     height: 32px;
     padding: 4px 15px;
-    font-size: 14px;
-    border-radius: 2px;
+    font-size: 18px;
+    border-radius: 0.8rem;
     color: rgba(0,0,0,.85);
     border: 1px solid #d9d9d9;
     background: #fff;
+    
 
     &:active, &:focus, &:hover {
         text-decoration: none;
@@ -45,6 +47,13 @@ const Button = styled.div`
 
     &, &:active, &:focus {
         outline: 0;
+    }
+
+    
+    &.forward:hover {
+        color: #008000;
+        border-color: #008000;
+        text-shadow: none;
     }
     
     &.dangerous {
@@ -121,7 +130,7 @@ export default function ListOfPatient({ role, patientList }) {
             }}>View Assessment</Button>
     },
     { title: 'Schedule Appointment', key: '', render: (data) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
-    { title: 'Forward to a Doctor', key: '', render: (data) => <Button title="Forward to a Doctor">Forward to a Doctor</Button> },
+    { title: 'Forward to a Doctor', key: '', render: (data) => <Button title="Forward to a Doctor" className={classNames('forward')}>Forward to a Doctor</Button> },
     { title: 'Reject Patient', key: '', render: (data) => <Button title="Reject" className={classNames('dangerous')} >Reject</Button> },
     ]
     const doctorColumn = [{
@@ -149,6 +158,7 @@ export default function ListOfPatient({ role, patientList }) {
 
     return (
         <>
+            <h1 style={{ textAlign: 'center', padding: 12, fontSize: 38 }}>List of Patients</h1>
             <Table size='middle'
             >
                 <thead>
@@ -179,6 +189,18 @@ export default function ListOfPatient({ role, patientList }) {
                     }
                 </tbody>
             </Table>
+            <br></br>
+            <div className="LOP-pagination" style={{ textAlign: 'center' }}>
+                <Link to={PathConstants.CounselorHome} >&laquo;</Link>
+                <Link to={PathConstants.CounselorHome} >1</Link>
+                <Link to={PathConstants.CounselorHome} className="active">2</Link>
+                <Link to={PathConstants.CounselorHome} >3</Link>
+                <Link to={PathConstants.CounselorHome} >4</Link>
+                <Link to={PathConstants.CounselorHome} >5</Link>
+                <Link to={PathConstants.CounselorHome} >6</Link>
+                <Link to={PathConstants.CounselorHome} >&raquo;</Link>
+            </div>
+            <div className='extra'></div>
         </>
     )
 }
