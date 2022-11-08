@@ -4,12 +4,12 @@ import { DOCTOR_PATIENT_CLEAR, DOCTOR_PATIENT_ERROR, DOCTOR_PATIENT_FETCHING, DO
 
 export const fetchPatientList = () => async (dispatch) => {
     dispatch({ type: DOCTOR_PATIENT_LIST_FETCHING });
-    request(`doctor/patients`, "GET", null, null)
+    request(`doctor/patient`, "GET", null, null)
         .then((resp) => {
-            if (resp.data) {
+            if (resp.data && resp.data.content) {
                 dispatch({
                     type: DOCTOR_PATIENT_LIST_SUCCESS,
-                    patientList: resp.data.patients,
+                    payload: resp.data,
                 });
             } else {
                 dispatch({

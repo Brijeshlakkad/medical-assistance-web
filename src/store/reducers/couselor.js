@@ -3,7 +3,7 @@ import { COUNSELOR_PATIENT_CLEAR, COUNSELOR_PATIENT_ERROR, COUNSELOR_PATIENT_FET
 
 const initialState = {
 	patientListState: RequestState.NULL,
-	patientList: [],
+	patientListPayload: [],
 	activePatientState: RequestState.NULL,
 	activePatients: {}
 }
@@ -20,7 +20,7 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				patientListState: RequestState.COMPLETED,
-				patientList: action.patientList || []
+				patientListPayload: action.payload || []
 			}
 		case COUNSELOR_PATIENT_LIST_ERROR:
 			return {

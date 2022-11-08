@@ -3,7 +3,7 @@ import { DOCTOR_PATIENT_CLEAR, DOCTOR_PATIENT_ERROR, DOCTOR_PATIENT_FETCHING, DO
 
 const initialState = {
 	patientListState: RequestState.NULL,
-	patientList: [],
+	patientListPayload: [],
 	activePatientState: RequestState.NULL,
 	activePatients: {}
 }
@@ -20,7 +20,7 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				patientListState: RequestState.COMPLETED,
-				patientList: action.patientList || []
+				patientListPayload: action.payload || []
 			}
 		case DOCTOR_PATIENT_LIST_ERROR:
 			return {

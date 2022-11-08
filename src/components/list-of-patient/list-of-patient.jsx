@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { PathConstants } from '../../lib/path-constants';
 import { UserRole } from '../../lib/types';
 import './list-of-patient.css';
-import { Link } from 'react-router-dom';
 
 const Button = styled.div`
     position: relative;
@@ -84,7 +83,7 @@ const Table = styled.table`
     }
 `
 
-export default function ListOfPatient({ role, patientList }) {
+export default function ListOfPatient({ role, patientListPayload }) {
 
     const OpenScheduler = () => {
         return (< div style={{ zIndex: 99999, position: 'relative' }}>
@@ -110,6 +109,27 @@ export default function ListOfPatient({ role, patientList }) {
         const patientDetailsPagePath = role === UserRole.DOCTOR ?
             PathConstants.Internal_DoctorPatientDetails : PathConstants.Internal_CounselorPatientDetails;
         navigate(patientDetailsPagePath + patientRecordId);
+    }
+
+    const onPageNavigation = (page) => {
+        if (page === patientListPayload.pageable.pageNumber) {
+            return;
+        }
+        navigate({ pathname: PathConstants.CounselorLOP, search: `page=${page}` });
+    }
+
+    const onFirstPage = () => {
+        if (patientListPayload.first) {
+            return;
+        }
+        onPageNavigation(0);
+    }
+
+    const onLastPage = () => {
+        if (patientListPayload.first) {
+            return;
+        }
+        onPageNavigation(patientListPayload.totalPages - 1);
     }
 
     const counselorcColumn = [{
@@ -172,7 +192,7 @@ export default function ListOfPatient({ role, patientList }) {
                 </thead>
                 <tbody>
                     {
-                        patientList.map((row, index) => {
+                        patientListPayload.content.map((row, index) => {
                             return <tr key={`record-${index}`}>
                                 {
                                     columnSchema.map((columnS, index) => {
@@ -191,14 +211,21 @@ export default function ListOfPatient({ role, patientList }) {
             </Table>
             <br></br>
             <div className="LOP-pagination" style={{ textAlign: 'center' }}>
-                <Link to={PathConstants.CounselorHome} >&laquo;</Link>
-                <Link to={PathConstants.CounselorHome} >1</Link>
-                <Link to={PathConstants.CounselorHome} className="active">2</Link>
-                <Link to={PathConstants.CounselorHome} >3</Link>
-                <Link to={PathConstants.CounselorHome} >4</Link>
-                <Link to={PathConstants.CounselorHome} >5</Link>
-                <Link to={PathConstants.CounselorHome} >6</Link>
-                <Link to={PathConstants.CounselorHome} >&raquo;</Link>
+                <button onClick={onFirstPage}
+                    className={classNames(patientListPayload.first ? "deactive" : "")}>
+                    <span>&laquo;</span>
+                </button>
+                {Array.from(Array(patientListPayload.totalPages), (e, i) => {
+                    return <button onClick={(e) => {
+                        e.preventDefault();
+                        onPageNavigation(i);
+                    }} key={`pagination-${i}`}
+                        className={classNames(i === patientListPayload.pageable.pageNumber ? "active" : "")}>{i + 1}</button>
+                })}
+                <button onClick={onLastPage}
+                    className={classNames(patientListPayload.last ? "deactive" : "")}>
+                    <span>&raquo;</span>
+                </button>
             </div>
             <div className='extra'></div>
         </>

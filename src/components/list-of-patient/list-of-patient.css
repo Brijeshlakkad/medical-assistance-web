@@ -4,20 +4,33 @@
     justify-content: center;
 }
 
-.LOP-pagination a {
+.LOP-pagination button {
     color: black;
     float: left;
     padding: 8px 16px;
     text-decoration: none;
+    border-width: 0;
 }
 
-.LOP-pagination a.active {
+.LOP-pagination button.active {
     background-color: dodgerblue;
     color: white;
     border-radius: 5px;
 }
 
-.LOP-pagination a:hover:not(.active) {
+.LOP-pagination button:hover {
+    cursor: pointer;
+}
+
+.LOP-pagination button.deactive {
+    opacity: 0.5;
+}
+
+.LOP-pagination button.deactive:hover {
+    cursor: not-allowed;
+}
+
+.LOP-pagination button:hover:not(.active) {
     background-color: #ddd;
     border-radius: 5px;
 }
