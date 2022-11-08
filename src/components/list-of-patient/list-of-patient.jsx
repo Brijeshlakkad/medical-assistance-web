@@ -5,6 +5,7 @@ import { ScheduleMeeting } from 'react-schedule-meeting';
 import styled from 'styled-components';
 import { PathConstants } from '../../lib/path-constants';
 import { UserRole } from '../../lib/types';
+import { PaginationComponent } from '../pagination/pagination';
 import './list-of-patient.css';
 
 const Button = styled.div`
@@ -111,25 +112,8 @@ export default function ListOfPatient({ role, patientListPayload }) {
         navigate(patientDetailsPagePath + patientRecordId);
     }
 
-    const onPageNavigation = (page) => {
-        if (page === patientListPayload.pageable.pageNumber) {
-            return;
-        }
+    const onPageChange = (page) => {
         navigate({ pathname: PathConstants.CounselorLOP, search: `page=${page}` });
-    }
-
-    const onFirstPage = () => {
-        if (patientListPayload.first) {
-            return;
-        }
-        onPageNavigation(0);
-    }
-
-    const onLastPage = () => {
-        if (patientListPayload.first) {
-            return;
-        }
-        onPageNavigation(patientListPayload.totalPages - 1);
     }
 
     const counselorcColumn = [{
@@ -210,23 +194,13 @@ export default function ListOfPatient({ role, patientListPayload }) {
                 </tbody>
             </Table>
             <br></br>
-            <div className="LOP-pagination" style={{ textAlign: 'center' }}>
-                <button onClick={onFirstPage}
-                    className={classNames(patientListPayload.first ? "deactive" : "")}>
-                    <span>&laquo;</span>
-                </button>
-                {Array.from(Array(patientListPayload.totalPages), (e, i) => {
-                    return <button onClick={(e) => {
-                        e.preventDefault();
-                        onPageNavigation(i);
-                    }} key={`pagination-${i}`}
-                        className={classNames(i === patientListPayload.pageable.pageNumber ? "active" : "")}>{i + 1}</button>
-                })}
-                <button onClick={onLastPage}
-                    className={classNames(patientListPayload.last ? "deactive" : "")}>
-                    <span>&raquo;</span>
-                </button>
-            </div>
+            <PaginationComponent
+                onPageChange={onPageChange}
+                pageNumber={patientListPayload.pageable.pageNumber}
+                totalPages={patientListPayload.totalPages}
+                first={patientListPayload.first}
+                last={patientListPayload.last}
+            />
             <div className='extra'></div>
         </>
     )
