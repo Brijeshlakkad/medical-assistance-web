@@ -2,6 +2,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { compose } from 'redux';
 import './App.css';
 
+import jwtDecode from 'jwt-decode';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import "./App.css";
 import AssessmentPage from "./containers/assessment-page";
 import CounselorLOP from "./containers/counselor-list-of-patient";
@@ -13,17 +16,15 @@ import DoctorLOP from "./containers/doctor-list-of-patient";
 import DoctorLoginPage from './containers/doctor-login-page';
 import DoctorPatientDetails from './containers/doctor-patient-details';
 import DoctorSignupPage from './containers/doctor-signup-page';
+import DoctorViewSchedule from './containers/doctor-view-schedule';
 import LandingPage from "./containers/landing-page";
 import Login from "./containers/patient-login";
 import Signup from "./containers/patient-signup";
+import StatusPage from './containers/status-page';
 import AppStateHOC from './lib/app-state-hoc';
 import { PathConstants } from "./lib/path-constants";
-import jwtDecode from 'jwt-decode';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { logout, setUser } from './store/actions/user';
 import { ServerUserRoleToUserRole } from './lib/types';
-import DoctorViewSchedule from './containers/doctor-view-schedule';
+import { logout, setUser } from './store/actions/user';
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ function App() {
         <Route path={PathConstants.Home} element={<LandingPage />} />
         <Route path={PathConstants.PatientLogin} element={<Login />} />
         <Route path={PathConstants.PatientSignup} element={<Signup />} />
+        <Route path={PathConstants.StatusPage} element={<StatusPage />} />
         <Route path={PathConstants.CounselorPatientDetails} element={<CounselorPatientDetails />} />
         <Route path={PathConstants.AssessmentPage} element={<AssessmentPage />} />
         <Route path={PathConstants.CounselorLogin} element={<CounselorLogin />} />
@@ -60,6 +62,7 @@ function App() {
         <Route path={PathConstants.CounselorLOP} element={<CounselorLOP />} />
         <Route path={PathConstants.DoctorLOP} element={<DoctorLOP />} />
         <Route path={PathConstants.DoctorPatientDetails} element={<DoctorPatientDetails />} />
+      
       </Routes>
     </BrowserRouter>
   );

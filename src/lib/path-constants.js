@@ -6,6 +6,7 @@ export const PathConstants = {
   PatientSignup: "/patient/signup",
   PatientHome: "/patient/home",
   AssessmentPage: "/patient/assessment",
+  StatusPage: "/patient/status",
 
   /* Counselor */
   CounselorLogin: "/counselor/login",
