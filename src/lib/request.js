@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default function request(url, method, params = {}, data = {}) {
-	return new Promise((resolve) => {
+	return new Promise((resolve, reject) => {
 		const headers = {
 			"Access-Control-Allow-Origin": "*",
 			"Content-Type": "application/json"
@@ -24,7 +24,7 @@ export default function request(url, method, params = {}, data = {}) {
 				if (exception && exception.response && exception.response.status === 403) {
 					localStorage.removeItem("USER");
 				}
-				resolve({ exception })
+				reject({ data: exception.response.data });
 			})
 	})
 }

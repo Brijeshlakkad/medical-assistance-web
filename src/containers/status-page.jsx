@@ -1,29 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import FooterComponent from "../components/footer/footer";
-import Status from "../components/patient-status/status";
+import { LoadingComponent } from "../components/loading/landing-page";
+import { PatientStatus } from "../components/patient-status/patient-status";
+import { RequestState } from "../lib/types";
+import { fetchPatientRecordStatus } from "../store/actions/patient";
 import Header from "./header";
 
-export default function StatusPage(props) {
-    const [currentState, setCurrentState]= useState()
+export default function StatusPage() {
+    const dispatch = useDispatch();
+
+    const patientRecordStatusState = useSelector(state => state.patient.patientRecordStatusState);
+
     useEffect(() => {
-        // Get file status from API and setCurrentState 
+        if (patientRecordStatusState === RequestState.NULL) {
+            dispatch(fetchPatientRecordStatus());
+        }
+    }, [dispatch, patientRecordStatusState]);
 
-        // 1 -> new patient
-        // 2 -> assesment taken
-        // 3 -> assesment rejected
-        // 4 -> counceller appoitment scheduled
-        // 5 -> file sent to docter for review 
-        // 6 -> file rejected
-        // 7 -> doctor appoitment scheduled
-
-        setCurrentState(2)
-    }, []);
+    const payload = useSelector(state => state.patient.patientRecordStatusPayload);
 
     return (
-        <>
-            <Header />
-            <Status currentState = {currentState} />
-            <FooterComponent></FooterComponent>
-        </>
+        patientRecordStatusState !== RequestState.COMPLETED ?
+            <LoadingComponent /> :
+            <>
+                <Header />
+                <PatientStatus payload={payload} />
+                <FooterComponent></FooterComponent>
+            </>
     )
 }

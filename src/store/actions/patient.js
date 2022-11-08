@@ -1,7 +1,7 @@
 import { SOMETHING_WENT_WRONG } from "../../lib/messages";
 import request from "../../lib/request";
 import {
-    PATIENT_ASSESSMENT_QUESTIONS_ERROR, PATIENT_ASSESSMENT_QUESTIONS_SUCCESS, PATIENT_ASSESSMENT_SUBMIT_ERROR, PATIENT_ASSESSMENT_SUBMIT_FETCHING, PATIENT_ASSESSMENT_SUBMIT_SUCCESS
+    PATIENT_ASSESSMENT_QUESTIONS_ERROR, PATIENT_ASSESSMENT_QUESTIONS_SUCCESS, PATIENT_ASSESSMENT_SUBMIT_ERROR, PATIENT_ASSESSMENT_SUBMIT_FETCHING, PATIENT_ASSESSMENT_SUBMIT_SUCCESS, PATIENT_RECORD_STATUS_ERROR, PATIENT_RECORD_STATUS_FETCHING, PATIENT_RECORD_STATUS_SUCCESS
 } from "../types";
 
 const ASSETMENT_ID = "635b203cf4d8b811f7a0ac0b";
@@ -47,13 +47,7 @@ export const submitAssessmentQuestions = (attemptedQuestions) => async (dispatch
     request(url, "POST", null, {
         questions: attemptedQuestions
     }).then((resp) => {
-        if (resp && resp.exception) {
-            dispatch({
-                type: PATIENT_ASSESSMENT_SUBMIT_ERROR,
-                errorMessage: resp.exception.response.data.errorMessage
-            });
-            return;
-        } else if (resp) {
+        if (resp) {
             dispatch({
                 type: PATIENT_ASSESSMENT_SUBMIT_SUCCESS
             });
@@ -68,7 +62,36 @@ export const submitAssessmentQuestions = (attemptedQuestions) => async (dispatch
             // handle error.
             dispatch({
                 type: PATIENT_ASSESSMENT_SUBMIT_ERROR,
+                errorMessage: exception.errorMessage
+            });
+        });
+}
+
+
+export const fetchPatientRecordStatus = () => async (dispatch) => {
+    const url = `patient/status`
+    dispatch({
+        type: PATIENT_RECORD_STATUS_FETCHING
+    });
+    request(url, "GET", null).then((resp) => {
+
+        if (resp) {
+            dispatch({
+                type: PATIENT_RECORD_STATUS_SUCCESS,
+                payload: resp.data
+            });
+        } else {
+            dispatch({
+                type: PATIENT_RECORD_STATUS_ERROR,
                 errorMessage: SOMETHING_WENT_WRONG
+            });
+        }
+    })
+        .catch((exception) => {
+            // handle error.
+            dispatch({
+                type: PATIENT_RECORD_STATUS_ERROR,
+                errorMessage: exception.errorMessage
             });
         });
 }
