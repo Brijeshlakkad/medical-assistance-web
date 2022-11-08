@@ -1,11 +1,14 @@
 import { RequestState } from "../../lib/types";
-import { COUNSELOR_PATIENT_CLEAR, COUNSELOR_PATIENT_ERROR, COUNSELOR_PATIENT_FETCHING, COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS, COUNSELOR_PATIENT_SUCCESS } from "../types";
+import { COUNSELOR_APPOINTMENTS_ERROR, COUNSELOR_APPOINTMENTS_FETCHING, COUNSELOR_APPOINTMENTS_SUCCESS, COUNSELOR_PATIENT_CLEAR, COUNSELOR_PATIENT_ERROR, COUNSELOR_PATIENT_FETCHING, COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS, COUNSELOR_PATIENT_SUCCESS } from "../types";
 
 const initialState = {
 	patientListState: RequestState.NULL,
 	patientListPayload: [],
 	activePatientState: RequestState.NULL,
-	activePatients: {}
+	activePatients: {},
+	appointmentsState: RequestState.NULL,
+	appointmentsPayload: {},
+	appointmentsErrorMessage: ""
 }
 
 const reducer = (state, action) => {
@@ -68,6 +71,24 @@ const reducer = (state, action) => {
 				...state,
 				activePatientState: RequestState.NULL,
 				activePatients: {}
+			}
+		case COUNSELOR_APPOINTMENTS_FETCHING:
+			return {
+				...state,
+				appointmentsState: RequestState.FETCHING,
+				appointmentsPayload: {}
+			}
+		case COUNSELOR_APPOINTMENTS_SUCCESS:
+			return {
+				...state,
+				appointmentsState: RequestState.FETCHING,
+				appointmentsPayload: action.payload
+			}
+		case COUNSELOR_APPOINTMENTS_ERROR:
+			return {
+				...state,
+				appointmentsState: RequestState.ERROR,
+				appointmentsErrorMessage: action.errorMessage
 			}
 		default:
 			return state;

@@ -1,14 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import FooterComponent from '../components/footer/footer'
-import CounselorViewScheduleComponent from '../components/counselor-view-schedule/counselor-view-schedule'
+import { LoadingComponent } from '../components/loading/landing-page'
+import { ViewScheduleComponent } from '../components/view-schedule/view-schedule'
+import { RequestState, UserRole } from '../lib/types'
+import { fetchAppointments } from '../store/actions/couselor-appointments'
 import Header from './header'
 
 export default function CounselorViewSchedule() {
+    const dispatch = useDispatch();
+    const location = useLocation();
+
+    const requestState = useSelector(state => state.counselorAppointments.state);
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const page = queryParams.get("page");
+        dispatch(fetchAppointments(page));
+    }, [dispatch, location]);
+
+    const payload = useSelector(state => state.counselorAppointments.payload);
+
     return (
-        <>
-            <Header></Header>
-            <CounselorViewScheduleComponent></CounselorViewScheduleComponent>
-            <FooterComponent></FooterComponent>
-        </>
+        requestState !== RequestState.COMPLETED ?
+            <LoadingComponent /> : <>
+                <Header></Header>
+                <ViewScheduleComponent
+                    payload={payload}
+                    role={UserRole.COUNSELOR}
+                />
+                <FooterComponent></FooterComponent>
+            </>
     )
 }
