@@ -1,0 +1,55 @@
+.status-container {
+    width: 80vw;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.indexedStep {
+    color: black;
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+    background-color: rgba(211, 211, 211, 0.8);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    font-weight: bold;
+}
+  
+.indexedStep.accomplished {
+    background-color: #198754;
+    color: white;
+}
+
+.indexedStep.failed {
+    background-color: #dc3545;
+    color: white;
+}
+.status-jumbotron { 
+    padding: 50px; 
+    border-radius: 10px;
+    margin: 100px 0 0px 0;
+    text-align: center;
+    background-color: #edf2f4;
+}
+
+.status-card {
+    display: inline-block;
+    text-align: center;
+    margin: 30px 0px 80px 0;
+    width: 33%;
+}
+
+.status-card img {
+    height: 250px;
+}
+
+.d-block {
+    display: flex;
+}
+
+.d-none {
+    display: none;
+}
