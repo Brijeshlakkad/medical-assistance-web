@@ -84,7 +84,7 @@ const Table = styled.table`
     }
 `
 
-export default function ListOfPatient({ role, patientListPayload }) {
+export default function ListOfPatient({ role, patientListPayload, onForwardToDoctor }) {
 
     const OpenScheduler = () => {
         return (< div style={{ zIndex: 99999, position: 'relative' }}>
@@ -129,13 +129,19 @@ export default function ListOfPatient({ role, patientListPayload }) {
     {
         title: 'View Assessment Form', key: '', render: ({ data }) =>
             <Button title="View Assessment" className='view-assessment' onClick={(e) => {
+                console.log("data", data);
                 e.preventDefault();
                 onViewAssessment(data.patientRecordId);
             }}>View Assessment</Button>
     },
-    { title: 'Schedule Appointment', key: '', render: (data) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
-    { title: 'Forward to a Doctor', key: '', render: (data) => <Button title="Forward to a Doctor" className={classNames('forward')}>Forward to a Doctor</Button> },
-    { title: 'Reject Patient', key: '', render: (data) => <Button title="Reject" className={classNames('dangerous')} >Reject</Button> },
+    { title: 'Schedule Appointment', key: '', render: ({data}) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
+    {
+        title: 'Forward to a Doctor', key: '', render: ({ data }) => <Button title="Forward to a Doctor" className={classNames('forward')}
+            onClick={() => {
+                onForwardToDoctor(data);
+            }}>Forward to a Doctor</Button>
+    },
+    { title: 'Reject Patient', key: '', render: ({data}) => <Button title="Reject" className={classNames('dangerous')} >Reject</Button> },
     ]
     const doctorColumn = [{
         title: 'Patient Name', key: 'patientname', align: 'center', getValue: (row, index) => {
@@ -154,8 +160,8 @@ export default function ListOfPatient({ role, patientListPayload }) {
                 onViewAssessment(data.patientRecordId);
             }}>View Assessment</Button>
     },
-    { title: 'Schedule Appointment', key: '', render: (data) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
-    { title: 'Reject Patient', key: '', render: (data) => <Button title="Reject" className={classNames('dangerous')}>Reject</Button> },
+    { title: 'Schedule Appointment', key: '', render: ({data}) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
+    { title: 'Reject Patient', key: '', render: ({data}) => <Button title="Reject" className={classNames('dangerous')}>Reject</Button> },
     ]
 
     const columnSchema = role === UserRole.DOCTOR ? doctorColumn : counselorcColumn

@@ -1,5 +1,5 @@
 import React from "react";
-import './index.css';
+import './patient-info.css';
 
 export default function PatientInfo({ patient, createdAt }) {
   return (
