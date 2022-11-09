@@ -7,7 +7,6 @@ import { LoadingComponent } from '../components/loading/landing-page';
 import { PathConstants } from '../lib/path-constants';
 import { RequestState, UserRole } from '../lib/types';
 import { fetchPatientList } from '../store/actions/couselor';
-import { setActivePatientLOD } from '../store/actions/couselor-lod';
 import Header from './header';
 
 export default function CounselorLOP(props) {
@@ -26,11 +25,9 @@ export default function CounselorLOP(props) {
     const patientListPayload = useSelector(state => state.counselor.patientListPayload);
 
     const onForwardToDoctor = (patientRecord) => {
-        dispatch(setActivePatientLOD({
-            ...patientRecord.patient,
-            createdAt: patientRecord.createdAt
-        }));
-        navigate(PathConstants.CounselorToDoctor);
+        if (patientRecord && patientRecord.patientRecordId) {
+            navigate(PathConstants.Internal_CounselorToDoctor + patientRecord.patientRecordId);
+        }
     }
 
     return (

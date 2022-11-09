@@ -1,5 +1,5 @@
 import request from "../../lib/request";
-import { CLEAR_COUNSELOR_ACTIVE_PATIENT_LOD, COUNSELOR_DOCTOR_LIST_ERROR, COUNSELOR_DOCTOR_LIST_FETCHING, COUNSELOR_DOCTOR_LIST_SUCCESS, SET_COUNSELOR_ACTIVE_PATIENT_LOD } from "../types";
+import { COUNSELOR_ASSIGN_DOCTOR_ERROR, COUNSELOR_ASSIGN_DOCTOR_FETCHING, COUNSELOR_ASSIGN_DOCTOR_SUCCESS, COUNSELOR_DOCTOR_LIST_ERROR, COUNSELOR_DOCTOR_LIST_FETCHING, COUNSELOR_DOCTOR_LIST_SUCCESS, COUNSELOR_PATIENT_LOD_ERROR, COUNSELOR_PATIENT_LOD_FETCHING, COUNSELOR_PATIENT_LOD_SUCCESS } from "../types";
 
 export const fetchDoctorList = (page) => async (dispatch) => {
     dispatch({ type: COUNSELOR_DOCTOR_LIST_FETCHING });
@@ -13,7 +13,7 @@ export const fetchDoctorList = (page) => async (dispatch) => {
             } else {
                 dispatch({
                     type: COUNSELOR_DOCTOR_LIST_ERROR,
-                    errorMessage: resp.data.errorMessage
+                    errorMessage: ""
                 });
             }
         })
@@ -21,20 +21,60 @@ export const fetchDoctorList = (page) => async (dispatch) => {
             // handle error.
             dispatch({
                 type: COUNSELOR_DOCTOR_LIST_ERROR,
-                errorMessage: exception.errorMessage
+                errorMessage: exception.data.errorMessage
             });
         });
 }
 
-export const setActivePatientLOD = (activePatient) => async (dispatch) => {
-    dispatch({
-        type: SET_COUNSELOR_ACTIVE_PATIENT_LOD,
-        activePatient
-    })
+export const fetchPatient = (patientId) => async (dispatch) => {
+    dispatch({ type: COUNSELOR_PATIENT_LOD_FETCHING, patientId: patientId });
+    request(`counselor/patient/${patientId}`, "GET", null, null)
+        .then((resp) => {
+            if (resp.data) {
+                dispatch({
+                    type: COUNSELOR_PATIENT_LOD_SUCCESS,
+                    activePatient: resp.data,
+                    activePatientId: patientId
+                });
+            } else {
+                dispatch({
+                    type: COUNSELOR_PATIENT_LOD_ERROR,
+                    errorMessage: "",
+                    activePatientId: patientId
+                });
+            }
+        })
+        .catch((exception) => {
+            // handle error.
+            dispatch({
+                type: COUNSELOR_PATIENT_LOD_ERROR,
+                errorMessage: exception.data.message,
+                activePatientId: patientId
+            });
+        });
 }
 
-export const clearActivePatientLOD = () => async (dispatch) => {
-    dispatch({
-        type: CLEAR_COUNSELOR_ACTIVE_PATIENT_LOD
+export const assignDoctorToPatient = (activePatientId, doctorRegistrationNumber) => async (dispatch) => {
+    if (!activePatientId || !doctorRegistrationNumber) {
+        return;
+    }
+    dispatch({ type: COUNSELOR_ASSIGN_DOCTOR_FETCHING, activePatientId });
+    request(`counselor/doctor`, "POST", null, {
+        activePatientId,
+        doctorRegistrationNumber
     })
+        .then((resp) => {
+            dispatch({
+                type: COUNSELOR_ASSIGN_DOCTOR_SUCCESS,
+                activePatientId
+            });
+        })
+        .catch((exception) => {
+            // handle error.
+            dispatch({
+                type: COUNSELOR_ASSIGN_DOCTOR_ERROR,
+                errorMessage: exception.data.errorMessage,
+                activePatientId
+            });
+        });
 }

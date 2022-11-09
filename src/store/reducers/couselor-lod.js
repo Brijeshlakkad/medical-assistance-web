@@ -1,11 +1,12 @@
 import { RequestState } from "../../lib/types";
-import { CLEAR_COUNSELOR_ACTIVE_PATIENT_LOD, COUNSELOR_DOCTOR_LIST_ERROR, COUNSELOR_DOCTOR_LIST_FETCHING, COUNSELOR_DOCTOR_LIST_SUCCESS, SET_COUNSELOR_ACTIVE_PATIENT_LOD } from "../types";
+import { COUNSELOR_ASSIGN_DOCTOR_ERROR, COUNSELOR_ASSIGN_DOCTOR_FETCHING, COUNSELOR_ASSIGN_DOCTOR_SUCCESS, COUNSELOR_DOCTOR_LIST_ERROR, COUNSELOR_DOCTOR_LIST_FETCHING, COUNSELOR_DOCTOR_LIST_SUCCESS, COUNSELOR_PATIENT_LOD_ERROR, COUNSELOR_PATIENT_LOD_FETCHING, COUNSELOR_PATIENT_LOD_SUCCESS } from "../types";
 
 const initialState = {
 	state: RequestState.NULL,
 	payload: {},
 	errorMessage: "",
-	activePatient: {}
+	activePatients: {},
+	assignDoctorStates: {}
 }
 
 const reducer = (state, action) => {
@@ -29,16 +30,64 @@ const reducer = (state, action) => {
 				state: RequestState.ERROR,
 				errorMessage: action.errorMessage
 			}
-		case SET_COUNSELOR_ACTIVE_PATIENT_LOD:
+		case COUNSELOR_PATIENT_LOD_FETCHING: {
+			const activePatients = state.activePatients;
+			activePatients[action.activePatientId] = {
+				state: RequestState.FETCHING
+			}
 			return {
 				...state,
+				activePatients
+			}
+		}
+		case COUNSELOR_PATIENT_LOD_SUCCESS: {
+			const activePatients = state.activePatients;
+			activePatients[action.activePatientId] = {
+				state: RequestState.COMPLETED,
 				activePatient: action.activePatient
 			}
-		case CLEAR_COUNSELOR_ACTIVE_PATIENT_LOD:
 			return {
 				...state,
-				activePatient: {}
+				activePatients
 			}
+		}
+		case COUNSELOR_PATIENT_LOD_ERROR: {
+			const activePatients = state.activePatients;
+			activePatients[action.activePatientId] = {
+				state: RequestState.ERROR
+			}
+			return {
+				...state,
+				activePatients
+			}
+		}
+		case COUNSELOR_ASSIGN_DOCTOR_FETCHING: {
+			const assignDoctorStates = state.assignDoctorStates;
+			assignDoctorStates[action.activePatientId] = {
+				state: RequestState.FETCHING
+			};
+			return {
+				...state,
+				assignDoctorStates: assignDoctorStates
+			}
+		}
+		case COUNSELOR_ASSIGN_DOCTOR_SUCCESS: {
+			const assignDoctorStates = state.assignDoctorStates;
+			assignDoctorStates[action.activePatientId].state = RequestState.COMPLETED;
+			return {
+				...state,
+				assignDoctorStates: assignDoctorStates
+			}
+		}
+		case COUNSELOR_ASSIGN_DOCTOR_ERROR: {
+			const assignDoctorStates = state.assignDoctorStates;
+			assignDoctorStates[action.activePatientId].state = RequestState.ERROR;
+			assignDoctorStates[action.activePatientId].errorMessage = action.errorMessage;
+			return {
+				...state,
+				assignDoctorStates: assignDoctorStates
+			}
+		}
 		default:
 			return state;
 	}

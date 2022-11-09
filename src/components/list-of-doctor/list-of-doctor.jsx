@@ -1,10 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PathConstants } from "../../lib/path-constants";
+import { ErrorMessage } from "../elements/error-message";
 import { PaginationComponent } from "../pagination/pagination";
+import PatientInfo from "../patient-info/patient-info";
 import "./list-of-doctor.css";
 
-export function ListOfDoctor({ payload }) {
+export function ListOfDoctor({ payload, activePatient, onSelect, errorMessage }) {
     const navigate = useNavigate();
     const onPageChange = (page) => {
         navigate({ pathname: PathConstants.CounselorLOP, search: `page=${page}` });
@@ -12,6 +14,7 @@ export function ListOfDoctor({ payload }) {
     return (
         <>
             <div className="list-of-doctor-patient">
+                <PatientInfo patient={activePatient.patient} createdAt={activePatient.createdAt} />
                 <div className="list-of-doctor">
                     <h1>
                         Assign Patient to Doctor
@@ -32,12 +35,18 @@ export function ListOfDoctor({ payload }) {
                                         <td>{doctorRecord.fullName}</td>
                                         <td>{doctorRecord.emailAddress}</td>
                                         <td>{doctorRecord.currentPatients}</td>
-                                        <td><button className="button-list-of-doctor-patient">select</button></td>
+                                        <td><button className="button-list-of-doctor-patient" onClick={() => {
+                                            onSelect(doctorRecord.registrationNumber);
+                                        }}>select</button></td>
                                     </tr>
                                 })
                             }
                         </tbody>
                     </table>
+                    {errorMessage && <ErrorMessage>
+                        {errorMessage}
+                    </ErrorMessage>
+                    }
                 </div>
             </div>
             <br></br>

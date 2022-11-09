@@ -129,7 +129,6 @@ export default function ListOfPatient({ role, patientListPayload, onForwardToDoc
     {
         title: 'View Assessment Form', key: '', render: ({ data }) =>
             <Button title="View Assessment" className='view-assessment' onClick={(e) => {
-                console.log("data", data);
                 e.preventDefault();
                 onViewAssessment(data.patientRecordId);
             }}>View Assessment</Button>
