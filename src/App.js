@@ -17,6 +17,7 @@ import DoctorLoginPage from './containers/doctor-login-page';
 import DoctorPatientDetails from './containers/doctor-patient-details';
 import DoctorSignupPage from './containers/doctor-signup-page';
 import DoctorViewSchedule from './containers/doctor-view-schedule';
+import ForwardToDoctor from './containers/forward-to-doctor';
 import LandingPage from "./containers/landing-page";
 import Login from "./containers/patient-login";
 import Signup from "./containers/patient-signup";
@@ -44,6 +45,7 @@ function App() {
     }
   })
 
+
   return (
     <BrowserRouter>
       <Routes>
@@ -62,7 +64,7 @@ function App() {
         <Route path={PathConstants.CounselorLOP} element={<CounselorLOP />} />
         <Route path={PathConstants.DoctorLOP} element={<DoctorLOP />} />
         <Route path={PathConstants.DoctorPatientDetails} element={<DoctorPatientDetails />} />
-      
+        <Route path={PathConstants.CounselorToDoctor} element={<ForwardToDoctor />} />
       </Routes>
     </BrowserRouter>
   );

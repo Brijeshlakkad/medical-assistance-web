@@ -14,8 +14,7 @@ export const PathConstants = {
   CounselorHome: "/counselor/home",
   CounselorLOP: "/counselor/patients",
   CounselorSchedule: "/counselor/view-schedule",
-
-  //
+  CounselorToDoctor:"/counselor/doctors",
   CounselorPatientDetails: "/counselor/patient/:patientId",
   Internal_CounselorPatientDetails: "/counselor/patient/",
 
