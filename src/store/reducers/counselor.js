@@ -1,19 +1,21 @@
 import { RequestState } from "../../lib/types";
-import { COUNSELOR_APPOINTMENTS_ERROR, COUNSELOR_APPOINTMENTS_FETCHING, COUNSELOR_APPOINTMENTS_SUCCESS, COUNSELOR_PATIENT_CLEAR, COUNSELOR_PATIENT_ERROR, COUNSELOR_PATIENT_FETCHING, COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS, COUNSELOR_PATIENT_SUCCESS } from "../types";
+import { COUNSELOR_PATIENT_CLEAR, COUNSELOR_PATIENT_ERROR, COUNSELOR_PATIENT_FETCHING, COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS, COUNSELOR_PATIENT_SUCCESS, COUNSELOR_REJECT_PATIENT_ERROR, COUNSELOR_REJECT_PATIENT_FETCHING, COUNSELOR_REJECT_PATIENT_SUCCESS, ONLOAD_COUNSELOR_PATIENT_LIST } from "../types";
 
 const initialState = {
 	patientListState: RequestState.NULL,
 	patientListPayload: [],
 	activePatientState: RequestState.NULL,
 	activePatients: {},
-	appointmentsState: RequestState.NULL,
-	appointmentsPayload: {},
-	appointmentsErrorMessage: ""
+	rejectPatientRequestState: RequestState.NULL,
+	rejectPatientErrorMessage: ""
 }
 
 const reducer = (state, action) => {
 	if (typeof state === 'undefined') state = initialState;
 	switch (action.type) {
+		case ONLOAD_COUNSELOR_PATIENT_LIST: {
+			return initialState;
+		}
 		case COUNSELOR_PATIENT_LIST_FETCHING:
 			return {
 				...state,
@@ -72,24 +74,25 @@ const reducer = (state, action) => {
 				activePatientState: RequestState.NULL,
 				activePatients: {}
 			}
-		case COUNSELOR_APPOINTMENTS_FETCHING:
+		case COUNSELOR_REJECT_PATIENT_FETCHING: {
 			return {
 				...state,
-				appointmentsState: RequestState.FETCHING,
-				appointmentsPayload: {}
+				rejectPatientRequestState: RequestState.FETCHING
 			}
-		case COUNSELOR_APPOINTMENTS_SUCCESS:
+		}
+		case COUNSELOR_REJECT_PATIENT_SUCCESS: {
 			return {
 				...state,
-				appointmentsState: RequestState.FETCHING,
-				appointmentsPayload: action.payload
+				rejectPatientRequestState: RequestState.COMPLETED
 			}
-		case COUNSELOR_APPOINTMENTS_ERROR:
+		}
+		case COUNSELOR_REJECT_PATIENT_ERROR: {
 			return {
 				...state,
-				appointmentsState: RequestState.ERROR,
-				appointmentsErrorMessage: action.errorMessage
+				rejectPatientRequestState: RequestState.ERROR,
+				rejectPatientErrorMessage: action.errorMessage
 			}
+		}
 		default:
 			return state;
 	}

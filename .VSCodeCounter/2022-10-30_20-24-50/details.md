@@ -39,7 +39,7 @@ Total : 87 files,  3249 codes, 83 comments, 406 blanks, all 3738 lines
 | [src/components/landing-page/landing-page.jsx](/src/components/landing-page/landing-page.jsx) | JavaScript React | 15 | 0 | 3 | 18 |
 | [src/components/list-of-patient/list-of-patient.css](/src/components/list-of-patient/list-of-patient.css) | CSS | 0 | 0 | 3 | 3 |
 | [src/components/list-of-patient/list-of-patient.jsx](/src/components/list-of-patient/list-of-patient.jsx) | JavaScript React | 172 | 0 | 9 | 181 |
-| [src/components/loading/landing-page.jsx](/src/components/loading/landing-page.jsx) | JavaScript React | 11 | 0 | 3 | 14 |
+| [src/components/loading/loading.jsx](/src/components/loading/loading.jsx) | JavaScript React | 11 | 0 | 3 | 14 |
 | [src/components/patient-home/patient-home.jsx](/src/components/patient-home/patient-home.jsx) | JavaScript React | 6 | 0 | 1 | 7 |
 | [src/components/patient-info/index.css](/src/components/patient-info/index.css) | CSS | 39 | 1 | 1 | 41 |
 | [src/components/patient-info/index.jsx](/src/components/patient-info/index.jsx) | JavaScript React | 35 | 0 | 2 | 37 |

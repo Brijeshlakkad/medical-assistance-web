@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FooterComponent from "../components/footer/footer";
-import { LoadingComponent } from "../components/loading/landing-page";
+import { LoadingComponent } from "../components/loading/loading";
 import { PatientStatus } from "../components/patient-status/patient-status";
 import { RequestState } from "../lib/types";
 import { fetchPatientRecordStatus } from "../store/actions/patient";

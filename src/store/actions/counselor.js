@@ -1,6 +1,6 @@
-import { PLEASE_TRY_AGAIN } from "../../lib/messages";
 import request from "../../lib/request";
-import { COUNSELOR_PATIENT_CLEAR, COUNSELOR_PATIENT_ERROR, COUNSELOR_PATIENT_FETCHING, COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS, COUNSELOR_PATIENT_SUCCESS } from "../types";
+import { COUNSELOR_PATIENT_CLEAR, COUNSELOR_PATIENT_ERROR, COUNSELOR_PATIENT_FETCHING, COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS, COUNSELOR_PATIENT_SUCCESS, COUNSELOR_REJECT_PATIENT_ERROR, COUNSELOR_REJECT_PATIENT_FETCHING, COUNSELOR_REJECT_PATIENT_SUCCESS, ONLOAD_COUNSELOR_PATIENT_LIST } from "../types";
+import { onLoadCounselorAppointmentPage } from "./counselor-appointments";
 
 export const fetchPatientList = (page) => async (dispatch) => {
     dispatch({ type: COUNSELOR_PATIENT_LIST_FETCHING });
@@ -22,7 +22,7 @@ export const fetchPatientList = (page) => async (dispatch) => {
             // handle error.
             dispatch({
                 type: COUNSELOR_PATIENT_LIST_ERROR,
-                errorMessage: PLEASE_TRY_AGAIN
+                errorMessage: exception.data.message,
             });
         });
 }
@@ -48,7 +48,7 @@ export const fetchPatient = (patientId) => async (dispatch) => {
             // handle error.
             dispatch({
                 type: COUNSELOR_PATIENT_ERROR,
-                errorMessage: PLEASE_TRY_AGAIN,
+                errorMessage: exception.data.message,
                 patientId: patientId
             });
         });
@@ -58,4 +58,28 @@ export const clearPatient = () => (dispatch) => {
     dispatch({
         type: COUNSELOR_PATIENT_CLEAR
     })
+}
+
+export const onLoadCounselorPage = () => (dispatch) => {
+    dispatch({
+        type: ONLOAD_COUNSELOR_PATIENT_LIST
+    })
+    dispatch(onLoadCounselorAppointmentPage());
+}
+
+export const rejectPatient = (patientRecordId) => async (dispatch) => {
+    dispatch({ type: COUNSELOR_REJECT_PATIENT_FETCHING, id: patientRecordId });
+    request(`counselor/patient/${patientRecordId}`, "DELETE", null, null)
+        .then((resp) => {
+            dispatch({
+                type: COUNSELOR_REJECT_PATIENT_SUCCESS
+            });
+        })
+        .catch((exception) => {
+            // handle error.
+            dispatch({
+                type: COUNSELOR_REJECT_PATIENT_ERROR,
+                errorMessage: exception.data.message
+            });
+        });
 }

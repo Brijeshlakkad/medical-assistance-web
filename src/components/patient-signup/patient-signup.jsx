@@ -138,10 +138,11 @@ export function PatientSignupComponent({
                     <div>
                         <button type='submit' className='signupbutton' onClick={onSubmit}><span>Sign Up</span></button>
                     </div>
-                    {signupState && <ErrorMessage>
-                        {errorMessage}
-                    </ErrorMessage>
-                    }
+                    {signupState && <div className="error-message">
+                        <ErrorMessage>
+                            {errorMessage}
+                        </ErrorMessage>
+                    </div>}
                 </form >
             </div >
             <div className='extra'>

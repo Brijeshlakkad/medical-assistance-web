@@ -142,3 +142,7 @@ textarea {
     margin-bottom: 16px;
     resize: vertical;
 }
+
+.error-message {
+    margin-top: 85px;
+}

@@ -106,3 +106,7 @@ select {
     margin-top: 0.3rem;
     font-size: 1rem;
 }
+
+.error-message {
+    margin-top: 85px;
+}

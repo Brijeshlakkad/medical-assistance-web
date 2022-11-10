@@ -55,10 +55,11 @@ export default function DoctorLoginComponent({
                     }}><span>Login</span></button>
                 </div>
             </form>
-            {loginState && <ErrorMessage>
-                {errorMessage}
-            </ErrorMessage>
-            }
+            {loginState && <div className="error-message">
+                <ErrorMessage>
+                    {errorMessage}
+                </ErrorMessage>
+            </div>}
             <div className='signup-box'>
                 <span>No Account?</span>
                 <br />
