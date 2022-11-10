@@ -1,10 +1,12 @@
 import classNames from 'classnames';
 import React from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ScheduleMeeting } from 'react-schedule-meeting';
 import styled from 'styled-components';
 import { PathConstants } from '../../lib/path-constants';
 import { UserRole } from '../../lib/types';
+import { RejectModal } from '../Modal/Modal';
 import { PaginationComponent } from '../pagination/pagination';
 import './list-of-patient.css';
 
@@ -86,6 +88,19 @@ const Table = styled.table`
 
 export default function ListOfPatient({ role, patientListPayload, onForwardToDoctor }) {
 
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
     const OpenScheduler = () => {
         return (< div style={{ zIndex: 99999, position: 'relative' }}>
             <ScheduleMeeting
@@ -133,14 +148,17 @@ export default function ListOfPatient({ role, patientListPayload, onForwardToDoc
                 onViewAssessment(data.patientRecordId);
             }}>View Assessment</Button>
     },
-    { title: 'Schedule Appointment', key: '', render: ({data}) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
+    { title: 'Schedule Appointment', key: '', render: ({ data }) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
     {
         title: 'Forward to a Doctor', key: '', render: ({ data }) => <Button title="Forward to a Doctor" className={classNames('forward')}
             onClick={() => {
                 onForwardToDoctor(data);
             }}>Forward to a Doctor</Button>
     },
-    { title: 'Reject Patient', key: '', render: ({data}) => <Button title="Reject" className={classNames('dangerous')} >Reject</Button> },
+    {
+        title: 'Reject Patient', key: '', render: (data) =>
+            <Button title="Reject" className={classNames('dangerous')} onClick={() => openModal()} >Reject</Button>
+    }
     ]
     const doctorColumn = [{
         title: 'Patient Name', key: 'patientname', align: 'center', getValue: (row, index) => {
@@ -159,8 +177,11 @@ export default function ListOfPatient({ role, patientListPayload, onForwardToDoc
                 onViewAssessment(data.patientRecordId);
             }}>View Assessment</Button>
     },
-    { title: 'Schedule Appointment', key: '', render: ({data}) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
-    { title: 'Reject Patient', key: '', render: ({data}) => <Button title="Reject" className={classNames('dangerous')}>Reject</Button> },
+    { title: 'Schedule Appointment', key: '', render: ({ data }) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
+    {
+        title: 'Reject Patient', key: '', render: (data) =>
+            <Button title="Reject" className={classNames('dangerous')} onClick={() => openModal()} >Reject</Button>
+    }
     ]
 
     const columnSchema = role === UserRole.DOCTOR ? doctorColumn : counselorcColumn
@@ -206,6 +227,7 @@ export default function ListOfPatient({ role, patientListPayload, onForwardToDoc
                 first={patientListPayload.first}
                 last={patientListPayload.last}
             />
+            <RejectModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
             <div className='extra'></div>
         </>
     )
