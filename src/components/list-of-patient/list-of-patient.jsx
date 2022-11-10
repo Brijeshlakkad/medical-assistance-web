@@ -2,9 +2,11 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import CounselorMakeAppointment from '../../containers/counselor-make-appointment';
+import DoctorMakeAppointment from '../../containers/doctor-make-appointment';
 import { PathConstants } from '../../lib/path-constants';
 import { UserRole } from '../../lib/types';
-import { MakeAppointment } from '../make-appointment/make-appointment';
+import { ErrorMessage } from '../elements/error-message';
 import { PaginationComponent } from '../pagination/pagination';
 import './list-of-patient.css';
 
@@ -34,12 +36,12 @@ const Button = styled.div`
     background: #fff;
     
 
-  &:focus,
-  &:hover {
-    color: #40a9ff;
-    border-color: #40a9ff;
-    background: #fff;
-  }
+    &:focus,
+    &:hover {
+        color: #40a9ff;
+        border-color: #40a9ff;
+        background: #fff;
+    }
 
     &, &:active, &:focus {
         outline: 0;
@@ -86,10 +88,10 @@ const Table = styled.table`
   }
 `;
 
-export default function ListOfPatient({ patientListPayload, role, onForwardToDoctor }) {
-    const [counselorModalVisibility, setCounselorModalVisibility] =
-        useState(false);
-    const [doctorModalVisibility, setDoctorModalVisibility] = useState(false);
+export default function ListOfPatient({ patientListPayload, role, onForwardToDoctor, appointmentErrorMessage }) {
+    const [appointmentVisibility, setAppointmentVisibility] = useState({
+        isOpen: false
+    });
     const navigate = useNavigate();
 
     const onViewAssessment = (patientRecordId) => {
@@ -100,11 +102,11 @@ export default function ListOfPatient({ patientListPayload, role, onForwardToDoc
         navigate(patientDetailsPagePath + patientRecordId);
     };
 
-    const openCounselorScheduler = (props) => {
-        setCounselorModalVisibility(true);
-    };
-    const openDoctorScheduler = (props) => {
-        setDoctorModalVisibility(true);
+    const onOpenScheduler = (props) => {
+        setAppointmentVisibility({
+            isOpen: true,
+            ...props
+        });
     };
 
     const onPageChange = (page) => {
@@ -148,23 +150,14 @@ export default function ListOfPatient({ patientListPayload, role, onForwardToDoc
         {
             title: "Schedule Appointment",
             key: "",
-            render: (data) => (
+            render: ({ data }) => (
                 <>
                     <Button
                         title="Schedule Appointment"
-                        onClick={() =>
-                            openCounselorScheduler(data.patientId, "counselorId")
-                        }
+                        onClick={() => onOpenScheduler(data)}
                     >
                         Schedule Appointment
                     </Button>
-                    {counselorModalVisibility && (
-                        <MakeAppointment
-                            visibility={setCounselorModalVisibility}
-                            patientId={data.patientId}
-                            counselorId={"counselor ID"}
-                        />
-                    )}
                 </>
             )
         },
@@ -225,23 +218,17 @@ export default function ListOfPatient({ patientListPayload, role, onForwardToDoc
         {
             title: "Schedule Appointment",
             key: "",
-            render: (data) => (
+            render: ({ data }) => (
                 <>
                     <Button
                         title="Schedule Appointment"
                         onClick={() => {
-                            openDoctorScheduler(data.patientId, "counselorId");
+                            onOpenScheduler(data);
                         }}
                     >
                         Schedule Appointment
                     </Button>
-                    {doctorModalVisibility && (
-                        <MakeAppointment
-                            visibility={setDoctorModalVisibility}
-                            patientId={data.patientId}
-                            counselorId={"counselor ID"}
-                        />
-                    )}
+
                 </>
             ),
         },
@@ -257,6 +244,7 @@ export default function ListOfPatient({ patientListPayload, role, onForwardToDoc
     ];
 
     const columnSchema = role === UserRole.DOCTOR ? doctorColumn : counselorcColumn;
+    const MakeAppointment = role === UserRole.DOCTOR ? DoctorMakeAppointment : CounselorMakeAppointment;
 
     return (
         <>
@@ -292,6 +280,9 @@ export default function ListOfPatient({ patientListPayload, role, onForwardToDoc
                 </tbody>
             </Table>
             <br></br>
+            {appointmentErrorMessage && <ErrorMessage >
+                {appointmentErrorMessage}
+            </ErrorMessage>}
             <PaginationComponent
                 onPageChange={onPageChange}
                 pageNumber={patientListPayload.pageable.pageNumber}
@@ -299,6 +290,13 @@ export default function ListOfPatient({ patientListPayload, role, onForwardToDoc
                 first={patientListPayload.first}
                 last={patientListPayload.last}
             />
+            {appointmentVisibility.isOpen && (
+                <MakeAppointment
+                    onUpdateVisibility={setAppointmentVisibility}
+                    {...appointmentVisibility}
+                />
+            )}
+
             <div className='extra'></div>
         </>
     );

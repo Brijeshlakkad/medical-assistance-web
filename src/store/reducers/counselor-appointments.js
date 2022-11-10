@@ -1,5 +1,5 @@
 import { RequestState } from "../../lib/types";
-import { DOCTOR_APPOINTMENTS_ERROR, DOCTOR_APPOINTMENTS_FETCHING, DOCTOR_APPOINTMENTS_FOR_DATE_ERROR, DOCTOR_APPOINTMENTS_FOR_DATE_FETCHING, DOCTOR_APPOINTMENTS_FOR_DATE_SUCCESS, DOCTOR_APPOINTMENTS_SUCCESS, DOCTOR_MAKE_APPOINTMENT_ERROR, DOCTOR_MAKE_APPOINTMENT_FETCHING, DOCTOR_MAKE_APPOINTMENT_SUCCESS, ONLOAD_DOCTOR_APPOINTMENTS } from "../types";
+import { COUNSELOR_APPOINTMENTS_ERROR, COUNSELOR_APPOINTMENTS_FETCHING, COUNSELOR_APPOINTMENTS_FOR_DATE_ERROR, COUNSELOR_APPOINTMENTS_FOR_DATE_FETCHING, COUNSELOR_APPOINTMENTS_FOR_DATE_SUCCESS, COUNSELOR_APPOINTMENTS_SUCCESS, COUNSELOR_MAKE_APPOINTMENT_ERROR, COUNSELOR_MAKE_APPOINTMENT_FETCHING, COUNSELOR_MAKE_APPOINTMENT_SUCCESS, ONLOAD_COUNSELOR_APPOINTMENTS } from "../types";
 
 const initialState = {
 	state: RequestState.NULL,
@@ -12,25 +12,25 @@ const initialState = {
 const reducer = (state, action) => {
 	if (typeof state === 'undefined') state = initialState;
 	switch (action.type) {
-		case DOCTOR_APPOINTMENTS_FETCHING:
+		case COUNSELOR_APPOINTMENTS_FETCHING:
 			return {
 				...state,
 				state: RequestState.FETCHING,
 				payload: {}
 			}
-		case DOCTOR_APPOINTMENTS_SUCCESS:
+		case COUNSELOR_APPOINTMENTS_SUCCESS:
 			return {
 				...state,
 				state: RequestState.COMPLETED,
 				payload: action.payload
 			}
-		case DOCTOR_APPOINTMENTS_ERROR:
+		case COUNSELOR_APPOINTMENTS_ERROR:
 			return {
 				...state,
 				state: RequestState.ERROR,
 				errorMessage: action.errorMessage
 			}
-		case DOCTOR_APPOINTMENTS_FOR_DATE_FETCHING: {
+		case COUNSELOR_APPOINTMENTS_FOR_DATE_FETCHING: {
 			const appointmentsForDate = state.appointmentsForDate;
 			appointmentsForDate[action.date] = {
 				state: RequestState.FETCHING
@@ -40,7 +40,7 @@ const reducer = (state, action) => {
 				appointmentsForDate
 			}
 		}
-		case DOCTOR_APPOINTMENTS_FOR_DATE_SUCCESS: {
+		case COUNSELOR_APPOINTMENTS_FOR_DATE_SUCCESS: {
 			const appointmentsForDate = state.appointmentsForDate;
 			appointmentsForDate[action.date] = {
 				state: RequestState.COMPLETED,
@@ -51,7 +51,7 @@ const reducer = (state, action) => {
 				appointmentsForDate
 			}
 		}
-		case DOCTOR_APPOINTMENTS_FOR_DATE_ERROR: {
+		case COUNSELOR_APPOINTMENTS_FOR_DATE_ERROR: {
 			const appointmentsForDate = state.appointmentsForDate;
 			appointmentsForDate[action.date] = {
 				state: RequestState.ERROR,
@@ -62,7 +62,7 @@ const reducer = (state, action) => {
 				appointmentsForDate
 			}
 		}
-		case DOCTOR_MAKE_APPOINTMENT_FETCHING: {
+		case COUNSELOR_MAKE_APPOINTMENT_FETCHING: {
 			const appointmentRequests = {
 				state: RequestState.FETCHING
 			}
@@ -71,7 +71,7 @@ const reducer = (state, action) => {
 				appointmentRequests
 			}
 		}
-		case DOCTOR_MAKE_APPOINTMENT_SUCCESS: {
+		case COUNSELOR_MAKE_APPOINTMENT_SUCCESS: {
 			const appointmentRequests = {
 				state: RequestState.COMPLETED
 			}
@@ -80,7 +80,7 @@ const reducer = (state, action) => {
 				appointmentRequests
 			}
 		}
-		case DOCTOR_MAKE_APPOINTMENT_ERROR: {
+		case COUNSELOR_MAKE_APPOINTMENT_ERROR: {
 			const appointmentRequests = {
 				state: RequestState.ERROR,
 				errorMessage: action.errorMessage
@@ -90,7 +90,7 @@ const reducer = (state, action) => {
 				appointmentRequests
 			}
 		}
-		case ONLOAD_DOCTOR_APPOINTMENTS: {
+		case ONLOAD_COUNSELOR_APPOINTMENTS: {
 			return initialState;
 		}
 		default:
@@ -99,5 +99,5 @@ const reducer = (state, action) => {
 }
 export {
 	reducer as default,
-	initialState as doctorAppointmentsInitialState
+	initialState as counselorAppointmentsInitialState
 };

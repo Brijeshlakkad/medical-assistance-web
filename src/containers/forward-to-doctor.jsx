@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import FooterComponent from "../components/footer/footer";
 import { ListOfDoctor } from "../components/list-of-doctor/list-of-doctor";
-import { LoadingComponent } from "../components/loading/landing-page";
+import { LoadingComponent } from "../components/loading/loading";
 import { PathConstants } from "../lib/path-constants";
 import { RequestState } from "../lib/types";
-import { assignDoctorToPatient, fetchDoctorList, fetchPatient } from "../store/actions/couselor-lod";
+import { assignDoctorToPatient, fetchDoctorList, fetchPatient } from "../store/actions/counselor-lod";
 import Header from "./header";
 
 export default function ForwardToDoctor() {

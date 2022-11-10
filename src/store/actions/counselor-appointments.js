@@ -1,19 +1,18 @@
-import { PLEASE_TRY_AGAIN } from "../../lib/messages";
 import request from "../../lib/request";
-import { DOCTOR_APPOINTMENTS_ERROR, DOCTOR_APPOINTMENTS_FETCHING, DOCTOR_APPOINTMENTS_FOR_DATE_ERROR, DOCTOR_APPOINTMENTS_FOR_DATE_FETCHING, DOCTOR_APPOINTMENTS_FOR_DATE_SUCCESS, DOCTOR_APPOINTMENTS_SUCCESS, DOCTOR_MAKE_APPOINTMENT_ERROR, DOCTOR_MAKE_APPOINTMENT_FETCHING, DOCTOR_MAKE_APPOINTMENT_SUCCESS, ONLOAD_DOCTOR_APPOINTMENTS } from "../types";
+import { COUNSELOR_APPOINTMENTS_ERROR, COUNSELOR_APPOINTMENTS_FETCHING, COUNSELOR_APPOINTMENTS_FOR_DATE_ERROR, COUNSELOR_APPOINTMENTS_FOR_DATE_FETCHING, COUNSELOR_APPOINTMENTS_FOR_DATE_SUCCESS, COUNSELOR_APPOINTMENTS_SUCCESS, COUNSELOR_MAKE_APPOINTMENT_ERROR, COUNSELOR_MAKE_APPOINTMENT_FETCHING, COUNSELOR_MAKE_APPOINTMENT_SUCCESS, ONLOAD_COUNSELOR_APPOINTMENTS } from "../types";
 
 export const fetchAppointments = (page) => async (dispatch) => {
-    dispatch({ type: DOCTOR_APPOINTMENTS_FETCHING });
-    request(`doctor/patient/appointment`, "GET", { page }, null)
+    dispatch({ type: COUNSELOR_APPOINTMENTS_FETCHING });
+    request(`counselor/patient/appointment`, "GET", { page }, null)
         .then((resp) => {
             if (resp.data && resp.data.content) {
                 dispatch({
-                    type: DOCTOR_APPOINTMENTS_SUCCESS,
+                    type: COUNSELOR_APPOINTMENTS_SUCCESS,
                     payload: resp.data,
                 });
             } else {
                 dispatch({
-                    type: DOCTOR_APPOINTMENTS_ERROR,
+                    type: COUNSELOR_APPOINTMENTS_ERROR,
                     errorMessage: resp.data.errorMessage
                 });
             }
@@ -21,26 +20,25 @@ export const fetchAppointments = (page) => async (dispatch) => {
         .catch((exception) => {
             // handle error.
             dispatch({
-                type: DOCTOR_APPOINTMENTS_ERROR,
-                errorMessage: PLEASE_TRY_AGAIN
+                type: COUNSELOR_APPOINTMENTS_ERROR,
+                errorMessage: exception.data.errorMessage
             });
         });
 }
 
-
 export const fetchAppointmentsForDate = (date) => async (dispatch) => {
-    dispatch({ type: DOCTOR_APPOINTMENTS_FOR_DATE_FETCHING, date });
-    request(`doctor/patient/appointments`, "POST", null, { date })
+    dispatch({ type: COUNSELOR_APPOINTMENTS_FOR_DATE_FETCHING, date });
+    request(`counselor/patient/appointments`, "POST", null, { date })
         .then((resp) => {
             if (resp && resp.data) {
                 dispatch({
-                    type: DOCTOR_APPOINTMENTS_FOR_DATE_SUCCESS,
+                    type: COUNSELOR_APPOINTMENTS_FOR_DATE_SUCCESS,
                     payload: resp.data,
                     date
                 });
             } else {
                 dispatch({
-                    type: DOCTOR_APPOINTMENTS_FOR_DATE_ERROR,
+                    type: COUNSELOR_APPOINTMENTS_FOR_DATE_ERROR,
                     errorMessage: resp.data.errorMessage,
                     date
                 });
@@ -49,7 +47,7 @@ export const fetchAppointmentsForDate = (date) => async (dispatch) => {
         .catch((exception) => {
             // handle error.
             dispatch({
-                type: DOCTOR_APPOINTMENTS_FOR_DATE_ERROR,
+                type: COUNSELOR_APPOINTMENTS_FOR_DATE_ERROR,
                 errorMessage: exception.data.errorMessage,
                 date
             });
@@ -60,8 +58,8 @@ export const makeAppointment = (patientRecordId, startDateTime, endDateTime) => 
     if (!patientRecordId || !startDateTime || !endDateTime) {
         return;
     }
-    dispatch({ type: DOCTOR_MAKE_APPOINTMENT_FETCHING, id: patientRecordId });
-    request(`doctor/patient/appointment`, "POST", null, {
+    dispatch({ type: COUNSELOR_MAKE_APPOINTMENT_FETCHING, id: patientRecordId });
+    request(`counselor/patient/appointment`, "POST", null, {
         patientRecordId,
         startDateTime,
         endDateTime
@@ -69,29 +67,30 @@ export const makeAppointment = (patientRecordId, startDateTime, endDateTime) => 
         .then((resp) => {
             if (resp && resp.data) {
                 dispatch({
-                    type: DOCTOR_MAKE_APPOINTMENT_SUCCESS,
+                    type: COUNSELOR_MAKE_APPOINTMENT_SUCCESS,
                     id: patientRecordId
                 });
             } else {
                 dispatch({
-                    type: DOCTOR_MAKE_APPOINTMENT_ERROR,
+                    type: COUNSELOR_MAKE_APPOINTMENT_ERROR,
                     errorMessage: resp.data.errorMessage,
                     id: patientRecordId
                 });
             }
         })
         .catch((exception) => {
+            console.log("exception", exception);
             // handle error.
             dispatch({
-                type: DOCTOR_MAKE_APPOINTMENT_ERROR,
+                type: COUNSELOR_MAKE_APPOINTMENT_ERROR,
                 errorMessage: exception.data.errorMessage,
                 id: patientRecordId
             });
         });
 }
 
-export const onLoadDoctorAppointmentPage = () => (dispatch) => {
+export const onLoadCounselorAppointmentPage = () => (dispatch) => {
     dispatch({
-        type: ONLOAD_DOCTOR_APPOINTMENTS
+        type: ONLOAD_COUNSELOR_APPOINTMENTS
     })
 }
