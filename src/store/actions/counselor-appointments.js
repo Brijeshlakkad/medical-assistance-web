@@ -79,7 +79,6 @@ export const makeAppointment = (patientRecordId, startDateTime, endDateTime) => 
             }
         })
         .catch((exception) => {
-            console.log("exception", exception);
             // handle error.
             dispatch({
                 type: COUNSELOR_MAKE_APPOINTMENT_ERROR,
