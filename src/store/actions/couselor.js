@@ -2,14 +2,14 @@ import { PLEASE_TRY_AGAIN } from "../../lib/messages";
 import request from "../../lib/request";
 import { COUNSELOR_PATIENT_CLEAR, COUNSELOR_PATIENT_ERROR, COUNSELOR_PATIENT_FETCHING, COUNSELOR_PATIENT_LIST_ERROR, COUNSELOR_PATIENT_LIST_FETCHING, COUNSELOR_PATIENT_LIST_SUCCESS, COUNSELOR_PATIENT_SUCCESS } from "../types";
 
-export const fetchPatientList = () => async (dispatch) => {
+export const fetchPatientList = (page) => async (dispatch) => {
     dispatch({ type: COUNSELOR_PATIENT_LIST_FETCHING });
-    request(`counselor/patients`, "GET", null, null)
+    request(`counselor/patient`, "GET", { page }, null)
         .then((resp) => {
-            if (resp.data) {
+            if (resp.data && resp.data.content) {
                 dispatch({
                     type: COUNSELOR_PATIENT_LIST_SUCCESS,
-                    patientList: resp.data.patients,
+                    payload: resp.data,
                 });
             } else {
                 dispatch({

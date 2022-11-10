@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import FooterComponent from '../components/footer/footer'
 import { LoadingComponent } from '../components/loading/landing-page'
-import PatientInfo from '../components/patient-info'
+import PatientInfo from '../components/patient-info/patient-info'
 import ViewAssessment from '../components/view-assessment'
 import { RequestState, UserRole, UserRoleToRedux } from '../lib/types'
 import { fetchPatient as fatchPatientForCounselor } from '../store/actions/couselor'
@@ -25,6 +25,7 @@ export default function PatientDetails({ role }) {
             }
         }
     }, [dispatch, activePatientState, patientId, activePatients, role]);
+    
     return (
         activePatients[patientId] ? <>
             {

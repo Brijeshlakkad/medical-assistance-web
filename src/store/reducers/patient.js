@@ -1,11 +1,13 @@
 import { RequestState } from "../../lib/types";
-import { PATIENT_ASSESSMENT_QUESTIONS_ERROR, PATIENT_ASSESSMENT_QUESTIONS_FETCHING, PATIENT_ASSESSMENT_QUESTIONS_SUCCESS, PATIENT_ASSESSMENT_SUBMIT_ERROR, PATIENT_ASSESSMENT_SUBMIT_FETCHING, PATIENT_ASSESSMENT_SUBMIT_SUCCESS } from "../types";
+import { PATIENT_ASSESSMENT_QUESTIONS_ERROR, PATIENT_ASSESSMENT_QUESTIONS_FETCHING, PATIENT_ASSESSMENT_QUESTIONS_SUCCESS, PATIENT_ASSESSMENT_SUBMIT_ERROR, PATIENT_ASSESSMENT_SUBMIT_FETCHING, PATIENT_ASSESSMENT_SUBMIT_SUCCESS, PATIENT_RECORD_STATUS_ERROR, PATIENT_RECORD_STATUS_FETCHING, PATIENT_RECORD_STATUS_SUCCESS } from "../types";
 
 const initialState = {
 	errorMessage: "",
 	questionsState: RequestState.NULL,
 	questions: null,
-	questionSubmitState: RequestState.NULL
+	questionSubmitState: RequestState.NULL,
+	patientRecordStatusPayload: {},
+	patientRecordStatusState: RequestState.NULL
 }
 
 const reducer = (state, action) => {
@@ -47,6 +49,24 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				questionSubmitState: RequestState.ERROR,
+				errorMessage: action.errorMessage
+			}
+		case PATIENT_RECORD_STATUS_FETCHING:
+			return {
+				...state,
+				patientRecordStatusState: RequestState.FETCHING,
+				errorMessage: ""
+			}
+		case PATIENT_RECORD_STATUS_SUCCESS:
+			return {
+				...state,
+				patientRecordStatusState: RequestState.COMPLETED,
+				patientRecordStatusPayload: action.payload
+			}
+		case PATIENT_RECORD_STATUS_ERROR:
+			return {
+				...state,
+				patientRecordStatusState: RequestState.ERROR,
 				errorMessage: action.errorMessage
 			}
 		default:
