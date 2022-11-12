@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { PathConstants } from '../../lib/path-constants';
 import { ErrorMessage } from '../elements/error-message';
+import '../patient-signup/patient-signup.css';
 
 function showPassword() {
     var x = document.getElementById("myInput");
@@ -150,10 +151,11 @@ export function DoctorSignupComponent({
                     <div>
                         <button type='submit' className='signupbutton' onClick={onSubmit}><span>Sign Up</span></button>
                     </div>
-                    {signupState && <ErrorMessage>
-                        {errorMessage}
-                    </ErrorMessage>
-                    }
+                    {signupState && <div className="error-message">
+                        <ErrorMessage>
+                            {errorMessage}
+                        </ErrorMessage>
+                    </div>}
                 </form >
             </div >
             <div className='login-box'>

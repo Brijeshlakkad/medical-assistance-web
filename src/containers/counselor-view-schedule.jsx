@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import FooterComponent from '../components/footer/footer'
-import { LoadingComponent } from '../components/loading/landing-page'
+import { LoadingComponent } from '../components/loading/loading'
 import { ViewScheduleComponent } from '../components/view-schedule/view-schedule'
 import { RequestState, UserRole } from '../lib/types'
-import { fetchAppointments } from '../store/actions/couselor-appointments'
+import { fetchAppointments } from '../store/actions/counselor-appointments'
 import Header from './header'
 
 export default function CounselorViewSchedule() {

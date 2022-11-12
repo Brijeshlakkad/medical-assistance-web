@@ -1,6 +1,6 @@
-import { PLEASE_TRY_AGAIN } from "../../lib/messages";
 import request from "../../lib/request";
-import { DOCTOR_PATIENT_CLEAR, DOCTOR_PATIENT_ERROR, DOCTOR_PATIENT_FETCHING, DOCTOR_PATIENT_LIST_ERROR, DOCTOR_PATIENT_LIST_FETCHING, DOCTOR_PATIENT_LIST_SUCCESS, DOCTOR_PATIENT_SUCCESS } from "../types";
+import { DOCTOR_PATIENT_CLEAR, DOCTOR_PATIENT_ERROR, DOCTOR_PATIENT_FETCHING, DOCTOR_PATIENT_LIST_ERROR, DOCTOR_PATIENT_LIST_FETCHING, DOCTOR_PATIENT_LIST_SUCCESS, DOCTOR_PATIENT_SUCCESS, DOCTOR_REJECT_PATIENT_ERROR, DOCTOR_REJECT_PATIENT_FETCHING, DOCTOR_REJECT_PATIENT_SUCCESS, ONLOAD_DOCTOR_PATIENT_LIST } from "../types";
+import { onLoadDoctorAppointmentPage } from "./doctor-appointments";
 
 export const fetchPatientList = () => async (dispatch) => {
     dispatch({ type: DOCTOR_PATIENT_LIST_FETCHING });
@@ -22,7 +22,7 @@ export const fetchPatientList = () => async (dispatch) => {
             // handle error.
             dispatch({
                 type: DOCTOR_PATIENT_LIST_ERROR,
-                errorMessage: PLEASE_TRY_AGAIN
+                errorMessage: exception.data.message
             });
         });
 }
@@ -48,7 +48,7 @@ export const fetchPatient = (patientId) => async (dispatch) => {
             // handle error.
             dispatch({
                 type: DOCTOR_PATIENT_ERROR,
-                errorMessage: PLEASE_TRY_AGAIN,
+                errorMessage: exception.data.message,
                 patientId: patientId
             });
         });
@@ -58,4 +58,28 @@ export const clearPatient = () => (dispatch) => {
     dispatch({
         type: DOCTOR_PATIENT_CLEAR
     })
+}
+
+export const onLoadDoctorPage = () => (dispatch) => {
+    dispatch({
+        type: ONLOAD_DOCTOR_PATIENT_LIST
+    })
+    dispatch(onLoadDoctorAppointmentPage());
+}
+
+export const rejectPatient = (patientRecordId) => async (dispatch) => {
+    dispatch({ type: DOCTOR_REJECT_PATIENT_FETCHING, id: patientRecordId });
+    request(`doctor/patient/${patientRecordId}`, "DELETE", null, null)
+        .then((resp) => {
+            dispatch({
+                type: DOCTOR_REJECT_PATIENT_SUCCESS
+            });
+        })
+        .catch((exception) => {
+            // handle error.
+            dispatch({
+                type: DOCTOR_REJECT_PATIENT_ERROR,
+                errorMessage: exception.data.message
+            });
+        });
 }

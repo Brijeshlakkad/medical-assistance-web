@@ -1,6 +1,7 @@
 import { combineReducers } from "redux"
-import counselorReducer, { counselorInitialState } from "./couselor"
-import counselorAppointmentsReducer, { counselorAppointmentsInitialState } from "./couselor-appointments"
+import counselorReducer, { counselorInitialState } from "./counselor"
+import counselorAppointmentsReducer, { counselorAppointmentsInitialState } from "./counselor-appointments"
+import counselorDoctorListReducer, { counselorDoctorListInitialState } from "./counselor-lod"
 import doctorReducer, { doctorInitialState } from "./doctor"
 import doctorAppointmentsReducer, { doctorAppointmentsInitialState } from "./doctor-appointments"
 import localesReducer, { localesInitialState } from "./locales"
@@ -17,6 +18,7 @@ export const initialState = {
 	/* Counselor */
 	counselor: counselorInitialState,
 	counselorAppointments: counselorAppointmentsInitialState,
+	counselorLOD: counselorDoctorListInitialState,
 
 	/* Doctor */
 	doctor: doctorInitialState,
@@ -33,6 +35,7 @@ export default combineReducers({
 	/* Counselor */
 	counselor: counselorReducer,
 	counselorAppointments: counselorAppointmentsReducer,
+	counselorLOD: counselorDoctorListReducer,
 
 	/* Doctor */
 	doctor: doctorReducer,

@@ -1,12 +1,16 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ScheduleMeeting } from 'react-schedule-meeting';
 import styled from 'styled-components';
+import CounselorMakeAppointment from '../../containers/counselor-make-appointment';
+import DoctorMakeAppointment from '../../containers/doctor-make-appointment';
 import { PathConstants } from '../../lib/path-constants';
 import { UserRole } from '../../lib/types';
+import { ErrorMessage } from '../elements/error-message';
+import { RejectModal } from '../reject-modal/reject-modal';
 import { PaginationComponent } from '../pagination/pagination';
 import './list-of-patient.css';
+import { useCallback } from 'react';
 
 const Button = styled.div`
     position: relative;
@@ -34,12 +38,8 @@ const Button = styled.div`
     background: #fff;
     
 
-    &:active, &:focus, &:hover {
-        text-decoration: none;
-        background: #fff;
-    }
-    
-    &:focus, &:hover {
+    &:focus,
+    &:hover {
         color: #40a9ff;
         border-color: #40a9ff;
         background: #fff;
@@ -62,19 +62,25 @@ const Button = styled.div`
         text-shadow: none;
     }
 
-    &.dangerous:hover {
-        text-decoration: none;
-        background: #fff;
-    }
-`
+  &.dangerous {
+    color: #ff4d4f;
+    border-color: #ff4d4f;
+    text-shadow: none;
+  }
+
+  &.dangerous:hover {
+    text-decoration: none;
+    background: #fff;
+  }
+`;
 
 const Table = styled.table`
-    padding:10px;
-    width: 100%;
-    text-align: left;
-    border-radius: 2px 2px 0 0;
-    border-collapse: separate;
-    border-spacing: 0;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  border-radius: 2px 2px 0 0;
+  border-collapse: separate;
+  border-spacing: 0;
 
     th {
         text-align: center;
@@ -84,37 +90,61 @@ const Table = styled.table`
     }
 `
 
-export default function ListOfPatient({ role, patientListPayload }) {
+export default function ListOfPatient({
+    patientListPayload,
+    role,
+    onForwardToDoctor,
+    appointmentErrorMessage,
+    onRejectPatient,
+    rejectPatientPayload
+}) {
+    const [rejectModalVisibility, setRejectModalVisibility] = useState({
+        isOpen: false
+    });
 
-    const OpenScheduler = () => {
-        return (< div style={{ zIndex: 99999, position: 'relative' }}>
-            <ScheduleMeeting
-                availableTimeslots={['9am to 10am']}
-                lang_cancelButtonText="Cancel"
-                lang_confirmButtonText="Confirm"
-                lang_emptyListText="No times available"
-                lang_goToNextAvailableDayText="Next Available"
-                lang_noFutureTimesText="No future times available"
-                format_nextFutureStartTimeAvailableFormatString="cccc, LLLL do"
-                format_selectedDateDayTitleFormatString="cccc, LLLL do"
-                format_selectedDateMonthTitleFormatString="LLLL yyyy"
-                format_startTimeFormatString="h:mm a"
-            />
-        </div>
-        )
+    function onOpenRejectModal(patientRecord) {
+        setRejectModalVisibility({
+            isOpen: true,
+            ...patientRecord
+        });
     }
 
+    function onCloseRejectModal() {
+        setRejectModalVisibility({
+            isOpen: false
+        });
+    }
+
+    const [appointmentVisibility, setAppointmentVisibility] = useState({
+        isOpen: false
+    });
     const navigate = useNavigate();
 
     const onViewAssessment = (patientRecordId) => {
-        const patientDetailsPagePath = role === UserRole.DOCTOR ?
-            PathConstants.Internal_DoctorPatientDetails : PathConstants.Internal_CounselorPatientDetails;
+        const patientDetailsPagePath =
+            role === UserRole.DOCTOR
+                ? PathConstants.Internal_DoctorPatientDetails
+                : PathConstants.Internal_CounselorPatientDetails;
         navigate(patientDetailsPagePath + patientRecordId);
-    }
+    };
+
+    const onOpenScheduler = (props) => {
+        setAppointmentVisibility({
+            isOpen: true,
+            ...props
+        });
+    };
 
     const onPageChange = (page) => {
         navigate({ pathname: PathConstants.CounselorLOP, search: `page=${page}` });
     }
+
+    const onRejectAction = useCallback(
+        (confirm, data) => {
+            if (confirm && typeof onRejectPatient == 'function') {
+                onRejectPatient(data);
+            }
+        }, [onRejectPatient]);
 
     const counselorcColumn = [{
         title: 'Patient Name', key: 'patientname', align: 'center', getValue: (row, index) => {
@@ -133,10 +163,32 @@ export default function ListOfPatient({ role, patientListPayload }) {
                 onViewAssessment(data.patientRecordId);
             }}>View Assessment</Button>
     },
-    { title: 'Schedule Appointment', key: '', render: (data) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
-    { title: 'Forward to a Doctor', key: '', render: (data) => <Button title="Forward to a Doctor" className={classNames('forward')}>Forward to a Doctor</Button> },
-    { title: 'Reject Patient', key: '', render: (data) => <Button title="Reject" className={classNames('dangerous')} >Reject</Button> },
-    ]
+    {
+        title: "Schedule Appointment",
+        key: "",
+        render: ({ data }) => (
+            <>
+                <Button
+                    title="Schedule Appointment"
+                    onClick={() => onOpenScheduler(data)}
+                >
+                    Schedule Appointment
+                </Button>
+            </>
+        )
+    },
+    {
+        title: 'Forward to a Doctor', key: '', render: ({ data }) => <Button title="Forward to a Doctor" className={classNames('forward')}
+            onClick={() => {
+                onForwardToDoctor(data);
+            }}>Forward to a Doctor</Button>
+    },
+    {
+        title: 'Reject Patient', key: '', render: ({ data }) =>
+            <Button title="Reject" className={classNames('dangerous')} onClick={() => onOpenRejectModal(data)} >Reject</Button>
+    }
+    ];
+
     const doctorColumn = [{
         title: 'Patient Name', key: 'patientname', align: 'center', getValue: (row, index) => {
             return row['patient'] ? row['patient']['fullName'] : `Patient ${index + 1}`;
@@ -154,11 +206,31 @@ export default function ListOfPatient({ role, patientListPayload }) {
                 onViewAssessment(data.patientRecordId);
             }}>View Assessment</Button>
     },
-    { title: 'Schedule Appointment', key: '', render: (data) => <Button title="Schedule Appointment" onClick={() => OpenScheduler}>Schedule Appointment</Button> },
-    { title: 'Reject Patient', key: '', render: (data) => <Button title="Reject" className={classNames('dangerous')}>Reject</Button> },
+    {
+        title: "Schedule Appointment",
+        key: "",
+        render: ({ data }) => (
+            <>
+                <Button
+                    title="Schedule Appointment"
+                    onClick={() => {
+                        onOpenScheduler(data);
+                    }}
+                >
+                    Schedule Appointment
+                </Button>
+
+            </>
+        ),
+    },
+    {
+        title: 'Reject Patient', key: '', render: ({ data }) =>
+            <Button title="Reject" className={classNames('dangerous')} onClick={() => onOpenRejectModal(data)} >Reject</Button>
+    }
     ]
 
-    const columnSchema = role === UserRole.DOCTOR ? doctorColumn : counselorcColumn
+    const columnSchema = role === UserRole.DOCTOR ? doctorColumn : counselorcColumn;
+    const MakeAppointment = role === UserRole.DOCTOR ? DoctorMakeAppointment : CounselorMakeAppointment;
 
     return (
         <>
@@ -194,6 +266,9 @@ export default function ListOfPatient({ role, patientListPayload }) {
                 </tbody>
             </Table>
             <br></br>
+            {appointmentErrorMessage && <ErrorMessage >
+                {appointmentErrorMessage}
+            </ErrorMessage>}
             <PaginationComponent
                 onPageChange={onPageChange}
                 pageNumber={patientListPayload.pageable.pageNumber}
@@ -201,7 +276,28 @@ export default function ListOfPatient({ role, patientListPayload }) {
                 first={patientListPayload.first}
                 last={patientListPayload.last}
             />
+            {rejectModalVisibility.isOpen &&
+                <RejectModal
+                    isOpen={rejectModalVisibility}
+                    data={rejectModalVisibility}
+                    onClose={onCloseRejectModal}
+                    onAction={onRejectAction}
+                />
+            }
+            {appointmentVisibility.isOpen && (
+                <MakeAppointment
+                    onUpdateVisibility={setAppointmentVisibility}
+                    {...appointmentVisibility}
+                />
+            )}
+            {
+                rejectPatientPayload && rejectPatientPayload.errorMessage && (
+                    <ErrorMessage>
+                        {rejectPatientPayload.errorMessage}
+                    </ErrorMessage>
+                )
+            }
             <div className='extra'></div>
         </>
-    )
+    );
 }

@@ -3,7 +3,7 @@ import { RedTertiary } from "../../css/colors";
 
 export const ErrorMessage = styled.div`
     color: ${RedTertiary};
-    margin-top: 85px;
+    margin: 10px 0;
     display: flex;
     justify-content: center;
 `

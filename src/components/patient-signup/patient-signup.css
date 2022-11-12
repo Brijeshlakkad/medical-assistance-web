@@ -107,6 +107,10 @@ select {
     font-size: 1rem;
 }
 
+.error-message {
+    margin-top: 85px;
+}
+
 #errorSignupMessage {
     color: red;
     padding-bottom: 0.4rem;

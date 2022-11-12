@@ -1,16 +1,21 @@
 import { RequestState } from "../../lib/types";
-import { DOCTOR_PATIENT_CLEAR, DOCTOR_PATIENT_ERROR, DOCTOR_PATIENT_FETCHING, DOCTOR_PATIENT_LIST_ERROR, DOCTOR_PATIENT_LIST_FETCHING, DOCTOR_PATIENT_LIST_SUCCESS, DOCTOR_PATIENT_SUCCESS } from "../types";
+import { DOCTOR_PATIENT_CLEAR, DOCTOR_PATIENT_ERROR, DOCTOR_PATIENT_FETCHING, DOCTOR_PATIENT_LIST_ERROR, DOCTOR_PATIENT_LIST_FETCHING, DOCTOR_PATIENT_LIST_SUCCESS, DOCTOR_PATIENT_SUCCESS, DOCTOR_REJECT_PATIENT_ERROR, DOCTOR_REJECT_PATIENT_FETCHING, DOCTOR_REJECT_PATIENT_SUCCESS, ONLOAD_DOCTOR_PATIENT_LIST } from "../types";
 
 const initialState = {
 	patientListState: RequestState.NULL,
 	patientListPayload: [],
 	activePatientState: RequestState.NULL,
-	activePatients: {}
+	activePatients: {},
+	rejectPatientRequestState: RequestState.NULL,
+	rejectPatientErrorMessage: ""
 }
 
 const reducer = (state, action) => {
 	if (typeof state === 'undefined') state = initialState;
 	switch (action.type) {
+		case ONLOAD_DOCTOR_PATIENT_LIST: {
+			return initialState;
+		}
 		case DOCTOR_PATIENT_LIST_FETCHING:
 			return {
 				...state,
@@ -69,6 +74,25 @@ const reducer = (state, action) => {
 				activePatientState: RequestState.NULL,
 				activePatients: {}
 			}
+		case DOCTOR_REJECT_PATIENT_FETCHING: {
+			return {
+				...state,
+				rejectPatientRequestState: RequestState.FETCHING
+			}
+		}
+		case DOCTOR_REJECT_PATIENT_SUCCESS: {
+			return {
+				...state,
+				rejectPatientRequestState: RequestState.COMPLETED
+			}
+		}
+		case DOCTOR_REJECT_PATIENT_ERROR: {
+			return {
+				...state,
+				rejectPatientRequestState: RequestState.ERROR,
+				rejectPatientErrorMessage: action.errorMessage
+			}
+		}
 		default:
 			return state;
 	}
