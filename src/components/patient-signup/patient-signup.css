@@ -115,3 +115,45 @@ select {
     color: red;
     padding-bottom: 0.4rem;
 }
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+    display: none;
+    background: whitesmoke;
+    color: #000;
+    position: relative;
+    padding: 0.3rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.2rem;
+}
+
+#message p {
+    padding: 10px 35px;
+    font-size: 16px;
+}
+
+#passwordValidationPopup {
+    left: -20px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+}
+
+.valid:before {
+    position: relative;
+    left: -20px;
+    content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -20px;
+    content: "✖";
+}

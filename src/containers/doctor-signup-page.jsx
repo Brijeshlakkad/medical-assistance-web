@@ -33,7 +33,6 @@ export default function DoctorSignup(props) {
     const dispatch = useDispatch();
 
     const onSubmit = (e) => {
-        e.preventDefault();
         dispatch(signup(user, UserRole.DOCTOR));
     }
 

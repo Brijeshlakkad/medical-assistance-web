@@ -32,7 +32,6 @@ export default function PatientSignup(props) {
     const dispatch = useDispatch();
 
     const onSubmit = (e) => {
-        e.preventDefault();
         dispatch(signup(user, UserRole.PATIENT));
     }
 

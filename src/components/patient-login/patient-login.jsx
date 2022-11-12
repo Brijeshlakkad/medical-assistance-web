@@ -49,9 +49,7 @@ export function PatientLoginComponent({
                 <br />
 
                 <div className='buttons'>
-                    <button type='submit' className='loginbutton' onClick={(e) => {
-                        onClick();
-                    }}><span>Login</span></button>
+                    <button type='submit' className='loginbutton' onClick={onClick}><span>Login</span></button>
                 </div>
             </form >
             {loginState && <div className="error-message">

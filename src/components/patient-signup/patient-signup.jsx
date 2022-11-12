@@ -3,7 +3,7 @@ import { ErrorMessage } from "../elements/error-message";
 import './patient-signup.css';
 
 function showPassword() {
-    var x = document.getElementById("myInput");
+    var x = document.getElementById("myPasswordInput");
     if (x.type === "password") {
         x.type = "text";
     } else {
@@ -20,14 +20,70 @@ function showRetypePassword() {
     }
 }
 
+// When the user clicks on the password field, show the message box
+function passwordFocus() {
+    document.getElementById("message").style.display = "block";
+}
+
+// When the user clicks outside of the password field, hide the message box
+function passwordBlur() {
+    document.getElementById("message").style.display = "none";
+}
+
+function passwordKeyUp() {
+    var myPasswordInput = document.getElementById("myPasswordInput");
+    var passwordLetter = document.getElementById("passwordLetter");
+    var passwordCapital = document.getElementById("passwordCapital");
+    var passwordNumber = document.getElementById("passwordNumber");
+    var passwordLength = document.getElementById("passwordLength");
+
+    // Validate lowercase letters
+    var lowerCaseLetters = /[a-z]/g;
+    if (myPasswordInput.value.match(lowerCaseLetters)) {
+        passwordLetter.classList.remove("invalid");
+        passwordLetter.classList.add("valid");
+    } else {
+        passwordLetter.classList.remove("valid");
+        passwordLetter.classList.add("invalid");
+    }
+
+    // Validate capital letters
+    var upperCaseLetters = /[A-Z]/g;
+    if (myPasswordInput.value.match(upperCaseLetters)) {
+        passwordCapital.classList.remove("invalid");
+        passwordCapital.classList.add("valid");
+    } else {
+        passwordCapital.classList.remove("valid");
+        passwordCapital.classList.add("invalid");
+    }
+
+    // Validate numbers
+    var numbers = /[0-9]/g;
+    if (myPasswordInput.value.match(numbers)) {
+        passwordNumber.classList.remove("invalid");
+        passwordNumber.classList.add("valid");
+    } else {
+        passwordNumber.classList.remove("valid");
+        passwordNumber.classList.add("invalid");
+    }
+
+    // Validate length
+    if (myPasswordInput.value.length >= 8) {
+        passwordLength.classList.remove("invalid");
+        passwordLength.classList.add("valid");
+    } else {
+        passwordLength.classList.remove("valid");
+        passwordLength.classList.add("invalid");
+    }
+}
+
 export function PatientSignupComponent({
     user,
     onFieldChange,
     onSubmit,
     signupState,
-    errorMessage,
+    errorMessage
 }) {
-
     return (
         <>
             <div className='signup-form'>
@@ -53,16 +109,33 @@ export function PatientSignupComponent({
                         }} />
 
                     <label>Password</label>
-                    <input type='password' id='myInput' placeholder='Enter your password'
+                    <input type='password'
+                        id='myPasswordInput' placeholder='Enter your password'
+                        onFocus={passwordFocus}
+                        onBlur={passwordBlur}
+                        onKeyUp={passwordKeyUp}
                         value={user.password}
                         required={true}
                         autoComplete='true'
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+
                         onChange={(e) => {
                             onFieldChange("password", e.target.value);
-                        }} />
+                        }}
+
+                    />
                     <input type="checkbox" onClick={() => showPassword()} /><label className="show-passowrd-text">Show Password</label>
                     <br />
                     <br />
+                    <div id="message">
+                        <h3 id="passwordValidationPopup">Password must contain the following:</h3>
+                        <p id="passwordLetter" class="invalid">A <b>lowercase</b> letter</p>
+                        <p id="passwordCapital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                        <p id="passwordNumber" class="invalid">A <b>number</b></p>
+                        <p id="passwordLength" class="invalid">Minimum <b>8 characters</b></p>
+                    </div>
+
                     <label>Re-type Password</label>
                     <input type='password' id='myReTypeInput' placeholder='Re-type your password'
                         value={user.rePassword}
@@ -128,7 +201,7 @@ export function PatientSignupComponent({
                     <input type='tel' placeholder='123456789'
                         required={true}
                         autoComplete='true'
-                        pattern="[0-9]{9}"
+                        pattern='[0 - 9]{9}'
                         value={user.phoneNumber}
                         onChange={(e) => {
                             onFieldChange("phoneNumber", e.target.value);
