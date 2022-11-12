@@ -106,3 +106,8 @@ select {
     margin-top: 0.3rem;
     font-size: 1rem;
 }
+
+#errorSignupMessage {
+    color: red;
+    padding-bottom: 0.4rem;
+}

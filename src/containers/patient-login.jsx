@@ -8,27 +8,9 @@ import { RequestState, UserRole } from "../lib/types";
 import { login } from "../store/actions/user";
 import Header from "./header";
 
-function checkEmail(userEmail) {
-    var validEmailRegex = /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/
-
-    if (!userEmail.match(validEmailRegex)) {
-        return false;
-    }
-    return true;
-}
-
-function checkPasswordLength(passowrd) {
-    if (passowrd === "") {
-        return false;
-    }
-    return true;
-}
-
 export default function PatientLogin() {
     const [email, setEmail] = useState("");
-    const [emailErrorMessages, setEmailErrorMessages] = useState({});
     const [password, setPassword] = useState("");
-    const [passwordErrorMessages, setPasswordErrorMessages] = useState({});
     const dispatch = useDispatch();
 
     const loginState = useSelector(state => state.user.state);
@@ -37,30 +19,6 @@ export default function PatientLogin() {
     const navigate = useNavigate();
 
     const onClick = () => {
-        if (!checkEmail(email)) {
-            return setEmailErrorMessages({
-                ...emailErrorMessages,
-                email: "Invalid Email address :("
-            })
-        } else {
-            setEmailErrorMessages({
-                ...emailErrorMessages,
-                email: ""
-            })
-        }
-
-        if (!checkPasswordLength(password)) {
-            return setPasswordErrorMessages({
-                ...passwordErrorMessages,
-                password: "Please enter password :("
-            })
-        } else {
-            setPasswordErrorMessages({
-                ...passwordErrorMessages,
-                password: ""
-            })
-        }
-
         dispatch(login(email, password, UserRole.PATIENT));
     }
 
@@ -81,8 +39,6 @@ export default function PatientLogin() {
             onClick={onClick}
             errorMessage={errorMessage}
             loginState={loginState}
-            emailErrorMessages={emailErrorMessages}
-            passwordErrorMessages={passwordErrorMessages}
         />
         <FooterComponent></FooterComponent>
     </>

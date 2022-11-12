@@ -25,9 +25,8 @@ export function PatientSignupComponent({
     onFieldChange,
     onSubmit,
     signupState,
-    errorMessage
+    errorMessage,
 }) {
-
 
     return (
         <>
@@ -36,16 +35,17 @@ export function PatientSignupComponent({
                 <form>
                     <label>Full Name</label>
                     <input type='text' placeholder='Enter your first name'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.fullName}
                         onChange={(e) => {
                             onFieldChange("fullName", e.target.value);
                         }} />
+                    <br />
 
                     <label>Email Address</label>
                     <input type='email' placeholder='Enter your email address'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.emailAddress}
                         onChange={(e) => {
@@ -55,7 +55,7 @@ export function PatientSignupComponent({
                     <label>Password</label>
                     <input type='password' id='myInput' placeholder='Enter your password'
                         value={user.password}
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         onChange={(e) => {
                             onFieldChange("password", e.target.value);
@@ -66,7 +66,7 @@ export function PatientSignupComponent({
                     <label>Re-type Password</label>
                     <input type='password' id='myReTypeInput' placeholder='Re-type your password'
                         value={user.rePassword}
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         onChange={(e) => {
                             onFieldChange("rePassword", e.target.value);
@@ -77,7 +77,7 @@ export function PatientSignupComponent({
 
                     <label>Date of Birth</label>
                     <input type='date' placeholder='Date Of Birth' className='date-of-birth'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         max={"2004-11-01"}
                         value={user.dateOfBirth}
@@ -89,7 +89,7 @@ export function PatientSignupComponent({
                     <br></br>
                     <label>Address</label>
                     <input type='text' placeholder='House Number, Street Name'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.addressLine}
                         onChange={(e) => {
@@ -99,7 +99,7 @@ export function PatientSignupComponent({
                     <label>City</label>
                     <input type='text' placeholder='Enter your city'
                         value={user.city}
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         onChange={(e) => {
                             onFieldChange("city", e.target.value);
@@ -107,7 +107,7 @@ export function PatientSignupComponent({
 
                     <label>Province</label>
                     <select id="province" name="province"
-                        required='true'
+                        required={true}
                         value={user.province}
                         onChange={(e) => {
                             onFieldChange("province", e.target.value);
@@ -126,9 +126,9 @@ export function PatientSignupComponent({
                     <br></br>
                     <label>Phone Number</label>
                     <input type='tel' placeholder='123456789'
-                        required='true'
+                        required={true}
                         autoComplete='true'
-                        maxLength={9}
+                        pattern="[0-9]{9}"
                         value={user.phoneNumber}
                         onChange={(e) => {
                             onFieldChange("phoneNumber", e.target.value);

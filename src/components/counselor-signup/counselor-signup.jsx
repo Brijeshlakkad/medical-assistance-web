@@ -36,7 +36,7 @@ export function CounselorSignupComponent({
                 <form>
                     <label>Counselor Registration Number</label>
                     <input type='text' placeholder='Please Enter Your Registration Number'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.registrationNumber}
                         onChange={(e) => {
@@ -45,7 +45,7 @@ export function CounselorSignupComponent({
 
                     <label>Full Name</label>
                     <input type='text' placeholder='Enter your first name'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.fullName}
                         onChange={(e) => {
@@ -54,7 +54,7 @@ export function CounselorSignupComponent({
 
                     <label>Email Address</label>
                     <input type='email' placeholder='Enter your email address'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.emailAddress}
                         onChange={(e) => {
@@ -63,7 +63,7 @@ export function CounselorSignupComponent({
 
                     <label>Password</label>
                     <input type='password' id='myInput' placeholder='Enter your password'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.password}
                         onChange={(e) => {
@@ -75,7 +75,7 @@ export function CounselorSignupComponent({
 
                     <label>Re-type Password</label>
                     <input type='password' id='myReTypeInput' placeholder='Re-type your password'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.rePassword}
                         onChange={(e) => {
@@ -88,7 +88,7 @@ export function CounselorSignupComponent({
                     <label>Date of Birth</label>
                     <input type='date' placeholder='Date Of Birth'
                         max={"2004-11-01"}
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         className='date-of-birth'
                         value={user.dateOfBirth}
@@ -100,7 +100,7 @@ export function CounselorSignupComponent({
                     <br></br>
                     <label>Address</label>
                     <input type='text' placeholder='House Number, Street Name'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.addressLine}
                         onChange={(e) => {
@@ -109,7 +109,7 @@ export function CounselorSignupComponent({
 
                     <label>City</label>
                     <input type='text' placeholder='Enter your city'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.city}
                         onChange={(e) => {
@@ -118,7 +118,7 @@ export function CounselorSignupComponent({
 
                     <label>Province</label>
                     <select id="province" name="province"
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.province}
                         onChange={(e) => {
@@ -137,9 +137,9 @@ export function CounselorSignupComponent({
                     <br></br>
                     <br></br>
                     <label>Phone Number</label>
-                    <input type='text' placeholder='123456789'
-                        maxLength={9}
-                        required='true'
+                    <input type='tel' placeholder='123456789'
+                        required={true}
+                        pattern="[0-9]{9}"
                         autoComplete='true'
                         value={user.phoneNumber}
                         onChange={(e) => {

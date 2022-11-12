@@ -21,30 +21,25 @@ export function PatientLoginComponent({
     onClick,
     errorMessage,
     loginState,
-    errorMessages,
-    emailErrorMessages,
-    passwordErrorMessages
 }) {
     return (
         <div className='login-form'>
             <h2 className='h2'>LIFELINE</h2>
-            <form className='loginForm' action=''>
+            <form className='loginForm'>
                 <label>User Email</label>
                 <input type="email" placeholder='Enter your email address'
-                    required
+                    required={true}
                     className='userEmailLogin'
-                    autoComplete={true}
+                    autoComplete='true'
                     value={email}
                     onChange={(e) => {
                         setEmail(e.target.value);
                     }} />
-                {emailErrorMessages.email && <><span id='errorEmailMessage'>{emailErrorMessages.email}</span> <br /><br /></>}
-
 
                 <label>Password</label>
                 <input type="password" id='myInput' placeholder="Enter your password"
-                    required
-                    autoComplete={true}
+                    required={true}
+                    autoComplete='true'
                     value={password}
                     onChange={(e) => {
                         setPassword(e.target.value);
@@ -52,11 +47,9 @@ export function PatientLoginComponent({
                 <input type="checkbox" onClick={() => showPassword()} /><label className="show-passowrd-text">Show Password</label>
                 <br />
                 <br />
-                {passwordErrorMessages.password && <><span id='errorEmailMessage'>{passwordErrorMessages.password}</span> <br /><br /></>}
 
                 <div className='buttons'>
                     <button type='submit' className='loginbutton' onClick={(e) => {
-                        e.preventDefault();
                         onClick();
                     }}><span>Login</span></button>
                 </div>
