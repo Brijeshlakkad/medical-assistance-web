@@ -54,7 +54,7 @@ export function ViewScheduleComponent({ payload, role }) {
                             payload.content.map((record, recordIndex) => {
                                 return <tr key={`counselor-appointment-${recordIndex}`}>
                                     <td>{record.patient.fullName}</td>
-                                    <td>{record.startDateTime}</td>
+                                    <td>{`${(new Date(record.startDateTime)).toDateString()}`}</td>
                                     <td><Link className='view-file-button' to={{
                                         pathname: (
                                             role === UserRole.COUNSELOR ? PathConstants.Internal_CounselorPatientDetails :
