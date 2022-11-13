@@ -29,7 +29,7 @@ export default function CounselorLoginComponent({
             <form action=''>
                 <label>Couselor Email</label>
                 <input type="email" placeholder='Enter your email address'
-                    required='true'
+                    required={true}
                     autoComplete='true'
                     value={email}
                     onChange={(e) => {
@@ -38,7 +38,7 @@ export default function CounselorLoginComponent({
 
                 <label>Password</label>
                 <input type="password" id='myInput' placeholder="Enter your password"
-                    required='true'
+                    required={true}
                     autoComplete='true'
                     value={password}
                     onChange={(e) => {
@@ -50,7 +50,6 @@ export default function CounselorLoginComponent({
 
                 <div className='buttons'>
                     <button type='submit' className='loginbutton' onClick={(e) => {
-                        e.preventDefault();
                         onClick();
                     }}><span>Login</span></button>
                 </div>

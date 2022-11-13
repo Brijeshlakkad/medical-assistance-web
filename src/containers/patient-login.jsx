@@ -11,7 +11,6 @@ import Header from "./header";
 export default function PatientLogin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const dispatch = useDispatch();
 
     const loginState = useSelector(state => state.user.state);

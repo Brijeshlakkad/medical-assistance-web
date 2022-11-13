@@ -7,7 +7,7 @@ export default function ContactUs(props) {
     const [message, setMessage] = useState("");
 
     const onSubmit = (e) => {
-        e.preventDefault();
+
     }
 
     return <SubFooterContactUsComponent

@@ -143,6 +143,11 @@ textarea {
     resize: vertical;
 }
 
+#errorEmailMessage {
+    color: red;
+    padding-bottom: 0.4rem;
+}
+
 .error-message {
     margin-top: 85px;
 }
