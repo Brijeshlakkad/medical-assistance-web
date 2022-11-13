@@ -12,34 +12,54 @@ const getDefaultAvailableTimeslots = () => {
       defaultTimeslots.push({
         id,
         startTime: new Date(
-          new Date(
-            new Date().setDate(new Date().getDate() + id)
-          ).setHours(startHour, 0, 0, 0)
+          new Date(new Date().setDate(new Date().getDate() + id)).setHours(
+            startHour,
+            0,
+            0,
+            0
+          )
         ),
         endTime: new Date(
-          new Date(
-            new Date().setDate(new Date().getDate() + id)
-          ).setHours(startHour, 30, 0, 0)
+          new Date(new Date().setDate(new Date().getDate() + id)).setHours(
+            startHour,
+            30,
+            0,
+            0
+          )
         ),
       });
       defaultTimeslots.push({
         id,
         startTime: new Date(
-          new Date(
-            new Date().setDate(new Date().getDate() + id)
-          ).setHours(startHour, 30, 0, 0)
+          new Date(new Date().setDate(new Date().getDate() + id)).setHours(
+            startHour,
+            30,
+            0,
+            0
+          )
         ),
         endTime: new Date(
-          new Date(
-            new Date().setDate(new Date().getDate() + id)
-          ).setHours(startHour + 1, 0, 0, 0)
+          new Date(new Date().setDate(new Date().getDate() + id)).setHours(
+            startHour + 1,
+            0,
+            0,
+            0
+          )
         ),
       });
     }
   });
   return defaultTimeslots;
-}
-export function MakeAppointment({ onUpdateVisibility, onSelectDate, payload, requestState, onMakeAppointment, errorMessage }) {
+};
+export function MakeAppointment({
+  patient,
+  onUpdateVisibility,
+  onSelectDate,
+  payload,
+  requestState,
+  onMakeAppointment,
+  errorMessage,
+}) {
   let [availableTimeslots, setAvailableTimeslots] = useState([]);
 
   useEffect(() => {
@@ -50,10 +70,12 @@ export function MakeAppointment({ onUpdateVisibility, onSelectDate, payload, req
         const endTimeslot = fromUTCDate(reservedTimeslot.endDateTime);
         defaultTimeslots = defaultTimeslots.filter((availableTimeslot) => {
           // if the availableTimeslot#startTime or availableTimeslot#endTime is between reserverTimeslot, we need to skip this timeslot.
-          return !((availableTimeslot.startTime.getTime() >= startTimeslot.getTime() &&
-            availableTimeslot.startTime.getTime() < endTimeslot.getTime()) ||
+          return !(
+            (availableTimeslot.startTime.getTime() >= startTimeslot.getTime() &&
+              availableTimeslot.startTime.getTime() < endTimeslot.getTime()) ||
             (availableTimeslot.endTime.getTime() >= startTimeslot.getTime() &&
-              availableTimeslot.endTime.getTime() < endTimeslot.getTime()));
+              availableTimeslot.endTime.getTime() < endTimeslot.getTime())
+          );
         });
       });
 
@@ -66,7 +88,7 @@ export function MakeAppointment({ onUpdateVisibility, onSelectDate, payload, req
       <div className="modal-content">
         <div className="modal-heading">
           <div className="patient-id">
-            Schedule appointment for Patient Name
+            Schedule appointment for {patient.fullName}
           </div>
           <div className="close" onClick={() => onUpdateVisibility(false)}>
             &times;
@@ -81,8 +103,10 @@ export function MakeAppointment({ onUpdateVisibility, onSelectDate, payload, req
           // Language props
           onStartTimeSelect={({ availableTimeslot }) => {
             onUpdateVisibility(false);
-            onMakeAppointment(availableTimeslot)
-            alert("Your appointment with Patient Name has been confirmed");
+            onMakeAppointment(availableTimeslot);
+            alert(
+              `Your appointment with ${patient.fullName} has been confirmed`
+            );
           }}
           lang_cancelButtonText="Cancel"
           lang_confirmButtonText="Confirm"
@@ -97,6 +121,7 @@ export function MakeAppointment({ onUpdateVisibility, onSelectDate, payload, req
         />
       </div>
     </div>
-  ) :
+  ) : (
     <LoadingComponent />
+  );
 }
