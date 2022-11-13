@@ -88,7 +88,10 @@ export function PatientSignupComponent({
         <>
             <div className='signup-form'>
                 <h2 className='h2'>LIFELINE</h2>
-                <form>
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    onSubmit();
+                }}>
                     <label>Full Name</label>
                     <input type='text' placeholder='Enter your first name'
                         required={true}
@@ -201,16 +204,18 @@ export function PatientSignupComponent({
                     <input type='tel' placeholder='123456789'
                         required={true}
                         autoComplete='true'
-                        pattern='[0 - 9]{9}'
+                        pattern='[0-9]{10}'
                         value={user.phoneNumber}
                         onChange={(e) => {
                             onFieldChange("phoneNumber", e.target.value);
                         }} />
 
                     <span>By creating an account, you agree to our <a href="#/">Terms & Privacy</a> </span>
-                    <div>
-                        <button type='submit' className='signupbutton' onClick={onSubmit}><span>Sign Up</span></button>
-                    </div>
+
+                    <br />
+                    <br />
+                    <input type='submit' className="user-signup-button" value='Signup'></input>
+
                     {signupState && <div className="error-message">
                         <ErrorMessage>
                             {errorMessage}

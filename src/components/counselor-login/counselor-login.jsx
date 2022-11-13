@@ -26,7 +26,10 @@ export default function CounselorLoginComponent({
     return (
         <div className='login-form'>
             <h2 className='h2'>LIFELINE</h2>
-            <form action=''>
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                onClick();
+            }}>
                 <label>Couselor Email</label>
                 <input type="email" placeholder='Enter your email address'
                     required={true}
@@ -48,11 +51,7 @@ export default function CounselorLoginComponent({
                 <br />
                 <br />
 
-                <div className='buttons'>
-                    <button type='submit' className='loginbutton' onClick={(e) => {
-                        onClick();
-                    }}><span>Login</span></button>
-                </div>
+                <input type="submit" className='user-login-button' value='Login'></input>
             </form>
             {loginState && <div className="error-message">
                 <ErrorMessage>

@@ -40,7 +40,7 @@ export function SubFooterContactUsComponent({
                     ></textarea>
                 </div>
                 <br />
-                <input type="submit" className="btn btn-primary" onClick={onSubmit} />
+                <input type="submit" className="btn btn-primary contact-us-submit-button" onClick={onSubmit} />
             </form>
         </div>
     )
