@@ -2,9 +2,16 @@ import React from 'react';
 import { ProgressBar, Step } from "react-step-progress-bar";
 import "react-step-progress-bar/styles.css";
 import { PatientRecordStatus } from '../../lib/types';
-import counselorImage from "./images/counselor.png";
-import doctorImage from "./images/doctor.png";
-import patientImage from "./images/patient.png";
+// import counselorImage from "./images/counselor.png";
+// import doctorImage from "./images/doctor.png";
+// import patientImage from "./images/patient.png";
+import OneImage from "./images/1.jpg";
+import TwoImage from "./images/2.jpg";
+import ThreeImage from "./images/3.jpg";
+import FourImage from "./images/4.jpg";
+import FiveImage from "./images/5.jpg";
+
+
 import './patient-status.css';
 
 function ImCross(props) {
@@ -54,19 +61,29 @@ export const PatientStatus = ({ payload }) => {
 
     return (
         <div className='status-container'>
-            <div className="status-card">
-                <img src={patientImage} alt="" />
+            <h1>Patient Status</h1>
+            <div className='card-container'>
+                <div className="status-card">
+                    <img src={OneImage} alt="" />
+                </div>
+                <div className="status-card">
+                    <img src={TwoImage} alt="" />
+                </div>
+                <div className="status-card">
+                    <img src={ThreeImage} alt="" />
+                </div>
+                <div className="status-card">
+                    <img src={FourImage} alt="" />
+                </div>
+                <div className="status-card">
+                    <img src={FiveImage} alt="" />
+                </div>
             </div>
-            <div className="status-card">
-                <img src={counselorImage} alt="" />
-            </div>
-            <div className="status-card">
-                <img src={doctorImage} alt="" />
-            </div>
+            
             <ProgressBar
                 percent={steps[payload.patientRecordStatus]}
                 filledBackground={rejected ? "#dc3545" : "#198754"}
-                height="30px"
+                height="20px"
                 stepPositions={[0, 25, 37.5, 50, 75, 87.5, 100]}
             >
                 <Step>
@@ -136,6 +153,7 @@ export const PatientStatus = ({ payload }) => {
             <div className="status-jumbotron">
                 <h2>{STATUS_ACCEPT[payload.patientRecordStatus]}</h2>
             </div>
+            <div className="extra"></div>
         </div>
     )
 }
