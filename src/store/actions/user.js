@@ -1,7 +1,7 @@
 import { PLEASE_TRY_AGAIN } from "../../lib/messages";
 import request from "../../lib/request";
 import { UserRole } from "../../lib/types";
-import { USER_LOGIN_SIGNUP_ERROR, USER_LOGIN_SIGNUP_FETCHING, USER_LOGIN_SIGNUP_SUCCESS, USER_LOGOUT } from "../types";
+import { ONLOAD_LOGIN_SIGNUP_PAGE, USER_LOGIN_SIGNUP_ERROR, USER_LOGIN_SIGNUP_FETCHING, USER_LOGIN_SIGNUP_SUCCESS, USER_LOGOUT } from "../types";
 
 const LOGIN_APIS = {
     [UserRole.PATIENT]: `patient/login`,
@@ -91,5 +91,12 @@ export const setUser = (user, role) => (dispatch) => {
         type: USER_LOGIN_SIGNUP_SUCCESS,
         user: user,
         role: role
+    })
+}
+
+
+export const onLoadUserLoginSignupPage = () => (dispatch) => {
+    dispatch({
+        type: ONLOAD_LOGIN_SIGNUP_PAGE
     })
 }

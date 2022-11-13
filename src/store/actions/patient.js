@@ -1,6 +1,7 @@
 import { SOMETHING_WENT_WRONG } from "../../lib/messages";
 import request from "../../lib/request";
 import {
+    ONLOAD_PATIENT_ASSESSMENT_PAGE,
     PATIENT_ASSESSMENT_QUESTIONS_ERROR, PATIENT_ASSESSMENT_QUESTIONS_SUCCESS, PATIENT_ASSESSMENT_SUBMIT_ERROR, PATIENT_ASSESSMENT_SUBMIT_FETCHING, PATIENT_ASSESSMENT_SUBMIT_SUCCESS, PATIENT_RECORD_STATUS_ERROR, PATIENT_RECORD_STATUS_FETCHING, PATIENT_RECORD_STATUS_SUCCESS
 } from "../types";
 
@@ -62,7 +63,7 @@ export const submitAssessmentQuestions = (attemptedQuestions) => async (dispatch
             // handle error.
             dispatch({
                 type: PATIENT_ASSESSMENT_SUBMIT_ERROR,
-                errorMessage: exception.errorMessage
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -94,4 +95,10 @@ export const fetchPatientRecordStatus = () => async (dispatch) => {
                 errorMessage: exception.errorMessage
             });
         });
+}
+
+export const onLoadPatientAssessmentPage = () => (dispatch) => {
+    dispatch({
+        type: ONLOAD_PATIENT_ASSESSMENT_PAGE
+    })
 }
