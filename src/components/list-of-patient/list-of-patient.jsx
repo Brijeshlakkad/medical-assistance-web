@@ -11,6 +11,7 @@ import { RejectModal } from "../reject-modal/reject-modal";
 import { PaginationComponent } from "../pagination/pagination";
 import "./list-of-patient.css";
 import { useCallback } from "react";
+import { toReadableDateFormat } from "../../lib/time-util";
 
 const Button = styled.div`
   position: relative;
@@ -74,7 +75,7 @@ const Button = styled.div`
 const Table = styled.table`
   padding: 10px;
   width: 100%;
-  text-align: left;
+  text-align: center;
   border-radius: 2px 2px 0 0;
   border-collapse: separate;
   border-spacing: 0;
@@ -159,7 +160,7 @@ export default function ListOfPatient({
       title: "Submission Date",
       key: "assessmentCreatedAt",
       getValue: (row, index) => {
-        return `${new Date(row["assessmentCreatedAt"]).toDateString()}`;
+        return `${toReadableDateFormat(row["assessmentCreatedAt"])}`;
       },
     },
     {
@@ -238,7 +239,7 @@ export default function ListOfPatient({
       key: "assessmentCreatedAt",
       align: "assessmentCreatedAt",
       getValue: (row, index) => {
-        return `${new Date(row["assessmentCreatedAt"]).toDateString()}`;
+        return `${toReadableDateFormat(row["assessmentCreatedAt"])}`;
       },
     },
     {

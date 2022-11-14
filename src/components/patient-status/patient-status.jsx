@@ -1,6 +1,7 @@
 import React from "react";
 import { ProgressBar, Step } from "react-step-progress-bar";
 import "react-step-progress-bar/styles.css";
+import { toReadableDateFormat } from "../../lib/time-util";
 import { PatientRecordStatus } from "../../lib/types";
 // import counselorImage from "./images/counselor.png";
 // import doctorImage from "./images/doctor.png";
@@ -37,12 +38,12 @@ export const PatientStatus = ({ payload }) => {
   const STATUS_ACCEPT = {
     [PatientRecordStatus.NULL]: "Please take the assessment to get started!",
     [PatientRecordStatus.COUNSELOR_IN_PROGRESS]:
-      "Your file is under review by the counsellor.", // reject or accept
+      "Your file is under review by the counselor.", // reject or accept
     [PatientRecordStatus.COUNSELOR_REJECTED]:
-      "The counsellor has rejected your file. Please fill out the form again if you want to restart the process.",
+      "The counselor has rejected your file. Please fill out the form again if you want to restart the process.",
     [PatientRecordStatus.COUNSELOR_APPOINTMENT]:
-      "Your appointment with the counsellor has been scheduled on " +
-      payload.startDateTime +
+      "Your appointment with the counselor has been scheduled on " +
+      toReadableDateFormat(payload.startDateTime) +
       ".",
     [PatientRecordStatus.DOCTOR_IN_PROGRESS]:
       "Your file has been forwarded to a doctor for review.", // reject or appoinment
@@ -50,7 +51,7 @@ export const PatientStatus = ({ payload }) => {
       "The doctor has rejected your file. Please fill out the form again if you want to restart the process.",
     [PatientRecordStatus.DOCTOR_APPOINTMENT]:
       "Your appointment with the doctor has been scheduled on " +
-      payload.startDateTime +
+      toReadableDateFormat(payload.startDateTime) +
       ".",
   };
 
@@ -182,7 +183,7 @@ export const PatientStatus = ({ payload }) => {
           <h2>{STATUS_ACCEPT[payload.patientRecordStatus]}</h2>
         </div>
       </div>
-      {/* <div className="extra"></div> */}
+      <div className="extra"></div>
     </div>
   );
 };
