@@ -2,6 +2,7 @@ import { SOMETHING_WENT_WRONG } from "../../lib/messages";
 import request from "../../lib/request";
 import {
     ONLOAD_PATIENT_ASSESSMENT_PAGE,
+    ONLOAD_PATIENT_STATUS_PAGE,
     PATIENT_ASSESSMENT_QUESTIONS_ERROR, PATIENT_ASSESSMENT_QUESTIONS_SUCCESS, PATIENT_ASSESSMENT_SUBMIT_ERROR, PATIENT_ASSESSMENT_SUBMIT_FETCHING, PATIENT_ASSESSMENT_SUBMIT_SUCCESS, PATIENT_RECORD_STATUS_ERROR, PATIENT_RECORD_STATUS_FETCHING, PATIENT_RECORD_STATUS_SUCCESS
 } from "../types";
 
@@ -100,5 +101,11 @@ export const fetchPatientRecordStatus = () => async (dispatch) => {
 export const onLoadPatientAssessmentPage = () => (dispatch) => {
     dispatch({
         type: ONLOAD_PATIENT_ASSESSMENT_PAGE
+    })
+}
+
+export const onLoadPatientStatusPage = () => (dispatch) => {
+    dispatch({
+        type: ONLOAD_PATIENT_STATUS_PAGE
     })
 }
