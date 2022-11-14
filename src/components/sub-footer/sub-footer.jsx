@@ -21,27 +21,27 @@ export function SubFooterComponent() {
                     <br />
                     <strong>Email us at:</strong> <a href="mailto:help@lifeline.ca">help@lifeline.ca</a>
                     <h5 id='followUsText'>Follow us on</h5>
-                    <Link to={{ pathname: 'https://www.instagram.com/' }} target="_blank" >
+                    <a href='https://www.facebook.com/' target="_blank" >
                         <FontAwesomeIcon className='socialMediaIcons' icon={faFacebook} ></FontAwesomeIcon>
-                    </Link>
-                    <Link >
+                    </a>
+                    <a href='https://www.instagram.com/' target="_blank">
                         <FontAwesomeIcon id='instagramCSS' className='socialMediaIcons' icon={faInstagram} ></FontAwesomeIcon>
-                    </Link>
-                    <Link >
+                    </a>
+                    <a href='https://www.linkedin.com/' target="_blank">
                         <FontAwesomeIcon id='linkedinCSS' className='socialMediaIcons' icon={faLinkedin} ></FontAwesomeIcon>
-                    </Link>
-                    <Link >
+                    </a>
+                    <a href='https://www.twitter.com/' target="_blank" >
                         <FontAwesomeIcon className='socialMediaIcons' icon={faTwitter} ></FontAwesomeIcon>
-                    </Link>
-                    <Link >
+                    </a>
+                    <a href='https://wa.me/+19999999999' target="_blank" >
                         <FontAwesomeIcon id='whatsappCSS' className='socialMediaIcons' icon={faWhatsapp} ></FontAwesomeIcon>
-                    </Link>
-                    <Link >
+                    </a>
+                    <a href='https://www.telegram.com/' target="_blank" >
                         <FontAwesomeIcon id='telegramCSS' className='socialMediaIcons' icon={faTelegram} ></FontAwesomeIcon>
-                    </Link>
-                    <Link >
+                    </a>
+                    <a href='https://www.discord.com/' target="_blank" >
                         <FontAwesomeIcon id='discordCSS' className='socialMediaIcons' icon={faDiscord} ></FontAwesomeIcon>
-                    </Link>
+                    </a>
                 </div>
                 <div className='col-1'>
                     <ContactUs></ContactUs>
