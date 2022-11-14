@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MakeAppointment } from "../components/make-appointment/make-appointment";
-import { toUTCDate, toUTCDateTime } from "../lib/time-util";
+import { toUTCDateTime } from "../lib/time-util";
 import { RequestState } from "../lib/types";
 import {
   fetchAppointmentsForDate,
-  makeAppointment,
+  makeAppointment
 } from "../store/actions/counselor-appointments";
 
 export default function CounselorMakeAppointment({
@@ -13,22 +13,21 @@ export default function CounselorMakeAppointment({
   patientRecordId,
   onUpdateVisibility,
 }) {
-  const [date, setDate] = useState(toUTCDate());
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const onSelectDate = (date) => {
     dispatch(fetchAppointmentsForDate(date));
-  }, [dispatch, date]);
+  };
 
-  const requestState = useSelector((state) =>
-    state.counselorAppointments.appointmentsForDate[date]
-      ? state.counselorAppointments.appointmentsForDate[date].state
-      : RequestState.NULL
-  );
+  useEffect(() => {
+    dispatch(fetchAppointmentsForDate(toUTCDateTime(new Date())));
+  }, [dispatch]);
+
+  const requestState = useSelector((state) => state.counselorAppointments.appointment.state);
 
   const payload = useSelector((state) =>
     requestState === RequestState.COMPLETED
-      ? state.counselorAppointments.appointmentsForDate[date].payload
+      ? state.counselorAppointments.appointment.payload
       : null
   );
 
@@ -46,7 +45,7 @@ export default function CounselorMakeAppointment({
     <MakeAppointment
       patient={patient}
       onUpdateVisibility={onUpdateVisibility}
-      onSelectDate={setDate}
+      onSelectDate={onSelectDate}
       payload={payload}
       requestState={requestState}
       onMakeAppointment={onMakeAppointment}

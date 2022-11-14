@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { ScheduleMeeting } from "react-schedule-meeting";
 import { fromUTCDate, toUTCDate } from "../../lib/time-util";
 import { RequestState } from "../../lib/types";
-import { LoadingComponent } from "../loading/loading";
 import "./make-appointment.css";
 
 const getDefaultAvailableTimeslots = () => {
@@ -73,7 +72,7 @@ export function MakeAppointment({
           return !(
             (availableTimeslot.startTime.getTime() >= startTimeslot.getTime() &&
               availableTimeslot.startTime.getTime() < endTimeslot.getTime()) ||
-            (availableTimeslot.endTime.getTime() >= startTimeslot.getTime() &&
+            (availableTimeslot.endTime.getTime() > startTimeslot.getTime() &&
               availableTimeslot.endTime.getTime() < endTimeslot.getTime())
           );
         });
@@ -83,7 +82,7 @@ export function MakeAppointment({
     }
   }, [setAvailableTimeslots, requestState, payload]);
 
-  return requestState === RequestState.COMPLETED ? (
+  return (
     <div className="modal-appointment">
       <div className="modal-content">
         <div className="modal-heading">
@@ -121,7 +120,5 @@ export function MakeAppointment({
         />
       </div>
     </div>
-  ) : (
-    <LoadingComponent />
   );
 }

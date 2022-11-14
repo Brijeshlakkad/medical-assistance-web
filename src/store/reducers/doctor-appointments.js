@@ -5,8 +5,7 @@ const initialState = {
 	state: RequestState.NULL,
 	payload: {},
 	errorMessage: "",
-	appointmentsForDate: {},
-	appointmentRequests: {}
+	appointment: { state: RequestState.NULL }
 }
 
 const reducer = (state, action) => {
@@ -31,35 +30,29 @@ const reducer = (state, action) => {
 				errorMessage: action.errorMessage
 			}
 		case DOCTOR_APPOINTMENTS_FOR_DATE_FETCHING: {
-			const appointmentsForDate = state.appointmentsForDate;
-			appointmentsForDate[action.date] = {
-				state: RequestState.FETCHING
-			}
 			return {
 				...state,
-				appointmentsForDate
+				appointment: {
+					state: RequestState.FETCHING
+				}
 			}
 		}
 		case DOCTOR_APPOINTMENTS_FOR_DATE_SUCCESS: {
-			const appointmentsForDate = state.appointmentsForDate;
-			appointmentsForDate[action.date] = {
-				state: RequestState.COMPLETED,
-				payload: action.payload
-			}
 			return {
 				...state,
-				appointmentsForDate
+				appointment: {
+					state: RequestState.COMPLETED,
+					payload: action.payload
+				}
 			}
 		}
 		case DOCTOR_APPOINTMENTS_FOR_DATE_ERROR: {
-			const appointmentsForDate = state.appointmentsForDate;
-			appointmentsForDate[action.date] = {
-				state: RequestState.ERROR,
-				errorMessage: action.errorMessage
-			}
 			return {
 				...state,
-				appointmentsForDate
+				appointment: {
+					state: RequestState.ERROR,
+					errorMessage: action.errorMessage
+				}
 			}
 		}
 		case DOCTOR_MAKE_APPOINTMENT_FETCHING: {
