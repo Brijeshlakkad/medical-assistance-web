@@ -1,22 +1,22 @@
-.aform-container{
+.aform-container {
     width: 100%;
     height: auto;
     padding-top: 10px;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom:1000px;
+    margin-bottom: 1000px;
     overflow-x: hidden;
     /* background-color: gray;  */
     max-width: 1072px;
     justify-content: center;
     align-items: center;
-    
+
 }
 
-.radio-group{
+.radio-group {
     margin-left: auto;
-    margin-right: auto; 
+    margin-right: auto;
     margin-top: 30px;
     width: 60%;
     align-items: center;
@@ -24,15 +24,15 @@
     margin-bottom: 20px;
 }
 
-.radio-button{
+.radio-button {
     width: 60%;
     margin-bottom: 20px;
 }
 
-.assessment-question{
+.assessment-question {
     text-align: justify;
     width: 60%;
-    margin-top:20px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     justify-self: center;
@@ -43,7 +43,7 @@
     justify-content: center;
 }
 
-.submit-button-container button{
+.submit-button-container button {
     margin-bottom: 70px;
     border-width: 2px;
     border-color: hsla(210, 100%, 56%, 1);
@@ -54,15 +54,15 @@
     padding: 10px 10px;
 }
 
-.question-count{
+.question-count {
     width: 70%;
     margin-top: 20px;
-    margin-left: auto; 
-    margin-right: auto; 
+    margin-left: auto;
+    margin-right: auto;
     font-size: 16px;
 }
 
-.odd{
+.odd {
     background-color: #f2f2f2;
     width: 100%;
 }
@@ -73,4 +73,9 @@
 
 .space {
     width: 10px;
+}
+
+.assessment-form-heading {
+    text-align: center;
+    font-size: 40px;
 }

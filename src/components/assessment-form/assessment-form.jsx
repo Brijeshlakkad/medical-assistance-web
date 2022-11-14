@@ -24,7 +24,8 @@ export default function AssessmentForm({ questions, onAttempt, onSubmit, questio
             )
         })
     }
-    return  <div className='aform-container'>
+    return <div className='aform-container'>
+        <h2 className='assessment-form-heading'>Assessment Form</h2>
         <QuestionList questions={questions} />
         {
             questionSubmitState === RequestState.COMPLETED && <SucessMessage>Your assessment submitted successfully!</SucessMessage>
@@ -37,7 +38,7 @@ export default function AssessmentForm({ questions, onAttempt, onSubmit, questio
         }
         <br />
         <div className='submit-button-container'>
-            <button type="primary" onClick={(e)=>{
+            <button type="primary" onClick={(e) => {
                 e.preventDefault();
                 onSubmit(e);
             }}>Submit</button>
