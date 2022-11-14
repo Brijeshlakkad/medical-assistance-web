@@ -16,6 +16,7 @@ const reducer = (state, action) => {
 		case ONLOAD_PATIENT_ASSESSMENT_PAGE:
 			return {
 				...state,
+				questionSubmitState: RequestState.NULL,
 				errorMessage: ""
 			}
 		case ONLOAD_PATIENT_STATUS_PAGE:
