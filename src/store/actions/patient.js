@@ -37,13 +37,10 @@ export const getAssessmentQuestions = () => async (dispatch) => {
 export const submitAssessmentQuestions =
   (attemptedQuestions) => async (dispatch) => {
     const url = `patient/assessment/${ASSETMENT_ID}`;
-    if (!attemptedQuestions || attemptedQuestions.length < 10) {
-      console.log(attemptedQuestions);
+    if (!attemptedQuestions || !attemptedQuestions.length) {
       dispatch({
         type: PATIENT_ASSESSMENT_SUBMIT_ERROR,
-        errorMessage: !attemptedQuestions.length
-          ? "You have not attempted any questions!"
-          : "You have not attempted all questions!",
+        errorMessage: "You have not attempted any questions!"
       });
       return;
     }
@@ -103,13 +100,13 @@ export const fetchPatientRecordStatus = () => async (dispatch) => {
 };
 
 export const onLoadPatientAssessmentPage = () => (dispatch) => {
-    dispatch({
-        type: ONLOAD_PATIENT_ASSESSMENT_PAGE
-    })
+  dispatch({
+    type: ONLOAD_PATIENT_ASSESSMENT_PAGE
+  })
 }
 
 export const onLoadPatientStatusPage = () => (dispatch) => {
-    dispatch({
-        type: ONLOAD_PATIENT_STATUS_PAGE
-    })
+  dispatch({
+    type: ONLOAD_PATIENT_STATUS_PAGE
+  })
 }
