@@ -4,6 +4,9 @@
     margin: 0 auto;
     margin-top: 40px;
 }
+.status-container .extra{
+    height: 3rem;
+}
 .status-heading{
     text-align: center;
     size: 40px;
