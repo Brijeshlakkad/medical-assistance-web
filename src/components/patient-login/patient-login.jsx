@@ -64,6 +64,6 @@ export function PatientLoginComponent({
                 <br />
                 <Link relative="path" to={PathConstants.PatientSignup} className='signup-link'>Sign Up</Link>
             </div>
-        </div >
+        </div>
     )
 }

@@ -7,7 +7,7 @@ import { PrepareMessage } from '../elements/prepare-message';
 import { SucessMessage } from '../elements/success-message';
 import './assessment-form.css';
 
-export default function AssessmentForm({ questionsState, questions, onAttempt, onSubmit, questionSubmitState, errorMessage }) {
+export default function AssessmentForm({ questions, onAttempt, onSubmit, questionSubmitState, errorMessage }) {
 
     const QuestionList = ({ questions }) => {
         return questions.map((questionRecord, index) => {
@@ -24,7 +24,7 @@ export default function AssessmentForm({ questionsState, questions, onAttempt, o
             )
         })
     }
-    return questionsState === RequestState.COMPLETED ? <div className='aform-container'>
+    return  <div className='aform-container'>
         <QuestionList questions={questions} />
         {
             questionSubmitState === RequestState.COMPLETED && <SucessMessage>Your assessment submitted successfully!</SucessMessage>
@@ -37,9 +37,10 @@ export default function AssessmentForm({ questionsState, questions, onAttempt, o
         }
         <br />
         <div className='submit-button-container'>
-            <button type="primary" onClick={onSubmit}>Submit</button>
+            <button type="primary" onClick={(e)=>{
+                e.preventDefault();
+                onSubmit(e);
+            }}>Submit</button>
         </div>
-    </div> : <div>
-
     </div>
 }

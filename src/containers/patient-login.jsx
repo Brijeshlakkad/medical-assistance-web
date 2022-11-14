@@ -5,7 +5,7 @@ import FooterComponent from "../components/footer/footer";
 import { PatientLoginComponent } from "../components/patient-login/patient-login";
 import { PathConstants } from "../lib/path-constants";
 import { RequestState, UserRole } from "../lib/types";
-import { login } from "../store/actions/user";
+import { login, onLoadUserLoginSignupPage } from "../store/actions/user";
 import Header from "./header";
 
 export default function PatientLogin() {
@@ -17,6 +17,10 @@ export default function PatientLogin() {
     const errorMessage = useSelector(state => state.user.errorMessage);
 
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        dispatch(onLoadUserLoginSignupPage());
+    }, [dispatch]);
 
     const onClick = () => {
         dispatch(login(email, password, UserRole.PATIENT));

@@ -1,9 +1,11 @@
 import { RequestState, UserRole } from "../../lib/types";
-import { USER_LOGIN_SIGNUP_ERROR, USER_LOGIN_SIGNUP_FETCHING, USER_LOGIN_SIGNUP_SUCCESS, USER_LOGOUT } from "../types";
+import { ONLOAD_LOGIN_SIGNUP_PAGE, USER_LOGIN_SIGNUP_ERROR, USER_LOGIN_SIGNUP_FETCHING, USER_LOGIN_SIGNUP_SUCCESS, USER_LOGOUT } from "../types";
 
 const initialState = {
 	state: RequestState.NULL,
-	role: UserRole.NULL
+	role: UserRole.NULL,
+	loginErrorMessage: "",
+	signupErrorMessage: ""
 }
 
 const reducer = (state, action) => {
@@ -33,6 +35,11 @@ const reducer = (state, action) => {
 			}
 		case USER_LOGOUT:
 			return initialState;
+		case ONLOAD_LOGIN_SIGNUP_PAGE:
+			return {
+				...state,
+				errorMessage: ""
+			}
 		default:
 			return state;
 	}

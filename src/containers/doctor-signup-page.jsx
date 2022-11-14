@@ -5,7 +5,7 @@ import { DoctorSignupComponent } from "../components/doctor-signup/doctor-signup
 import FooterComponent from "../components/footer/footer";
 import { PathConstants } from "../lib/path-constants";
 import { RequestState, UserRole } from "../lib/types";
-import { signup } from "../store/actions/user";
+import { onLoadUserLoginSignupPage, signup } from "../store/actions/user";
 import Header from "./header";
 
 export default function DoctorSignup(props) {
@@ -31,6 +31,10 @@ export default function DoctorSignup(props) {
     }
 
     const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(onLoadUserLoginSignupPage());
+    }, [dispatch]);
 
     const onSubmit = (e) => {
         dispatch(signup(user, UserRole.DOCTOR));

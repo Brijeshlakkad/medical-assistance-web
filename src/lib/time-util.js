@@ -17,7 +17,7 @@ export function toUTCDate(date = new Date()) {
  * @param {Date} date 
  * @returns UTC Date in JSON string format.
  */
- export function toUTCDateTime(date = new Date()) {
+export function toUTCDateTime(date = new Date()) {
     date = new Date(date);
     date = new Date(Date.UTC(
         date.getUTCFullYear(),
@@ -35,7 +35,20 @@ export function toUTCDate(date = new Date()) {
  * @param {Date} date 
  * @returns Date in UTC string format.
  */
- export function fromUTCDate(date = new Date()) {
+export function fromUTCDate(date = new Date()) {
     date = new Date(date);
     return new Date((date.getTime() + (new Date()).getTimezoneOffset() * 60000));
+}
+
+// Date time format function for showing time and date of scheduled appointment to the counselor or doctor.
+export function toReadableDateFormat(receviedAppointmentDateTime) {
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const appointmentDateTime = fromUTCDate(receviedAppointmentDateTime);
+
+    const month = appointmentDateTime.getMonth();
+    const day = parseInt(appointmentDateTime.getDay() - 1);
+
+    const finalDateTime = days[day] + ", " + appointmentDateTime.getDate() + " " + months[month] + " " + appointmentDateTime.getFullYear() + ", " + appointmentDateTime.toLocaleTimeString();
+    return finalDateTime;
 }

@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import FooterComponent from '../components/footer/footer'
-import CounselorLoginComponent from '../components/counselor-login/counselor-login'
-import Header from './header'
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../store/actions/user';
-import { RequestState, UserRole } from '../lib/types';
+import CounselorLoginComponent from '../components/counselor-login/counselor-login';
+import FooterComponent from '../components/footer/footer';
 import { PathConstants } from '../lib/path-constants';
+import { RequestState, UserRole } from '../lib/types';
+import { login, onLoadUserLoginSignupPage } from '../store/actions/user';
+import Header from './header';
 
 export default function CounselorLogin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(onLoadUserLoginSignupPage());
+    }, [dispatch]);
 
     const loginState = useSelector(state => state.user.state);
     const errorMessage = useSelector(state => state.user.errorMessage);
