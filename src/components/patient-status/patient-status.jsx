@@ -38,11 +38,11 @@ export const PatientStatus = ({ payload }) => {
   const STATUS_ACCEPT = {
     [PatientRecordStatus.NULL]: "Please take the assessment to get started!",
     [PatientRecordStatus.COUNSELOR_IN_PROGRESS]:
-      "Your file is under review by the counsellor.", // reject or accept
+      "Your file is under review by the counselor.", // reject or accept
     [PatientRecordStatus.COUNSELOR_REJECTED]:
-      "The counsellor has rejected your file. Please fill out the form again if you want to restart the process.",
+      "The counselor has rejected your file. Please fill out the form again if you want to restart the process.",
     [PatientRecordStatus.COUNSELOR_APPOINTMENT]:
-      "Your appointment with the counsellor has been scheduled on " +
+      "Your appointment with the counselor has been scheduled on " +
       toReadableDateFormat(payload.startDateTime) +
       ".",
     [PatientRecordStatus.DOCTOR_IN_PROGRESS]:
