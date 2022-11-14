@@ -14,8 +14,8 @@ export const PathConstants = {
   CounselorHome: "/counselor/home",
   CounselorLOP: "/counselor/patients",
   CounselorSchedule: "/counselor/view-schedule",
-  CounselorToDoctor:"/counselor/doctors/:patientId",
-  Internal_CounselorToDoctor:"/counselor/doctors/",
+  CounselorToDoctor: "/counselor/doctors/:patientId",
+  Internal_CounselorToDoctor: "/counselor/doctors/",
   CounselorPatientDetails: "/counselor/patient/:patientId",
   Internal_CounselorPatientDetails: "/counselor/patient/",
 
@@ -27,4 +27,7 @@ export const PathConstants = {
   DoctorSchedule: "/doctor/view-schedule",
   DoctorPatientDetails: "/doctor/patient/:patientId",
   Internal_DoctorPatientDetails: "/doctor/patient/",
+
+  /* Social Media Links */
+  Instagram: "../../https://www.instagram.com/"
 };

@@ -3,7 +3,7 @@ import { ErrorMessage } from "../elements/error-message";
 import './patient-signup.css';
 
 function showPassword() {
-    var x = document.getElementById("myInput");
+    var x = document.getElementById("myPasswordInput");
     if (x.type === "password") {
         x.type = "text";
     } else {
@@ -20,6 +20,63 @@ function showRetypePassword() {
     }
 }
 
+// When the user clicks on the password field, show the message box
+function passwordFocus() {
+    document.getElementById("message").style.display = "block";
+}
+
+// When the user clicks outside of the password field, hide the message box
+function passwordBlur() {
+    document.getElementById("message").style.display = "none";
+}
+
+function passwordKeyUp() {
+    var myPasswordInput = document.getElementById("myPasswordInput");
+    var passwordLetter = document.getElementById("passwordLetter");
+    var passwordCapital = document.getElementById("passwordCapital");
+    var passwordNumber = document.getElementById("passwordNumber");
+    var passwordLength = document.getElementById("passwordLength");
+
+    // Validate lowercase letters
+    var lowerCaseLetters = /[a-z]/g;
+    if (myPasswordInput.value.match(lowerCaseLetters)) {
+        passwordLetter.classList.remove("invalid");
+        passwordLetter.classList.add("valid");
+    } else {
+        passwordLetter.classList.remove("valid");
+        passwordLetter.classList.add("invalid");
+    }
+
+    // Validate capital letters
+    var upperCaseLetters = /[A-Z]/g;
+    if (myPasswordInput.value.match(upperCaseLetters)) {
+        passwordCapital.classList.remove("invalid");
+        passwordCapital.classList.add("valid");
+    } else {
+        passwordCapital.classList.remove("valid");
+        passwordCapital.classList.add("invalid");
+    }
+
+    // Validate numbers
+    var numbers = /[0-9]/g;
+    if (myPasswordInput.value.match(numbers)) {
+        passwordNumber.classList.remove("invalid");
+        passwordNumber.classList.add("valid");
+    } else {
+        passwordNumber.classList.remove("valid");
+        passwordNumber.classList.add("invalid");
+    }
+
+    // Validate length
+    if (myPasswordInput.value.length >= 8) {
+        passwordLength.classList.remove("invalid");
+        passwordLength.classList.add("valid");
+    } else {
+        passwordLength.classList.remove("valid");
+        passwordLength.classList.add("invalid");
+    }
+}
+
 export function PatientSignupComponent({
     user,
     onFieldChange,
@@ -27,25 +84,27 @@ export function PatientSignupComponent({
     signupState,
     errorMessage
 }) {
-
-
     return (
         <>
             <div className='signup-form'>
                 <h2 className='h2'>LIFELINE</h2>
-                <form>
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    onSubmit();
+                }}>
                     <label>Full Name</label>
                     <input type='text' placeholder='Enter your first name'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.fullName}
                         onChange={(e) => {
                             onFieldChange("fullName", e.target.value);
                         }} />
+                    <br />
 
                     <label>Email Address</label>
                     <input type='email' placeholder='Enter your email address'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.emailAddress}
                         onChange={(e) => {
@@ -53,20 +112,37 @@ export function PatientSignupComponent({
                         }} />
 
                     <label>Password</label>
-                    <input type='password' id='myInput' placeholder='Enter your password'
+                    <input type='password'
+                        id='myPasswordInput' placeholder='Enter your password'
+                        onFocus={passwordFocus}
+                        onBlur={passwordBlur}
+                        onKeyUp={passwordKeyUp}
                         value={user.password}
-                        required='true'
+                        required={true}
                         autoComplete='true'
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+
                         onChange={(e) => {
                             onFieldChange("password", e.target.value);
-                        }} />
+                        }}
+
+                    />
                     <input type="checkbox" onClick={() => showPassword()} /><label className="show-passowrd-text">Show Password</label>
                     <br />
                     <br />
+                    <div id="message">
+                        <h3 id="passwordValidationPopup">Password must contain the following:</h3>
+                        <p id="passwordLetter" class="invalid">A <b>lowercase</b> letter</p>
+                        <p id="passwordCapital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                        <p id="passwordNumber" class="invalid">A <b>number</b></p>
+                        <p id="passwordLength" class="invalid">Minimum <b>8 characters</b></p>
+                    </div>
+
                     <label>Re-type Password</label>
                     <input type='password' id='myReTypeInput' placeholder='Re-type your password'
                         value={user.rePassword}
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         onChange={(e) => {
                             onFieldChange("rePassword", e.target.value);
@@ -77,7 +153,7 @@ export function PatientSignupComponent({
 
                     <label>Date of Birth</label>
                     <input type='date' placeholder='Date Of Birth' className='date-of-birth'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         max={"2004-11-01"}
                         value={user.dateOfBirth}
@@ -89,7 +165,7 @@ export function PatientSignupComponent({
                     <br></br>
                     <label>Address</label>
                     <input type='text' placeholder='House Number, Street Name'
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         value={user.addressLine}
                         onChange={(e) => {
@@ -99,7 +175,7 @@ export function PatientSignupComponent({
                     <label>City</label>
                     <input type='text' placeholder='Enter your city'
                         value={user.city}
-                        required='true'
+                        required={true}
                         autoComplete='true'
                         onChange={(e) => {
                             onFieldChange("city", e.target.value);
@@ -107,7 +183,7 @@ export function PatientSignupComponent({
 
                     <label>Province</label>
                     <select id="province" name="province"
-                        required='true'
+                        required={true}
                         value={user.province}
                         onChange={(e) => {
                             onFieldChange("province", e.target.value);
@@ -126,18 +202,20 @@ export function PatientSignupComponent({
                     <br></br>
                     <label>Phone Number</label>
                     <input type='tel' placeholder='123456789'
-                        required='true'
+                        required={true}
                         autoComplete='true'
-                        maxLength={9}
+                        pattern='[0-9]{10}'
                         value={user.phoneNumber}
                         onChange={(e) => {
                             onFieldChange("phoneNumber", e.target.value);
                         }} />
 
                     <span>By creating an account, you agree to our <a href="#/">Terms & Privacy</a> </span>
-                    <div>
-                        <button type='submit' className='signupbutton' onClick={onSubmit}><span>Sign Up</span></button>
-                    </div>
+
+                    <br />
+                    <br />
+                    <input type='submit' className="user-signup-button" value='Signup'></input>
+
                     {signupState && <div className="error-message">
                         <ErrorMessage>
                             {errorMessage}

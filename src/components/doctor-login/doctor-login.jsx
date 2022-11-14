@@ -25,10 +25,13 @@ export default function DoctorLoginComponent({
     return (
         <div className='login-form'>
             <h2 className='h2'>LIFELINE</h2>
-            <form action=''>
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                onClick();
+            }}>
                 <label>Doctor's Email</label>
                 <input type="email" placeholder='Enter your email address'
-                    required='true'
+                    required={true}
                     autoComplete='true'
                     value={email}
                     onChange={(e) => {
@@ -38,7 +41,7 @@ export default function DoctorLoginComponent({
 
                 <label>Password</label>
                 <input type="password" id='myInput' placeholder="Enter your password"
-                    required='true'
+                    required={true}
                     autoComplete='true'
                     value={password}
                     onChange={(e) => {
@@ -48,12 +51,8 @@ export default function DoctorLoginComponent({
                 <br />
                 <br />
 
-                <div className='buttons'>
-                    <button type='submit' className='loginbutton' onClick={(e) => {
-                        e.preventDefault();
-                        onClick();
-                    }}><span>Login</span></button>
-                </div>
+                <input type='submit' className='user-login-button' value='Login'></input>
+
             </form>
             {loginState && <div className="error-message">
                 <ErrorMessage>

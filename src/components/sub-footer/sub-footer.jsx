@@ -1,6 +1,9 @@
 import React from 'react'
 import ContactUs from '../../containers/contact-us'
 import './sub-footer.css'
+import { faFacebook, faInstagram, faTwitter, faLinkedin, faWhatsapp, faTelegram, faDiscord } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
 
 export function SubFooterComponent() {
     return (
@@ -13,10 +16,32 @@ export function SubFooterComponent() {
                         curing which leads to a better and happy life with a healthy mind and thoughts.
                     </p>
                     <br></br>
-                    <h5 className='text'><strong>Contact Us</strong></h5>
-                    <p><strong>Toll Free:</strong>1-866-225-0709</p>
+                    <h5 id='contactUsCSS' className='text'><strong>Contact Us</strong></h5>
+                    <p><strong>Toll Free:</strong> +1-866-225-0709</p>
                     <br />
-                    <strong>Email:</strong> <a href="mailto:help@lifeline.ca">help@lifeline.ca</a>
+                    <strong>Email us at:</strong> <a href="mailto:help@lifeline.ca">help@lifeline.ca</a>
+                    <h5 id='followUsText'>Follow us on</h5>
+                    <Link to={{ pathname: 'https://www.instagram.com/' }} target="_blank" >
+                        <FontAwesomeIcon className='socialMediaIcons' icon={faFacebook} ></FontAwesomeIcon>
+                    </Link>
+                    <Link >
+                        <FontAwesomeIcon id='instagramCSS' className='socialMediaIcons' icon={faInstagram} ></FontAwesomeIcon>
+                    </Link>
+                    <Link >
+                        <FontAwesomeIcon id='linkedinCSS' className='socialMediaIcons' icon={faLinkedin} ></FontAwesomeIcon>
+                    </Link>
+                    <Link >
+                        <FontAwesomeIcon className='socialMediaIcons' icon={faTwitter} ></FontAwesomeIcon>
+                    </Link>
+                    <Link >
+                        <FontAwesomeIcon id='whatsappCSS' className='socialMediaIcons' icon={faWhatsapp} ></FontAwesomeIcon>
+                    </Link>
+                    <Link >
+                        <FontAwesomeIcon id='telegramCSS' className='socialMediaIcons' icon={faTelegram} ></FontAwesomeIcon>
+                    </Link>
+                    <Link >
+                        <FontAwesomeIcon id='discordCSS' className='socialMediaIcons' icon={faDiscord} ></FontAwesomeIcon>
+                    </Link>
                 </div>
                 <div className='col-1'>
                     <ContactUs></ContactUs>

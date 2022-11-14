@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import AssessmentForm from '../components/assessment-form/assessment-form'
 import FooterComponent from '../components/footer/footer'
+import { LoadingComponent } from '../components/loading/loading'
 import { RequestState } from '../lib/types'
-import { getAssessmentQuestions, submitAssessmentQuestions } from '../store/actions/patient'
+import { getAssessmentQuestions, onLoadPatientAssessmentPage, submitAssessmentQuestions } from '../store/actions/patient'
 import Header from './header'
 
 export default function AssessmentPage(props) {
@@ -12,6 +13,10 @@ export default function AssessmentPage(props) {
     const questionSubmitState = useSelector(state => state.patient.questionSubmitState);
     const errorMessage = useSelector(state => state.patient.errorMessage);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(onLoadPatientAssessmentPage());
+    }, [dispatch]);
 
     const [attemptedQuestions, setAttemptedQuestions] = useState({});
 
@@ -25,8 +30,7 @@ export default function AssessmentPage(props) {
         attemptedQuestions[questionId] = answer;
     }
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+    const onSubmit = () => {
         const attemptedQuestionList = [];
         const questionIds = Object.keys(attemptedQuestions);
         for (let index = 0; index < questionIds.length; index++) {
@@ -44,14 +48,16 @@ export default function AssessmentPage(props) {
     return (
         <>
             <Header />
-            <AssessmentForm
-                questionsState={questionsState}
-                questions={questions}
-                onAttempt={onAttempt}
-                onSubmit={onSubmit}
-                questionSubmitState={questionSubmitState}
-                errorMessage={errorMessage}
-            />
+            {
+                questionsState !== RequestState.COMPLETED ? <LoadingComponent /> :
+                    <AssessmentForm
+                        questions={questions}
+                        onAttempt={onAttempt}
+                        onSubmit={onSubmit}
+                        questionSubmitState={questionSubmitState}
+                        errorMessage={errorMessage}
+                    />
+            }
             <FooterComponent />
         </>
     )

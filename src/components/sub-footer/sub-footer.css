@@ -27,7 +27,7 @@ textarea {
     resize: vertical;
 }
 
-input[type=submit] {
+.contact-us-submit-button {
     background-color: dodgerblue;
     color: white;
     padding: 12px 20px;
@@ -36,7 +36,7 @@ input[type=submit] {
     cursor: pointer;
 }
 
-input[type=submit]:hover {
+.contact-us-submit-button:hover {
     background-color: #6962CB;
 }
 
@@ -57,4 +57,50 @@ input[type=submit]:hover {
 .col-1 {
     flex: 1;
     justify-content: space-between;
+}
+
+.socialMediaIcons {
+    padding: 15px;
+    padding-left: 0px;
+    padding-top: 2px;
+    font-size: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50%;
+    color: dodgerblue;
+}
+
+.socialMediaIcons:hover {
+    opacity: 0.7;
+}
+
+#instagramCSS {
+    color: #c92bb7;
+}
+
+#linkedinCSS {
+    color: #0077b5;
+}
+
+#whatsappCSS {
+    color: #25D366;
+}
+
+#telegramCSS {
+    color: #2AABEE;
+}
+
+#discordCSS {
+    color: #36393f;
+}
+
+#followUsText {
+    font-size: larger;
+    margin-bottom: 5px;
+}
+
+#contactUsCSS {
+    margin-top: 10px;
 }

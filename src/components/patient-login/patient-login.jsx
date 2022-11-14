@@ -25,10 +25,14 @@ export function PatientLoginComponent({
     return (
         <div className='login-form'>
             <h2 className='h2'>LIFELINE</h2>
-            <form action=''>
+            <form className='loginForm' onSubmit={(e) => {
+                e.preventDefault();
+                onClick();
+            }}>
                 <label>User Email</label>
                 <input type="email" placeholder='Enter your email address'
-                    required='true'
+                    required={true}
+                    className='userEmailLogin'
                     autoComplete='true'
                     value={email}
                     onChange={(e) => {
@@ -37,7 +41,7 @@ export function PatientLoginComponent({
 
                 <label>Password</label>
                 <input type="password" id='myInput' placeholder="Enter your password"
-                    required='true'
+                    required={true}
                     autoComplete='true'
                     value={password}
                     onChange={(e) => {
@@ -47,13 +51,9 @@ export function PatientLoginComponent({
                 <br />
                 <br />
 
-                <div className='buttons'>
-                    <button type='submit' className='loginbutton' onClick={(e) => {
-                        e.preventDefault();
-                        onClick();
-                    }}><span>Login</span></button>
-                </div>
-            </form>
+                <input type='submit' className='user-login-button' value="Login" ></input>
+
+            </form >
             {loginState && <div className="error-message">
                 <ErrorMessage>
                     {errorMessage}

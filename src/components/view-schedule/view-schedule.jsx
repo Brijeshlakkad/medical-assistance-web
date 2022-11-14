@@ -25,6 +25,19 @@ function searchFunctionCounselor() {
     }
 }
 
+// Date time format function for showing time and date of scheduled appointment to the counselor or doctor.
+function getDateTime(receviedAppointmentDateTime) {
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const appointmentDateTime = new Date(receviedAppointmentDateTime);
+
+    const month = appointmentDateTime.getMonth();
+    const day = parseInt(appointmentDateTime.getDay() - 1);
+
+    const finalDateTime = days[day] + ", " + appointmentDateTime.getDate() + " " + months[month] + " " + appointmentDateTime.getFullYear() + ", " + appointmentDateTime.toLocaleTimeString();
+    return finalDateTime;
+}
+
 export function ViewScheduleComponent({ payload, role }) {
     const navigate = useNavigate();
 
@@ -54,7 +67,7 @@ export function ViewScheduleComponent({ payload, role }) {
                             payload.content.map((record, recordIndex) => {
                                 return <tr key={`counselor-appointment-${recordIndex}`}>
                                     <td>{record.patient.fullName}</td>
-                                    <td>{record.startDateTime}</td>
+                                    <td>{`${getDateTime(record.startDateTime)}`}</td>
                                     <td><Link className='view-file-button' to={{
                                         pathname: (
                                             role === UserRole.COUNSELOR ? PathConstants.Internal_CounselorPatientDetails :

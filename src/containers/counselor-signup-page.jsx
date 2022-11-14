@@ -5,7 +5,7 @@ import { CounselorSignupComponent } from '../components/counselor-signup/counsel
 import FooterComponent from '../components/footer/footer';
 import { PathConstants } from '../lib/path-constants';
 import { RequestState, UserRole } from '../lib/types';
-import { signup } from '../store/actions/user';
+import { onLoadUserLoginSignupPage, signup } from '../store/actions/user';
 import Header from './header';
 
 export default function CounselorSignupPage(props) {
@@ -32,8 +32,11 @@ export default function CounselorSignupPage(props) {
 
     const dispatch = useDispatch();
 
+    useEffect(()=>{
+        dispatch(onLoadUserLoginSignupPage());
+    }, [dispatch]);
+
     const onSubmit = (e) => {
-        e.preventDefault();
         dispatch(signup(user, UserRole.COUNSELOR));
     }
 
