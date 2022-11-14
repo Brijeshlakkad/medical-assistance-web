@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './view-schedule.css'
-import { PathConstants } from '../../lib/path-constants'
-import { PaginationComponent } from '../pagination/pagination';
+import { PathConstants } from '../../lib/path-constants';
+import { toReadableDateFormat } from '../../lib/time-util';
 import { UserRole } from '../../lib/types';
+import { PaginationComponent } from '../pagination/pagination';
+import './view-schedule.css';
 
 function searchFunctionCounselor() {
     var input, filter, table, tr, td, i, txtValue;
@@ -23,19 +24,6 @@ function searchFunctionCounselor() {
             }
         }
     }
-}
-
-// Date time format function for showing time and date of scheduled appointment to the counselor or doctor.
-function getDateTime(receviedAppointmentDateTime) {
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const appointmentDateTime = new Date(receviedAppointmentDateTime);
-
-    const month = appointmentDateTime.getMonth();
-    const day = parseInt(appointmentDateTime.getDay() - 1);
-
-    const finalDateTime = days[day] + ", " + appointmentDateTime.getDate() + " " + months[month] + " " + appointmentDateTime.getFullYear() + ", " + appointmentDateTime.toLocaleTimeString();
-    return finalDateTime;
 }
 
 export function ViewScheduleComponent({ payload, role }) {
@@ -67,7 +55,7 @@ export function ViewScheduleComponent({ payload, role }) {
                             payload.content.map((record, recordIndex) => {
                                 return <tr key={`counselor-appointment-${recordIndex}`}>
                                     <td>{record.patient.fullName}</td>
-                                    <td>{`${getDateTime(record.startDateTime)}`}</td>
+                                    <td>{`${toReadableDateFormat(record.startDateTime)}`}</td>
                                     <td><Link className='view-file-button' to={{
                                         pathname: (
                                             role === UserRole.COUNSELOR ? PathConstants.Internal_CounselorPatientDetails :
