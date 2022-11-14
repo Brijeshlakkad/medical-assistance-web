@@ -4,11 +4,15 @@ import FooterComponent from "../components/footer/footer";
 import { LoadingComponent } from "../components/loading/loading";
 import { PatientStatus } from "../components/patient-status/patient-status";
 import { RequestState } from "../lib/types";
-import { fetchPatientRecordStatus } from "../store/actions/patient";
+import { fetchPatientRecordStatus, onLoadPatientStatusPage } from "../store/actions/patient";
 import Header from "./header";
 
 export default function StatusPage() {
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(onLoadPatientStatusPage());
+    }, [dispatch]);
 
     const patientRecordStatusState = useSelector(state => state.patient.patientRecordStatusState);
 
