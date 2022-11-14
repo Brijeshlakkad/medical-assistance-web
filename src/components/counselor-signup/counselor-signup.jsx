@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { PathConstants } from '../../lib/path-constants';
 import { ErrorMessage } from "../elements/error-message";
@@ -216,7 +216,7 @@ export function CounselorSignupComponent({
                             onFieldChange("phoneNumber", e.target.value);
                         }} />
 
-                    <span>By creating an account, you agree to our <a href="#/">Terms & Privacy</a> </span>
+                    <span>By creating an account, you agree to our <a href="#/" rel="noopener">Terms & Privacy</a> </span>
 
                     <br />
                     <br />

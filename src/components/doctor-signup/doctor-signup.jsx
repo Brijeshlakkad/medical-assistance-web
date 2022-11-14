@@ -217,7 +217,7 @@ export function DoctorSignupComponent({
                             onFieldChange("phoneNumber", e.target.value);
                         }} />
 
-                    <span>By creating an account, you agree to our <a href="#/">Terms & Privacy</a> </span>
+                    <span>By creating an account, you agree to our <a href="#/" rel="noopener">Terms & Privacy</a> </span>
 
                     <br />
                     <br />
