@@ -22,6 +22,7 @@ export default function HeaderComponent({
                 {userRole === UserRole.COUNSELOR && <Link to={PathConstants.CounselorSchedule}>View Schedule</Link>}
                 {userRole === UserRole.DOCTOR && <Link to={PathConstants.DoctorLOP}>List of Patients</Link>}
                 {userRole === UserRole.DOCTOR && <Link to={PathConstants.DoctorSchedule}>View Schedule</Link>}
+                [userRole === UserRole.MANAGER && <Link to={PathConstants.ManagerDataAnalytics}>Analytics</Link>]
             </div>
         </div>
     )

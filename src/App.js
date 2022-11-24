@@ -23,6 +23,7 @@ import Login from "./containers/patient-login";
 import Signup from "./containers/patient-signup";
 import StatusPage from './containers/status-page';
 import AppStateHOC from './lib/app-state-hoc';
+import ManagerDataAnalytics from './containers/manager-data-analytics';
 import { PathConstants } from "./lib/path-constants";
 import { ServerUserRoleToUserRole } from './lib/types';
 import { logout, setUser } from './store/actions/user';
@@ -65,6 +66,7 @@ function App() {
         <Route path={PathConstants.DoctorLOP} element={<DoctorLOP />} />
         <Route path={PathConstants.DoctorPatientDetails} element={<DoctorPatientDetails />} />
         <Route path={PathConstants.CounselorToDoctor} element={<ForwardToDoctor />} />
+        <Route path={PathConstants.ManagerDataAnalytics} element={<ManagerDataAnalytics></ManagerDataAnalytics>} />
       </Routes>
     </BrowserRouter>
   );
