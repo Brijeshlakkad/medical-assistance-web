@@ -28,6 +28,10 @@ export const PathConstants = {
   DoctorPatientDetails: "/doctor/patient/:patientId",
   Internal_DoctorPatientDetails: "/doctor/patient/",
 
+  /* Admin */
+  AdminLogin: "/admin",
+
+
   /* Social Media Links */
   Instagram: "../../https://www.instagram.com/"
 };
