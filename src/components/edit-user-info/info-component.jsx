@@ -1,0 +1,34 @@
+import React from 'react'
+import "./edit-styles.css"
+
+const InfoComponent = (props) => {
+  return (
+    <div className='card'>
+        <h2>Your Profile</h2>
+        <hr/><br/>
+        <div class="name-row">
+            <div>
+                <label>Full Name</label>
+                <input type='text' value={props.data.fullName} disabled/>
+            </div>
+            <div>
+                <label>Email Address</label>
+                <input type='text' value={props.data.email} disabled/>
+            </div>
+        </div>
+        <label>Date of birth</label>
+        <input type='date' value={props.data.dateOfBirth} disabled/>
+        <label>Address</label>
+        <input type='text' value={props.data.addressLine} disabled/>
+        <label>City</label>
+        <input type='text' value={props.data.city} disabled/>
+        <label>Province</label>
+        <input type='text' value={props.data.province} disabled/>     
+        <label>Phone number</label>
+        <input type='text' value={props.data.phoneNumber} disabled/>
+        <button className="edit-button" onClick={() => props.toggleForm()}>EDIT</button>
+    </div>
+  )
+}
+
+export default InfoComponent

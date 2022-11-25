@@ -1,6 +1,8 @@
 export const PathConstants = {
   Home: "/",
 
+  EditUserInfo: "/edit",
+
   /* Patient */
   PatientLogin: "/patient/login",
   PatientSignup: "/patient/signup",

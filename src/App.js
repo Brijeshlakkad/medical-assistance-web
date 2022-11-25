@@ -26,6 +26,7 @@ import AppStateHOC from './lib/app-state-hoc';
 import { PathConstants } from "./lib/path-constants";
 import { ServerUserRoleToUserRole } from './lib/types';
 import { logout, setUser } from './store/actions/user';
+import EditUserInfo from './containers/edit-user-info';
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ function App() {
         <Route path={PathConstants.DoctorLOP} element={<DoctorLOP />} />
         <Route path={PathConstants.DoctorPatientDetails} element={<DoctorPatientDetails />} />
         <Route path={PathConstants.CounselorToDoctor} element={<ForwardToDoctor />} />
+        <Route path={PathConstants.EditUserInfo} element={<EditUserInfo />} />
       </Routes>
     </BrowserRouter>
   );
