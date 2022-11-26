@@ -17,7 +17,6 @@ export const UserRole = KeyMirror({
     PATIENT: null,
     COUNSELOR: null,
     DOCTOR: null,
-    // Newly added
     MANAGER: null,
 });
 

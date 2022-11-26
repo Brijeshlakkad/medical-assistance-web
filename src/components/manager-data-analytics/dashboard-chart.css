@@ -1,0 +1,43 @@
+/* Float four columns side by side */
+.dashboard-chart-columns {
+    float: left;
+    width: 46%;
+    padding: 0 10px;
+    padding-left: 2.1rem;
+}
+
+/* Remove extra left and right margins, due to padding */
+.dashboard-chart-row {
+    margin: 0 -5px;
+    margin-top: 2rem;
+}
+
+/* Clear floats after the columns */
+.dashboard-chart-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+    .dashboard-chart-columns {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+
+/* Style the counter cards */
+.dashboard-chart-cards {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background-color: #f1f1f1;
+}
+
+#charts-card-header {
+    text-align: left;
+    margin-top: 1rem;
+    padding-top: 0.2rem;
+}
