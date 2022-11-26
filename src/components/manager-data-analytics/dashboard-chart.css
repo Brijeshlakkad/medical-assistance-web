@@ -1,7 +1,6 @@
 /* Float four columns side by side */
 .dashboard-chart-columns {
     float: left;
-    width: 46%;
     padding: 0 10px;
     padding-left: 2.1rem;
 }
@@ -80,4 +79,49 @@
 
 .analytics-extra-space {
     height: 50rem;
+}
+
+.month-selector-form {
+    display: flex;
+    justify-content: right;
+}
+
+.month-selector {
+    display: flex;
+    justify-content: right;
+    border-radius: 0.3rem;
+    border: 0.1rem groove dodgerblue;
+    height: 1.8rem;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    margin-top: 0.2rem;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 2;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltip .tooltiptext {
+    width: 120px;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+    /* Use half of the width (120/2 = 60), to center the tooltip */
 }

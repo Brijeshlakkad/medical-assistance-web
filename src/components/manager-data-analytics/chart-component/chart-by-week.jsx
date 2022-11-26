@@ -35,7 +35,7 @@ const data = [{
 export default class ChartByWeekComponent extends Component {
     render() {
         return (
-            <ComposedChart width={500}
+            <ComposedChart width={800}
                 height={400}
                 data={data}
                 margin={{

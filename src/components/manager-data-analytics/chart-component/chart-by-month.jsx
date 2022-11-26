@@ -50,7 +50,7 @@ const data = [{
 export default class ChartByMonthComponent extends Component {
     render() {
         return (
-            <ComposedChart width={500}
+            <ComposedChart width={800}
                 height={400}
                 data={data}
                 margin={{

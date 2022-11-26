@@ -7,14 +7,13 @@ const pieData = [{
     name: "Assessments",
     value: 40,
 }, {
-    name: "Samsung",
+    name: "Total Users",
     value: 47.91
 }
 ]
 
-export default class PieChartForTotalAssessmentsComponent extends React.Component {
-
-    CustomToolTip = ({ active, payload, label }) => {
+export default function PieChartForTotalAssessmentsComponent() {
+    const CustomToolTip = ({ active, payload, label }) => {
         if (active) {
             return (
                 <div
@@ -31,34 +30,33 @@ export default class PieChartForTotalAssessmentsComponent extends React.Componen
         }
         return null;
     };
-    render() {
-        return (
-            <>
-                <PieChart width={800} height={400}>
-                    <Pie
-                        data={pieData}
-                        color="#000000"
-                        dataKey="value"
-                        nameKey="name"
-                        cx={120}
-                        cy={120}
-                        outerRadius={80}
-                        innerRadius={60}
-                        paddingAngle={5}
-                    >
-                        {pieData.map((entry, index) => (
-                            <Cell
-                                key={`cell-${index}`}
-                                fill={COLORS[index % COLORS.length]}
-                            />
-                        ))}
-                    </Pie>
-                    <Tooltip content={<this.CustomTooltip />} />
-                    <Legend />
-                </PieChart>
-            </>
-        )
-    }
+    return (
+        <>
+            <PieChart width={250} height={300} >
+                <Pie
+                    data={pieData}
+                    color="#000000"
+                    dataKey="value"
+                    nameKey="name"
+                    cx={120}
+                    cy={120}
+                    outerRadius={80}
+                    innerRadius={60}
+                    paddingAngle={5}
+
+                >
+                    {pieData.map((entry, index) => (
+                        <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS[index % COLORS.length]}
+                        />
+                    ))}
+                </Pie>
+                <Tooltip content={<CustomToolTip />} />
+                <Legend />
+            </PieChart>
+        </>
+    );
 }
 
 
