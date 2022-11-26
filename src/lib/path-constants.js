@@ -29,5 +29,13 @@ export const PathConstants = {
   Internal_DoctorPatientDetails: "/doctor/patient/",
 
   /* Social Media Links */
-  Instagram: "../../https://www.instagram.com/"
+  Instagram: "../../https://www.instagram.com/",
+
+  /* Manager */
+  ManagePatient: "/admin/managePatient",
+  ManageDoctor: "/admin/manageDoctor",
+  ManageCounselor: "/admin/manageCounselor",
+  ManagerAddPatient: "/admin/addPatient",
+  ManagerAddCounselor: "/admin/addCounselor",
+  ManagerAddDoctor: "/admin/addDoctor",
 };
