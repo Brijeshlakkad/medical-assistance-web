@@ -41,3 +41,43 @@
     margin-top: 1rem;
     padding-top: 0.2rem;
 }
+
+.chart-toggle-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chart-toggle-button {
+    border-radius: 0.5rem;
+    width: 4rem;
+    height: 1.8rem;
+    margin-top: 1.8rem;
+    margin-right: 0.5rem;
+    padding: 0%;
+    border: 0px;
+    cursor: pointer;
+}
+
+.chart-toggle-button:hover {
+    background-color: lightcoral;
+}
+
+#users-by-month {
+    display: block;
+}
+
+#users-by-week {
+    display: none;
+}
+
+#users-by-day {
+    display: none;
+}
+
+#chart-by-month-heading {
+    text-align: center;
+}
+
+.analytics-extra-space {
+    height: 50rem;
+}

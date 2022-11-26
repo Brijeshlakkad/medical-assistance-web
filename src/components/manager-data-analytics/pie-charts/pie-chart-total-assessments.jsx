@@ -1,0 +1,65 @@
+import React from 'react'
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import './pie-chart-assessment.css'
+
+const COLORS = ["#8884d8", "#82ca9d"];
+const pieData = [{
+    name: "Assessments",
+    value: 40,
+}, {
+    name: "Samsung",
+    value: 47.91
+}
+]
+
+export default class PieChartForTotalAssessmentsComponent extends React.Component {
+
+    CustomToolTip = ({ active, payload, label }) => {
+        if (active) {
+            return (
+                <div
+                    className="custom-tooltip"
+                    style={{
+                        backgroundColor: "#ffff",
+                        padding: "5px",
+                        border: "1px solid #cccc"
+                    }}
+                >
+                    <label>{`${payload[0].name} : ${payload[0].value}%`}</label>
+                </div>
+            );
+        }
+        return null;
+    };
+    render() {
+        return (
+            <>
+                <PieChart width={800} height={400}>
+                    <Pie
+                        data={pieData}
+                        color="#000000"
+                        dataKey="value"
+                        nameKey="name"
+                        cx={120}
+                        cy={120}
+                        outerRadius={80}
+                        innerRadius={60}
+                        paddingAngle={5}
+                    >
+                        {pieData.map((entry, index) => (
+                            <Cell
+                                key={`cell-${index}`}
+                                fill={COLORS[index % COLORS.length]}
+                            />
+                        ))}
+                    </Pie>
+                    <Tooltip content={<this.CustomTooltip />} />
+                    <Legend />
+                </PieChart>
+            </>
+        )
+    }
+}
+
+
+
