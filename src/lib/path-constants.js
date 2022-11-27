@@ -34,6 +34,8 @@ export const PathConstants = {
   Instagram: "../../https://www.instagram.com/",
 
   /* Manager */
+  ManagerLogin: "/admin/login",
+  ManagerHome: "/admin/home",
   ManagePatient: "/admin/patient",
   ManageDoctor: "/admin/doctor",
   ManageCounselor: "/admin/counselor",

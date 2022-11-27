@@ -6,6 +6,7 @@ import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "./App.css";
+import AdminLogin from "./containers/admin-login-page";
 import AssessmentPage from "./containers/assessment-page";
 import CounselorLOP from "./containers/counselor-list-of-patient";
 import CounselorLogin from "./containers/counselor-login-page";
@@ -73,6 +74,7 @@ function App() {
         <Route path={PathConstants.DoctorLOP} element={<DoctorLOP />} />
         <Route path={PathConstants.DoctorPatientDetails} element={<DoctorPatientDetails />} />
         <Route path={PathConstants.CounselorToDoctor} element={<ForwardToDoctor />} />
+        <Route path={PathConstants.ManagerLogin} element={ <AdminLogin />} />
         <Route path={PathConstants.ManagePatient} element={<ManagePatient />} />
         <Route path={PathConstants.ManageDoctor} element={<ManageDoctor />} />
         <Route path={PathConstants.ManageCounselor} element={<ManageCounselor />} />
