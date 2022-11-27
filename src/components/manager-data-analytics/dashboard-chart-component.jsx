@@ -53,12 +53,12 @@ export default function DashboardChartsComponent() {
                     </div>
 
                     <div id='users-by-day'>
-                        <h3 id='chart-by-month-heading'>New Users by Day</h3>
+                        <h2 id='chart-by-month-heading'>New Users by Day</h2>
                         <CardByDayComponent></CardByDayComponent>
                     </div>
 
                     <div id='users-by-month'>
-                        <h3 id='chart-by-month-heading '>New Users by Month</h3>
+                        <h2 id='chart-by-month-heading '>New Users by Month</h2>
                         <div>
                             <form className='month-selector-form' /*onSubmit={someFunction} */>
                                 <div className='tooltip'>
@@ -78,7 +78,7 @@ export default function DashboardChartsComponent() {
                     </div>
 
                     <div id='users-by-week'>
-                        <h3 id='chart-by-month-heading '>New Users by Week</h3>
+                        <h2 id='chart-by-month-heading '>New Users by Week</h2>
                         <form className='month-selector-form' /*onSubmit={someFunction} */>
                             <div className='tooltip'>
                                 <input type="week"
