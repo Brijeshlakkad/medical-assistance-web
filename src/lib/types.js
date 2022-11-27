@@ -18,22 +18,27 @@ export const UserRole = KeyMirror({
     COUNSELOR: null,
     DOCTOR: null,
     MANAGER: null,
+    ADMIN: null
 });
 
 export const UserRoleToRedux = {
     [UserRole.PATIENT]: "patient",
     [UserRole.COUNSELOR]: "counselor",
     [UserRole.DOCTOR]: "doctor",
-    // Newly added
-    [UserRole.MANAGER]: "manager",
+    [UserRole.ADMIN]: "admin"
+}
+
+export const UserRoleToTitle = {
+    [UserRole.PATIENT]: "Patient",
+    [UserRole.COUNSELOR]: "Counselor",
+    [UserRole.DOCTOR]: "Doctor",
 }
 
 export const ServerUserRoleToUserRole = {
     "ROLE_PATIENT": UserRole.PATIENT,
     "ROLE_COUNSELOR": UserRole.COUNSELOR,
     "ROLE_DOCTOR": UserRole.DOCTOR,
-    // Added role for manager
-    "ROLE_MANAGER": UserRole.MANAGER,
+    "ROLE_ADMIN": UserRole.ADMIN
 }
 
 export const PatientRecordStatus = KeyMirror({

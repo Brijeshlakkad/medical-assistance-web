@@ -1,3 +1,5 @@
+import { UserRole } from "./types";
+
 export const PathConstants = {
   Home: "/",
 
@@ -32,5 +34,16 @@ export const PathConstants = {
   ManagerDataAnalytics: "/manager/analytics",
 
   /* Social Media Links */
-  Instagram: "../../https://www.instagram.com/"
+  Instagram: "../../https://www.instagram.com/",
+
+  /* Manager */
+  ManagerLogin: "/admin/login",
+  ManagerHome: "/admin/home",
+  ManagePatient: "/admin/patient",
+  ManageDoctor: "/admin/doctor",
+  ManageCounselor: "/admin/counselor",
+  ManagerCreate: "/admin/create",
+  ManagerCreatePatient: `/admin/create/${UserRole.PATIENT}`,
+  ManagerCreateCounselor: `/admin/create/${UserRole.COUNSELOR}`,
+  ManagerCreateDoctor: `/admin/create/${UserRole.DOCTOR}`
 };

@@ -14,10 +14,10 @@
     justify-content: center;
 }
 
-.text-align-patient-info
-{
+.text-align-patient-info {
     text-align: center;
 }
+
 .list-of-table {
     display: flex;
     flex-direction: column;
@@ -28,17 +28,17 @@
 .list-of-doctor-patient {
     top: 0;
     display: flex;
-    display: flex;    
+    display: flex;
 }
 
-.list-of-doctor-patient .patient-info-container{
+.list-of-doctor-patient .patient-info-container {
     margin-top: 0px !important;
 }
 
 
 
 .button-list-of-doctor-patient {
-   float: none !important;
+    float: none !important;
     align-items: center;
     justify-self: center;
     font-weight: bold;
@@ -55,27 +55,28 @@
 
 .header-for-doctorlist {
     /* text-align: center; */
-    width:max-content;
+    width: max-content;
     text-align: center;
-    
-  
-    
+
+
+
 }
-.doctor-list-pagination{
+
+.doctor-list-pagination {
     /* justify-content: space-around; */
     /* align-self: center; */
     margin-top: 2rem;
 }
 
-.width-of-table
-{
+.width-of-table {
     width: 20%;
 }
 
 .assign-pat th {
     padding: 1rem;
 }
-.pat-to-doc{
+
+.pat-to-doc {
     text-align: center;
 }
 
@@ -95,16 +96,16 @@
 
 .list-of-doctor tr:nth-child(even) {
     background-color: #dddddd;
-} 
+}
 
 
- .assign-pat tbody tr:nth-child(even)   {
+.assign-pat tbody tr:nth-child(even) {
     background-color: #f2f2f2;
-} 
+}
 
- .assign-pat tbody tr:hover  {
+.assign-pat tbody tr:hover {
     background-color: #ddd;
-} 
+}
 
 .pagination {
     display: inline-block;
