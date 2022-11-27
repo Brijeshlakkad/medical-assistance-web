@@ -16,8 +16,16 @@ const InfoComponent = (props) => {
                 <input type='text' value={props.data.email} disabled/>
             </div>
         </div>
-        <label>Date of birth</label>
-        <input type='date' value={props.data.dateOfBirth} disabled/>
+        <div class="name-row">
+            <div>
+                <label>Date of Birth</label>
+                <input type='text' value={props.data.dateOfBirth} disabled/>
+            </div>
+            <div>
+                <label>Registration Number</label>
+                <input type='text' value={props.data.registrationNumber} disabled/>
+            </div>
+        </div>
         <label>Address</label>
         <input type='text' value={props.data.addressLine} disabled/>
         <label>City</label>

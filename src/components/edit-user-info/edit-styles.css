@@ -16,9 +16,11 @@
 
 .name-row div:nth-child(1) {
     margin-right: 10px;
+    width: 50%;
 }
 .name-row div:nth-child(2) {
     margin-left: 10px;
+    width: 50%;
 }
 
 .edit-button {

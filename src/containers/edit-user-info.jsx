@@ -17,6 +17,7 @@ const EditUserInfo = () => {
         country: "",
         dateOfBirth: "",
         phoneNumber: "",
+        registrationNumber:""
     });
 
     const [showForm,setShowForm]= useState(false)
@@ -28,11 +29,12 @@ const EditUserInfo = () => {
         const data = {
             fullName:"Aniket Tailor",
             email:"aniket.tailor@gmail.com",
-            dateOfBirth:"21-06-1998",
-            addressLine:"4 cmd road",
-            city:"Montreal",
-            province:"Quebec",
-            phoneNumber:"1231231231"
+            dateOfBirth:"21-06-1198",
+            addressLine:"sdg sgs sgs",
+            city:"mtl",
+            province:"QC",
+            phoneNumber:"1234567898",
+            registrationNumber:"000000"
         }
         setUser(data)
     }, [])
@@ -53,7 +55,7 @@ const EditUserInfo = () => {
     <>
         <Header />
         <div style={{display:"flex", margin:"50px 150px"}}>
-        { user && <InfoComponent data = { user} toggleForm={()=> setShowForm(true)}/>}
+        { user && !showForm && <InfoComponent data = { user} toggleForm={()=> setShowForm(true)}/>}
         { user && showForm && <EditInfoComponent user = { user} onFieldChange={onFieldChange}  onSubmit={onSubmit}/>}
         </div>
         <FooterComponent></FooterComponent>
