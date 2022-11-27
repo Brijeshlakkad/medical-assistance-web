@@ -79,7 +79,7 @@
 }
 
 .analytics-extra-space {
-    height: 50rem;
+    height: 44rem;
 }
 
 .month-selector-form {
@@ -88,11 +88,23 @@
 }
 
 .month-selector {
+    display: flex !important;
+    justify-content: right !important;
+    border-radius: 0.3rem !important;
+    border: 0.1rem groove dodgerblue !important;
+    height: 1.8rem !important;
+    padding-left: 0.6rem !important;
+}
+
+#pie-chart-card-header {
+    text-align: left;
+    margin-top: 1rem;
+    padding-top: 0.4rem;
     display: flex;
-    justify-content: right;
-    border-radius: 0.3rem;
-    border: 0.1rem groove dodgerblue;
-    height: 1.8rem;
+    justify-content: center;
+    font-size: "2rem";
+    margin-bottom: "3rem";
+
 }
 
 .tooltip {

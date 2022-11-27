@@ -54,11 +54,26 @@ export default function DashboardChartsComponent() {
 
                     <div id='users-by-day'>
                         <h2 id='chart-by-month-heading'>New Users by Day</h2>
+                        <div>
+                            <form className='month-selector-form' /*onSubmit={someFunction} */>
+                                <div className='tooltip'>
+                                    <input type="date"
+                                        id='monthYear'
+                                        name='monthYear'
+                                        min='2022-07'
+                                        className='month-selector'
+                                    >
+                                    </input>
+                                    <span class="tooltiptext">Day, Month, Year</span>
+                                </div>
+                            </form>
+
+                        </div>
                         <CardByDayComponent></CardByDayComponent>
                     </div>
 
                     <div id='users-by-month'>
-                        <h2 id='chart-by-month-heading '>New Users by Month</h2>
+                        <h2 id='chart-by-month-heading'>New Users by Month</h2>
                         <div>
                             <form className='month-selector-form' /*onSubmit={someFunction} */>
                                 <div className='tooltip'>
@@ -99,7 +114,7 @@ export default function DashboardChartsComponent() {
 
             <div className='dashboard-chart-columns' style={{ width: "19%" }}>
                 <div className='dashboard-chart-cards right-piechart-card'>
-                    <h3 id="charts-card-header" style={{ fontSize: "2rem", marginBottom: "3rem" }}>Assessments over Users</h3>
+                    <h3 id="pie-chart-card-header" style={{ fontSize: "2rem", marginBottom: "3rem" }}>Assessments over Users</h3>
                     <PieChartForTotalAssessmentsComponent style={{ width: "400px" }}></PieChartForTotalAssessmentsComponent>
                 </div>
             </div>
