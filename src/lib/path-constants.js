@@ -29,7 +29,8 @@ export const PathConstants = {
   Internal_DoctorPatientDetails: "/doctor/patient/",
 
   /* Admin */
-  AdminLogin: "/admin",
+  AdminLogin: "/admin/login",
+  AdminHome: "/admin/home",
 
 
   /* Social Media Links */

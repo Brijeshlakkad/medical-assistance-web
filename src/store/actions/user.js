@@ -7,12 +7,13 @@ const LOGIN_APIS = {
     [UserRole.PATIENT]: `patient/login`,
     [UserRole.COUNSELOR]: `counselor/login`,
     [UserRole.DOCTOR]: `doctor/login`,
+    [UserRole.ADMIN]: `admin/login`,
 }
 
 const SIGNUP_APIS = {
     [UserRole.PATIENT]: `patient/signup`,
     [UserRole.COUNSELOR]: `counselor/signup`,
-    [UserRole.DOCTOR]: `doctor/signup`,
+    [UserRole.DOCTOR]: `doctor/signup`
 }
 
 export const login = (emailId, password, role) => async (dispatch) => {
