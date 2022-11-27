@@ -50,3 +50,19 @@
 .cards-color-meeting-doctor {
     background-color: #ffe7d9;
 }
+
+.show-data-cards {
+    font-size: 3rem;
+    font-weight: 400;
+
+    /* text-shadow: 0 0 3px dodgerblue, 0 0 5px #0000FF, 0 0 5px black; */
+
+    color: black;
+    text-shadow: 1px 1px 2px black, 0 0 35px blue, 0 0 18px darkblue;
+    font-family: "Lucida Console", "Courier New", monospace;
+    margin-bottom: 1rem;
+}
+
+.users-cards {
+    font-size: 3rem;
+}
