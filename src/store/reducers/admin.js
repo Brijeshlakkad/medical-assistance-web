@@ -1,5 +1,5 @@
 import { RequestState } from "../../lib/types";
-import { ADMIN_GET_COUNSELOR_ERROR, ADMIN_GET_COUNSELOR_FETCHING, ADMIN_GET_COUNSELOR_SUCCESS, ADMIN_GET_DOCTOR_ERROR, ADMIN_GET_DOCTOR_FETCHING, ADMIN_GET_DOCTOR_SUCCESS, ADMIN_GET_PATIENT_ERROR, ADMIN_GET_PATIENT_FETCHING, ADMIN_GET_PATIENT_SUCCESS, ADMIN_REMOVE_COUNSELOR_ERROR, ADMIN_REMOVE_COUNSELOR_FETCHING, ADMIN_REMOVE_COUNSELOR_SUCCESS, ADMIN_REMOVE_DOCTOR_ERROR, ADMIN_REMOVE_DOCTOR_FETCHING, ADMIN_REMOVE_DOCTOR_SUCCESS, ADMIN_REMOVE_PATIENT_ERROR, ADMIN_REMOVE_PATIENT_FETCHING, ADMIN_REMOVE_PATIENT_SUCCESS } from "../types";
+import { ADMIN_CREATE_USER_ERROR, ADMIN_CREATE_USER_FETCHING, ADMIN_CREATE_USER_SUCCESS, ADMIN_GET_COUNSELOR_ERROR, ADMIN_GET_COUNSELOR_FETCHING, ADMIN_GET_COUNSELOR_SUCCESS, ADMIN_GET_DOCTOR_ERROR, ADMIN_GET_DOCTOR_FETCHING, ADMIN_GET_DOCTOR_SUCCESS, ADMIN_GET_PATIENT_ERROR, ADMIN_GET_PATIENT_FETCHING, ADMIN_GET_PATIENT_SUCCESS, ADMIN_REMOVE_COUNSELOR_ERROR, ADMIN_REMOVE_COUNSELOR_FETCHING, ADMIN_REMOVE_COUNSELOR_SUCCESS, ADMIN_REMOVE_DOCTOR_ERROR, ADMIN_REMOVE_DOCTOR_FETCHING, ADMIN_REMOVE_DOCTOR_SUCCESS, ADMIN_REMOVE_PATIENT_ERROR, ADMIN_REMOVE_PATIENT_FETCHING, ADMIN_REMOVE_PATIENT_SUCCESS } from "../types";
 
 const initialState = {
 	patient: {
@@ -13,6 +13,11 @@ const initialState = {
 	doctor: {
 		requestState: RequestState.NULL,
 		payload: []
+	},
+	createRequest: {
+		state: RequestState.NULL,
+		payload: "",
+		errorMessage: ""
 	}
 }
 
@@ -171,6 +176,32 @@ const reducer = (state, action) => {
 				doctor: {
 					rejectRequestState: RequestState.COMPLETED,
 					rejectErrorMessage: action.errorMessage
+				}
+			}
+		}
+		case ADMIN_CREATE_USER_FETCHING: {
+			return {
+				...state,
+				createRequest: {
+					state: RequestState.FETCHING
+				}
+			}
+		}
+		case ADMIN_CREATE_USER_SUCCESS: {
+			return {
+				...state,
+				createRequest: {
+					state: RequestState.COMPLETED,
+					payload: action.payload
+				}
+			}
+		}
+		case ADMIN_CREATE_USER_ERROR: {
+			return {
+				...state,
+				createRequest: {
+					state: RequestState.ERROR,
+					errorMessage: action.errorMessage
 				}
 			}
 		}

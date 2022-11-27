@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PathConstants } from "../../lib/path-constants";
-import { RequestState } from "../../lib/types";
+import { RequestState, UserRole } from "../../lib/types";
 import { PaginationComponent } from "../pagination/pagination";
 import { VerticalSpace } from "../vertical-space/vertical-space";
 import "./manager-edit-counselor.css";
@@ -111,7 +111,7 @@ export function ManagerEditCounselor({ payload, onRemove, rejectRequestState, re
             <Button
               title="Add Counselor"
               className={classNames("forward")}
-              onClick={() => navigate(PathConstants.ManagerAddCounselor)}
+              onClick={() => navigate(`${PathConstants.ManagerCreate}/${UserRole.COUNSELOR}`)}
             >
               Add Counselor
             </Button>

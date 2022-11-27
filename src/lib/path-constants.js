@@ -1,3 +1,5 @@
+import { UserRole } from "./types";
+
 export const PathConstants = {
   Home: "/",
 
@@ -35,7 +37,8 @@ export const PathConstants = {
   ManagePatient: "/admin/patient",
   ManageDoctor: "/admin/doctor",
   ManageCounselor: "/admin/counselor",
-  ManagerAddPatient: "/admin/create/patient",
-  ManagerAddCounselor: "/admin/create/counselor",
-  ManagerAddDoctor: "/admin/create/doctor",
+  ManagerCreate: "/admin/create",
+  ManagerCreatePatient: `/admin/create/${UserRole.PATIENT}`,
+  ManagerCreateCounselor: `/admin/create/${UserRole.COUNSELOR}`,
+  ManagerCreateDoctor: `/admin/create/${UserRole.DOCTOR}`
 };

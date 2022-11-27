@@ -111,7 +111,9 @@ export function ManagerEditPatient({ payload, onRemove, rejectRequestState, reje
             <Button
               title="Add Patient"
               className={classNames("forward")}
-              onClick={() => navigate(PathConstants.ManagerAddPatient)}
+              onClick={(e) => {
+                navigate(PathConstants.ManagerAddPatient);
+              }}
             >
               Add Patient
             </Button>

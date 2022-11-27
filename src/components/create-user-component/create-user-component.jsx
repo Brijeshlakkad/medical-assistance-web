@@ -1,17 +1,20 @@
 import React from "react";
-import "./add-counselor-component.css";
+import { RequestState, UserRole, UserRoleToTitle } from "../../lib/types";
+import { ErrorMessage } from "../elements/error-message";
+import { SucessMessage } from "../elements/success-message";
+import "./create-user-component.css";
 
-export default function AddCounselorComponent({
+export function CreateUserComponent({
   user,
   onFieldChange,
   onSubmit,
-  // signupState,
-  // errorMessage,
-  userInfo,
+  userRole,
+  requestState,
+  errorMessage,
 }) {
   return (
     <div className="add-counselor-card">
-      <h2>Add Counselor</h2>
+      <h2>Add {UserRoleToTitle[userRole]}</h2>
       <hr />
       <br />
       <form
@@ -20,17 +23,21 @@ export default function AddCounselorComponent({
           onSubmit();
         }}
       >
-        <label>Counselor Registration Number</label>
-        <input
-          type="text"
-          //  placeholder="Please Enter Your Registration Number"
-          value={user.registrationNumber}
-          required={true}
-          autoComplete="true"
-          onChange={(e) => {
-            onFieldChange("registrationNumber", e.target.value);
-          }}
-        />
+        {
+          (userRole === UserRole.COUNSELOR || userRole === UserRole.DOCTOR) && <>
+            <label>Counselor Registration Number</label>
+            <input
+              type="text"
+              placeholder="Please Enter Your Registration Number"
+              value={user.registrationNumber}
+              required={true}
+              autoComplete="true"
+              onChange={(e) => {
+                onFieldChange("registrationNumber", e.target.value);
+              }}
+            />
+          </>
+        }
         <label>Full Name</label>
         <input
           type="text"
@@ -129,14 +136,19 @@ export default function AddCounselorComponent({
         <input
           type="submit"
           className="user-signup-button"
-          value="Create Counselor"
+          value={`Create ${UserRoleToTitle[userRole]}`}
         ></input>
 
-        {/* {signupState && (
+        {requestState === RequestState.ERROR && (
           <div className="error-message">
              <ErrorMessage>{errorMessage}</ErrorMessage> 
           </div>
-        )} */}
+        )}
+        {requestState === RequestState.COMPLETED && (
+          <div className="success-message">
+             <SucessMessage>User created successfully</SucessMessage> 
+          </div>
+        )}
       </form>
     </div>
   );

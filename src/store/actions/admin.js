@@ -1,5 +1,6 @@
 import request from "../../lib/request";
-import { ADMIN_GET_COUNSELOR_ERROR, ADMIN_GET_COUNSELOR_FETCHING, ADMIN_GET_COUNSELOR_SUCCESS, ADMIN_GET_DOCTOR_ERROR, ADMIN_GET_DOCTOR_FETCHING, ADMIN_GET_DOCTOR_SUCCESS, ADMIN_GET_PATIENT_ERROR, ADMIN_GET_PATIENT_FETCHING, ADMIN_GET_PATIENT_SUCCESS, ADMIN_REMOVE_COUNSELOR_ERROR, ADMIN_REMOVE_COUNSELOR_FETCHING, ADMIN_REMOVE_COUNSELOR_SUCCESS, ADMIN_REMOVE_DOCTOR_ERROR, ADMIN_REMOVE_DOCTOR_FETCHING, ADMIN_REMOVE_DOCTOR_SUCCESS, ADMIN_REMOVE_PATIENT_ERROR, ADMIN_REMOVE_PATIENT_FETCHING, ADMIN_REMOVE_PATIENT_SUCCESS } from "../types";
+import { UserRole } from "../../lib/types";
+import { ADMIN_CREATE_USER_ERROR, ADMIN_CREATE_USER_FETCHING, ADMIN_CREATE_USER_SUCCESS, ADMIN_GET_COUNSELOR_ERROR, ADMIN_GET_COUNSELOR_FETCHING, ADMIN_GET_COUNSELOR_SUCCESS, ADMIN_GET_DOCTOR_ERROR, ADMIN_GET_DOCTOR_FETCHING, ADMIN_GET_DOCTOR_SUCCESS, ADMIN_GET_PATIENT_ERROR, ADMIN_GET_PATIENT_FETCHING, ADMIN_GET_PATIENT_SUCCESS, ADMIN_REMOVE_COUNSELOR_ERROR, ADMIN_REMOVE_COUNSELOR_FETCHING, ADMIN_REMOVE_COUNSELOR_SUCCESS, ADMIN_REMOVE_DOCTOR_ERROR, ADMIN_REMOVE_DOCTOR_FETCHING, ADMIN_REMOVE_DOCTOR_SUCCESS, ADMIN_REMOVE_PATIENT_ERROR, ADMIN_REMOVE_PATIENT_FETCHING, ADMIN_REMOVE_PATIENT_SUCCESS } from "../types";
 
 export const fetchPatients = (page) => async (dispatch) => {
     dispatch({ type: ADMIN_GET_PATIENT_FETCHING });
@@ -125,6 +126,37 @@ export const removeDoctor = (emailAddress) => async (dispatch) => {
             // handle error.
             dispatch({
                 type: ADMIN_REMOVE_DOCTOR_ERROR,
+                errorMessage: exception.data.message
+            });
+        });
+}
+
+const CREATE_USER_APIs = {
+    [UserRole.PATIENT]: `patient`,
+    [UserRole.COUNSELOR]: `counselor`,
+    [UserRole.DOCTOR]: `doctor`,
+}
+export const createUser = (user, userRole) => async (dispatch) => {
+    dispatch({ type: ADMIN_CREATE_USER_FETCHING });
+    request(`admin/${CREATE_USER_APIs[userRole]}`, "POST", null, user)
+        .then((resp) => {
+            console.log("resp", resp);
+            if (resp && resp.data && resp.data.success) {
+                dispatch({
+                    type: ADMIN_CREATE_USER_SUCCESS,
+                    payload: resp.data
+                });
+            } else {
+                dispatch({
+                    type: ADMIN_CREATE_USER_ERROR,
+                    errorMessage: resp.data.errorMessage
+                });
+            }
+        })
+        .catch((exception) => {
+            // handle error.
+            dispatch({
+                type: ADMIN_CREATE_USER_ERROR,
                 errorMessage: exception.data.message
             });
         });
