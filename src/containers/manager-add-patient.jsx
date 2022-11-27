@@ -1,12 +1,9 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import AddPatientComponent from "../components/add-patient-component/add-patient-component";
 import FooterComponent from "../components/footer/footer";
 import { ManagerSidebar } from "../components/manager-sidebar/manager-sidebar";
 import { SideNavContainerComponent } from "../components/side-nav-container/side-nav-container";
-import { UserRole } from "../lib/types";
 
 export default function ManagerAddPatient() {
   const [user, setUser] = useState({

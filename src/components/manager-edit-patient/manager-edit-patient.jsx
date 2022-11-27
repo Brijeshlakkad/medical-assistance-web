@@ -1,9 +1,11 @@
 import classNames from "classnames";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PathConstants } from "../../lib/path-constants";
+import { RequestState } from "../../lib/types";
 import { PaginationComponent } from "../pagination/pagination";
+import { VerticalSpace } from "../vertical-space/vertical-space";
 import "./manager-edit-patient.css";
 
 function searchByEmail() {
@@ -87,8 +89,11 @@ const Button = styled.div`
   }
 `;
 
-export function ManagerEditPatient() {
+export function ManagerEditPatient({ payload, onRemove, rejectRequestState, rejectErrorMessage }) {
   const navigate = useNavigate();
+  const onPageChange = (page) => {
+    navigate({ pathname: PathConstants.ManagePatient, search: `page=${page}` });
+  };
   return (
     <>
       <div className="manager-edit-patient-container">
@@ -129,44 +134,39 @@ export function ManagerEditPatient() {
                 <th>Profile Created On</th>
                 <th>Remove Patient</th>
               </tr>
-              <tr key={1}>
-                <td>Name 1</td>
-                <td>Email 1</td>
-                <td>Date 1</td>
-                <td>
-                  <Button
-                    title="Remove"
-                    className={classNames("dangerous")}
-                    onClick={() => {}}
-                  >
-                    Remove
-                  </Button>
-                </td>
-              </tr>
-              <tr key={1}>
-                <td>Name 1</td>
-                <td>Email 2</td>
-                <td>Date 1</td>
-                <td>
-                  <Button
-                    title="Remove"
-                    className={classNames("dangerous")}
-                    onClick={() => {}}
-                  >
-                    Remove
-                  </Button>
-                </td>
-              </tr>
+              {
+                payload.content.map((record) => (
+                  <tr key={`${record.emailAddress}`}>
+                    <td>{record.fullName}</td>
+                    <td>{record.emailAddress}</td>
+                    <td>{record.createdAt}</td>
+                    <td>
+                      <Button
+                        title="Remove"
+                        className={classNames("dangerous")}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (rejectRequestState !== RequestState.FETCHING)
+                            onRemove(record.emailAddress);
+                        }}
+                      >
+                        Remove
+                      </Button>
+                    </td>
+                  </tr>
+                ))
+              }
             </tbody>
           </table>
           <br></br>
           <PaginationComponent
-          // onPageChange={onPageChange}
-          // pageNumber={payload.pageable.pageNumber}
-          // totalPages={payload.totalPages}
-          // first={payload.first}
-          // last={payload.last}
+            onPageChange={onPageChange}
+            pageNumber={payload.pageable.pageNumber}
+            totalPages={payload.totalPages}
+            first={payload.first}
+            last={payload.last}
           />
+          <VerticalSpace height={4} />
         </div>
       </div>
     </>

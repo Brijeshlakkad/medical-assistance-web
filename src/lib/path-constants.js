@@ -32,10 +32,10 @@ export const PathConstants = {
   Instagram: "../../https://www.instagram.com/",
 
   /* Manager */
-  ManagePatient: "/admin/managePatient",
-  ManageDoctor: "/admin/manageDoctor",
-  ManageCounselor: "/admin/manageCounselor",
-  ManagerAddPatient: "/admin/addPatient",
-  ManagerAddCounselor: "/admin/addCounselor",
-  ManagerAddDoctor: "/admin/addDoctor",
+  ManagePatient: "/admin/patient",
+  ManageDoctor: "/admin/doctor",
+  ManageCounselor: "/admin/counselor",
+  ManagerAddPatient: "/admin/create/patient",
+  ManagerAddCounselor: "/admin/create/counselor",
+  ManagerAddDoctor: "/admin/create/doctor",
 };
