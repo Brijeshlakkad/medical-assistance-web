@@ -59,11 +59,11 @@ export function AdminLoginComponent({
                     {errorMessage}
                 </ErrorMessage>
             </div>}
-            <div className='signup-box'>
+            {/* <div className='signup-box'>
                 <span>No Account?</span>
                 <br />
                 <Link relative="path" to={PathConstants.PatientSignup} className='signup-link'>Sign Up</Link>
-            </div>
+            </div> */}
         </div>
     )
 }
