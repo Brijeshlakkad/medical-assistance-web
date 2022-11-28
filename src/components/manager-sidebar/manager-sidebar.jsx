@@ -1,9 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PathConstants } from "../../lib/path-constants";
 import "./manager-sidebar.css";
+import { logout } from "../../store/actions/user";
+import { useDispatch } from "react-redux";
 
 export function ManagerSidebar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const onLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("USER");
+    dispatch(logout());
+    navigate(PathConstants.ManagerLogin);
+  };
+
   return (
     <>
       <div
@@ -28,7 +39,9 @@ export function ManagerSidebar() {
           <Link className="sidebar-links" to={PathConstants.ManageCounselor}>
             Manage Counselor
           </Link>
-          <Link className="sidebar-links">Log Out</Link>
+          <button className="sidebar-links" onClick={onLogout}>
+            Log Out
+          </button>
         </div>
       </div>
     </>

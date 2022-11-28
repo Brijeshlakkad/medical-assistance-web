@@ -94,7 +94,7 @@ export const fetchPatientRecordStatus = () => async (dispatch) => {
       // handle error.
       dispatch({
         type: PATIENT_RECORD_STATUS_ERROR,
-        errorMessage: exception.errorMessage,
+        errorMessage: exception.data.message
       });
     });
 };

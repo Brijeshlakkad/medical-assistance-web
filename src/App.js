@@ -18,6 +18,7 @@ import DoctorLoginPage from "./containers/doctor-login-page";
 import DoctorPatientDetails from "./containers/doctor-patient-details";
 import DoctorSignupPage from "./containers/doctor-signup-page";
 import DoctorViewSchedule from "./containers/doctor-view-schedule";
+import EditUserInfo from './containers/edit-user-info';
 import ForwardToDoctor from "./containers/forward-to-doctor";
 import LandingPage from "./containers/landing-page";
 import ManageCounselor from "./containers/manage-counselor";
@@ -30,8 +31,8 @@ import Signup from "./containers/patient-signup";
 import StatusPage from './containers/status-page';
 import AppStateHOC from './lib/app-state-hoc';
 import { PathConstants } from "./lib/path-constants";
-import { ServerUserRoleToUserRole, UserRole } from "./lib/types";
-import { logout, setUser } from "./store/actions/user";
+import { ServerUserRoleToUserRole, UserRole } from './lib/types';
+import { logout, setUser } from './store/actions/user';
 
 function App() {
   const dispatch = useDispatch();
@@ -76,6 +77,9 @@ function App() {
         <Route path={PathConstants.DoctorPatientDetails} element={<DoctorPatientDetails />} />
         <Route path={PathConstants.CounselorToDoctor} element={<ForwardToDoctor />} />
         <Route path={PathConstants.ManagerDataAnalytics} element={<ManagerDataAnalytics />} />
+        <Route path={PathConstants.PatientEditProfile} element={<EditUserInfo role={UserRole.PATIENT} />} />
+        <Route path={PathConstants.CounselorEditProfile} element={<EditUserInfo role={UserRole.COUNSELOR} />} />
+        <Route path={PathConstants.DoctorEditProfile} element={<EditUserInfo role={UserRole.DOCTOR} />} />
         <Route path={PathConstants.ManagerLogin} element={<AdminLogin />} />
         <Route path={PathConstants.ManagePatient} element={<ManagePatient />} />
         <Route path={PathConstants.ManageDoctor} element={<ManageDoctor />} />
