@@ -1,18 +1,20 @@
-import React from 'react'
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
-import './pie-chart-assessment.css'
+import React from 'react';
+import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
+import './pie-chart-assessment.css';
 
 const COLORS = ["#8884d8", "#82ca9d"];
-const pieData = [{
-    name: "Assessments",
-    value: 40,
-}, {
-    name: "Total Users",
-    value: 47.91
-}
-]
 
-export default function PieChartForTotalAssessmentsComponent() {
+export default function PieChartForTotalAssessmentsComponent({ payload }) {
+    const data = React.useMemo(() => {
+        const percentAttemptedAssessment = Number((Number(payload.numAttemptedAssessment) * 100 / Number(payload.numTotal)).toFixed(0));
+        return [{
+            name: "Assessments",
+            value: Math.abs(percentAttemptedAssessment)
+        }, {
+            name: "Not attempted assessment yet",
+            value: Math.abs(100 - percentAttemptedAssessment)
+        }]
+    }, [payload])
     const CustomToolTip = ({ active, payload, label }) => {
         if (active) {
             return (
@@ -34,7 +36,7 @@ export default function PieChartForTotalAssessmentsComponent() {
         <>
             <PieChart width={250} height={300} >
                 <Pie
-                    data={pieData}
+                    data={data}
                     color="#000000"
                     dataKey="value"
                     nameKey="name"
@@ -45,7 +47,7 @@ export default function PieChartForTotalAssessmentsComponent() {
                     paddingAngle={5}
 
                 >
-                    {pieData.map((entry, index) => (
+                    {data.map((entry, index) => (
                         <Cell
                             key={`cell-${index}`}
                             fill={COLORS[index % COLORS.length]}

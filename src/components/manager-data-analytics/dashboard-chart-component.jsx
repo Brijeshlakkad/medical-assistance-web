@@ -111,7 +111,10 @@ export default function DashboardChartsComponent({ payload,
             <div className='dashboard-chart-columns' style={{ width: "19%" }}>
                 <div className='dashboard-chart-cards right-piechart-card'>
                     <h3 id="pie-chart-card-header" style={{ fontSize: "2rem", marginBottom: "3rem" }}>Assessments over Users</h3>
-                    <PieChartForTotalAssessmentsComponent style={{ width: "400px" }}></PieChartForTotalAssessmentsComponent>
+                    <PieChartForTotalAssessmentsComponent
+                        payload={payload}
+                        style={{ width: "400px" }}
+                    />
                 </div>
             </div>
         </div>
