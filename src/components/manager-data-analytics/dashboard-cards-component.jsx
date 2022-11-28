@@ -26,7 +26,7 @@ export default function DashboardCardsComponent({ payload }) {
             <div className='dashboard-card-columns'>
                 <div className='dashboard-card-cards cards-color-meeting-counselor'>
                     <FontAwesomeIcon icon={faUserNurse} className='users-cards'></FontAwesomeIcon>
-                    <h3 style={{ fontSize: "1.7rem" }}>Meeting Councellor</h3>
+                    <h3 style={{ fontSize: "1.7rem" }}>Meeting Counselor</h3>
                     <p className='show-data-cards'>{payload.numHasCounselorAppointment}</p>
                 </div>
             </div>
