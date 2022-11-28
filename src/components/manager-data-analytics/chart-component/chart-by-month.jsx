@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
     ComposedChart,
     Line,
@@ -8,27 +8,26 @@ import {
     Tooltip,
     Legend,
 } from 'recharts';
-import { getMonthName } from '../../../lib/time-util';
-import patientData from './data.json'
+import { toUTCDateInDate } from '../../../lib/time-util';
 
-export default function ChartByMonthComponent() {
+export default function ChartByMonthComponent({ payload }) {
     const data = React.useMemo(() => {
-        console.log(patientData)
         let data = {};
-        patientData.patients.forEach((patient) => {
-            const month = new Date(patient.createdAt).getMonth();
-
-            if (data.hasOwnProperty(month)) {
-                data[month].users++;
-            } else {
-                data[month] = {
-                    months: getMonthName(month),
-                    users: 1
-                };
+        for (let i = 0; i <= 30; i++) {
+            data[i] = {
+                months: i,
+                users: 0
             }
+        }
+
+        payload.patients.forEach((patient) => {
+            const createdDate = toUTCDateInDate(patient.createdAt);
+            const currentDate = createdDate.getDate();
+            console.log(currentDate);
+            data[currentDate].users++;
         })
         return Object.values(data);
-    },);
+    }, [payload]);
     return (
         <ComposedChart width={800}
             height={400}

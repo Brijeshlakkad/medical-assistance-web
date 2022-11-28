@@ -100,18 +100,18 @@ export const toEndHourDate = (date) => {
 
 export const getMonthName = (month) => {
   var months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
+    "January",
+    "Febuary",
+    "March",
+    "April",
     "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   return months[month];
@@ -126,7 +126,14 @@ export const getDayName = (day) => {
     "Thu",
     "Fri",
     "Sat",
+
   ];
 
   return days[day];
+}
+
+export const getLastDayOfMonth = (currentMonth) => {
+  const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+
+  return lastDay;
 }

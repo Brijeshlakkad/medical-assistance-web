@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
     ComposedChart,
     Line,
@@ -8,27 +8,24 @@ import {
     Tooltip,
     Legend,
 } from 'recharts';
-import { getDayName } from '../../../lib/time-util';
+import { getDayName, toUTCDateInDate } from '../../../lib/time-util';
 
-import patientData from './data.json'
-
-export default function ChartByWeekComponent() {
+export default function ChartByWeekComponent({ payload }) {
     const data = React.useMemo(() => {
         let data = {};
-        patientData.patients.forEach((patient) => {
-            const day = new Date(patient.createdAt).getDay();
-            console.log("day", day);
-            if (data.hasOwnProperty(day)) {
-                data[day].users++;
-            } else {
-                data[day] = {
-                    days: getDayName(day),
-                    users: 1
-                };
+        for (let i = 0; i < 7; i++) {
+            data[i] = {
+                days: getDayName(i),
+                users: 0
             }
+        }
+        payload.patients.forEach((patient) => {
+            const day = (toUTCDateInDate(patient.createdAt)).getDay();
+            console.log("day", day);
+            data[day].users++;
         })
         return Object.values(data);
-    });
+    }, [payload]);
     return (
         <ComposedChart width={800}
             height={400}

@@ -3,21 +3,21 @@ import {
     CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis,
     YAxis
 } from 'recharts';
-// import data from './data.json';
+import { toUTCDateInDate } from '../../../lib/time-util';
+
 
 export default function ChartByMonthComponent({ payload }) {
     const data = React.useMemo(() => {
         let data = {};
-        payload.patients.forEach((patient) => {
-            const hour = new Date(patient.createdAt).getHours();
-            if (data.hasOwnProperty(hour)) {
-                data[hour].users++;
-            } else {
-                data[hour] = {
-                    hours: hour,
-                    users: 1
-                };
+        for (let i = 1; i <= 24; i++) {
+            data[i] = {
+                hours: i,
+                users: 0
             }
+        }
+        payload.patients.forEach((patient) => {
+            const hour = toUTCDateInDate(patient.createdAt).getHours();
+            data[hour].users++;
         })
         return Object.values(data);
     }, [payload]);

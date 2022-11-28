@@ -115,6 +115,7 @@ export default function DashboardChartsComponent({ payload,
                                     value={inputValues.month}
                                     onChange={(e) => {
                                         e.preventDefault();
+                                        // console.log(" e.target.value", e.target.value)
                                         onChangeInputValues('month', e.target.value);
                                         let [year, month] = e.target.value.split("-");
                                         var firstDay = new Date();

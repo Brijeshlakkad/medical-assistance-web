@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import FooterComponent from '../components/footer/footer';
 import HeaderComponent from '../components/header/header';
 import ManagerDataAnalyticsComponent from '../components/manager-data-analytics/manager-data-analytics';
-import { toEndHourDate, toStartHourDate } from '../lib/time-util';
+import { toEndHourDate, toStartHourDate, toUTCDateInDate } from '../lib/time-util';
 import { fetchReport, fetchReportParameters } from '../store/actions/admin';
 
 
-var currentDate = new Date();
-var startDate = new Date(currentDate.getFullYear(), 0, 1);
+var currentDate = toUTCDateInDate(new Date());
+var startDate = toUTCDateInDate(new Date(currentDate.getFullYear(), 0, 1));
 var days = Math.floor((currentDate - startDate) /
     (24 * 60 * 60 * 1000));
 export default function ManagerDataAnalytics() {
@@ -37,9 +37,9 @@ export default function ManagerDataAnalytics() {
     const [chartCategory, setChartCategory] = useState(0);
 
     const [inputValues, setInputValues] = useState({
-        day: `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`,
-        week: `${new Date().getFullYear()}-W${Math.ceil(days / 7)}`,
-        month: `${new Date().getFullYear()}-${new Date().getMonth()}`,
+        day: `${new Date().toISOString().slice(0, 10)}`,
+        week: `${toUTCDateInDate(new Date()).getFullYear()}-W${Math.ceil(days / 7)}`,
+        month: `${toUTCDateInDate(new Date()).getFullYear()}-${(toUTCDateInDate(new Date()).getMonth()) + 1}`,
     });
 
     const onChangeInputValues = (key, value) => {
