@@ -4,7 +4,7 @@ import FooterComponent from '../components/footer/footer';
 import ManagerDataAnalyticsComponent from '../components/manager-data-analytics/manager-data-analytics';
 import { ManagerSidebar } from '../components/manager-sidebar/manager-sidebar';
 import { SideNavContainerComponent } from '../components/side-nav-container/side-nav-container';
-import { toEndHourDate, toStartHourDate, toUTCDateInDate } from '../lib/time-util';
+import { toEndHourDate, toRangeFromDay, toRangeFromMonth, toRangeFromWeek, toStartHourDate, toUTCDateInDate } from '../lib/time-util';
 import { fetchReport, fetchReportParameters } from '../store/actions/admin';
 
 
@@ -12,7 +12,7 @@ var currentDate = toUTCDateInDate(new Date());
 var startDate = toUTCDateInDate(new Date(currentDate.getFullYear(), 0, 1));
 var days = Math.floor((currentDate - startDate) /
     (24 * 60 * 60 * 1000));
-export default function ManagerDataAnalytics() {
+export default function ManagerDataAnalytics(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -33,12 +33,10 @@ export default function ManagerDataAnalytics() {
         dispatch(fetchReport(startDateTime, endDateTime));
     }
 
-    const [chartCategory, setChartCategory] = useState(0);
-
     const [inputValues, setInputValues] = useState({
-        day: `${new Date().toISOString().slice(0, 10)}`,
-        week: `${toUTCDateInDate(new Date()).getFullYear()}-W${Math.ceil(days / 7)}`,
-        month: `${toUTCDateInDate(new Date()).getFullYear()}-${(toUTCDateInDate(new Date()).getMonth()) + 1}`,
+        0: `${new Date().toISOString().slice(0, 10)}`,
+        1: `${toUTCDateInDate(new Date()).getFullYear()}-W${Math.ceil(days / 7)}`,
+        2: `${toUTCDateInDate(new Date()).getFullYear()}-${(toUTCDateInDate(new Date()).getMonth()) + 1}`,
     });
 
     const onChangeInputValues = (key, value) => {
@@ -46,6 +44,24 @@ export default function ManagerDataAnalytics() {
             ...inputValues,
             [key]: value
         })
+    }
+
+    const [chartCategory, setChartCategory] = useState(0);
+
+    const onChangeChartCategory = (chartCategory) => {
+        setChartCategory(chartCategory);
+        let rangeConverter;
+        if (chartCategory === 0) {
+            rangeConverter = toRangeFromDay;
+        } else if (chartCategory === 1) {
+            rangeConverter = toRangeFromWeek;
+        } else if (chartCategory === 2) {
+            rangeConverter = toRangeFromMonth;
+        }
+        if (typeof rangeConverter === 'function') {
+            const [startDate, endDate] = rangeConverter(inputValues[chartCategory]);
+            onDateRangeChanged(startDate, endDate);
+        }
     }
 
     return (
@@ -61,7 +77,7 @@ export default function ManagerDataAnalytics() {
                     reportDataErrorMessage={reportDataErrorMessage}
                     onDateRangeChanged={onDateRangeChanged}
                     chartCategory={chartCategory}
-                    onChangeChartCategory={setChartCategory}
+                    onChangeChartCategory={onChangeChartCategory}
                     inputValues={inputValues}
                     onChangeInputValues={onChangeInputValues}
                 />

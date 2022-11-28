@@ -142,3 +142,49 @@ export const toBirthDateFormat = (date) => {
   date = new Date(date);
   return `${date.getFullYear()}-${String(date.getMonth()).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 }
+
+function getDateOfISOWeek(w, y) {
+  var simple = new Date(y, 0, 1 + (w - 1) * 7);
+  var dow = simple.getDay();
+  var ISOweekStart = simple;
+  if (dow <= 4)
+    ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+  else
+    ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+  return ISOweekStart;
+}
+
+
+function getDateRangeOfWeek(w, y) {
+  var startDate = getDateOfISOWeek(w, y);
+  // easily get ending date by adding 6 days more
+  var endDate = getDateOfISOWeek(w, y);
+  endDate.setDate(endDate.getDate() + 6);
+  return [startDate, endDate];
+}
+
+export function toRangeFromDay(value) {
+  return [toStartHourDate(value), toEndHourDate(value)];
+}
+
+export function toRangeFromWeek(value) {
+  let [year, week] = value.split("-");
+  week = week.substring(1);
+  const [startDate, endDate] = getDateRangeOfWeek(week, year);
+  return [toStartHourDate(startDate), toEndHourDate(endDate)];
+}
+
+export function toRangeFromMonth(value) {
+  let [year, month] = value.split("-");
+  var firstDay = new Date();
+  firstDay.setFullYear(year);
+  firstDay.setMonth(Number(month) - 1);
+  firstDay.setDate(1);
+
+  var lastDay = new Date();
+  lastDay.setFullYear(year);
+  lastDay.setMonth(Number(month));
+  lastDay.setDate(1);
+
+  return [toStartHourDate(firstDay), toStartHourDate(lastDay)];
+}

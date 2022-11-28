@@ -4,28 +4,8 @@ import ChartByMonthComponent from './chart-component/chart-by-month'
 import ChartByWeekComponent from './chart-component/chart-by-week'
 import PieChartForTotalAssessmentsComponent from './pie-charts/pie-chart-total-assessments'
 
-import { toEndHourDate, toStartHourDate } from '../../lib/time-util'
+import { toRangeFromDay, toRangeFromMonth, toRangeFromWeek } from '../../lib/time-util'
 import './dashboard-chart.css'
-
-function getDateOfISOWeek(w, y) {
-    var simple = new Date(y, 0, 1 + (w - 1) * 7);
-    var dow = simple.getDay();
-    var ISOweekStart = simple;
-    if (dow <= 4)
-        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
-    else
-        ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
-    return ISOweekStart;
-}
-
-
-function getDateRangeOfWeek(w, y) {
-    var startDate = getDateOfISOWeek(w, y);
-    // easily get ending date by adding 6 days more
-    var endDate = getDateOfISOWeek(w, y);
-    endDate.setDate(endDate.getDate() + 6);
-    return [startDate, endDate];
-}
 
 export default function DashboardChartsComponent({ payload,
     onChange,
@@ -67,10 +47,11 @@ export default function DashboardChartsComponent({ payload,
                                     className='month-selector'
                                     onChange={(e) => {
                                         e.preventDefault();
-                                        onChangeInputValues('day', e.target.value);
-                                        onChange(toStartHourDate(e.target.value), toEndHourDate(e.target.value));
+                                        const [startDate, endDate] = toRangeFromDay(e.target.value);
+                                        onChangeInputValues(0, e.target.value);
+                                        onChange(startDate, endDate);
                                     }}
-                                    value={inputValues.day}
+                                    value={inputValues[0]}
                                 >
                                 </input>
                                 <span className="tooltiptext">Day, Month, Year</span>
@@ -89,13 +70,11 @@ export default function DashboardChartsComponent({ payload,
                                 className='month-selector'
                                 onChange={(e) => {
                                     e.preventDefault();
-                                    let [year, week] = e.target.value.split("-");
-                                    week = week.substring(1);
-                                    const [startDate, endDate] = getDateRangeOfWeek(week, year);
-                                    onChangeInputValues('week', e.target.value);
-                                    onChange(toStartHourDate(startDate), toEndHourDate(endDate));
+                                    const [startDate, endDate] = toRangeFromWeek(e.target.value);
+                                    onChangeInputValues(1, e.target.value);
+                                    onChange(startDate, endDate);
                                 }}
-                                value={inputValues.week}
+                                value={inputValues[1]}
                             />
                             <span className="tooltiptext">Month Week, Year</span>
                         </div>
@@ -112,21 +91,12 @@ export default function DashboardChartsComponent({ payload,
                                     name='monthYear'
                                     min='2022-07'
                                     className='month-selector'
-                                    value={inputValues.month}
+                                    value={inputValues[2]}
                                     onChange={(e) => {
                                         e.preventDefault();
-                                        onChangeInputValues('month', e.target.value);
-                                        let [year, month] = e.target.value.split("-");
-                                        var firstDay = new Date();
-                                        firstDay.setFullYear(year);
-                                        firstDay.setMonth(Number(month) - 1);
-                                        firstDay.setDate(1);
-
-                                        var lastDay = new Date();
-                                        lastDay.setFullYear(year);
-                                        lastDay.setMonth(Number(month));
-                                        lastDay.setDate(1);
-                                        onChange(toStartHourDate(firstDay), toStartHourDate(lastDay));
+                                        const [firstDay, lastDay] = toRangeFromMonth(e.target.value);
+                                        onChangeInputValues(2, e.target.value);
+                                        onChange(firstDay, lastDay);
                                     }}
                                 >
                                 </input>
