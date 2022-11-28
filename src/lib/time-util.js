@@ -15,7 +15,7 @@ export function toUTCDate(date = new Date()) {
  * @param {Date} date
  * @returns UTC Date.
  */
- export function toUTCDateInDate(date = new Date()) {
+export function toUTCDateInDate(date = new Date()) {
   date = new Date(date);
   return new Date(
     date.getTime() + new Date().getTimezoneOffset() * 60000
@@ -96,4 +96,37 @@ export const toStartHourDate = (date) => {
 
 export const toEndHourDate = (date) => {
   return new Date(toUTCDateInDate(new Date(date)).setHours(23, 59, 59, 999)).getTime();
+}
+
+export const getMonthName = (month) => {
+  var months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  return months[month];
+}
+
+export const getDayName = (day) => {
+  var days = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "wed",
+    "Thu",
+    "Fri",
+    "Sat",
+  ];
+
+  return days[day];
 }
