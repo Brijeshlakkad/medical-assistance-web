@@ -1,6 +1,4 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import EditInfoComponent from '../components/edit-user-info/edit-info-component'
 import InfoComponent from '../components/edit-user-info/info-component'
@@ -27,7 +25,7 @@ const EditUserInfo = ({ role }) => {
     const profile = useSelector(state => state.user.profile.payload);
     const profileUpdated = useSelector(state => state.user.profileEdit.payload);
     const profileUpdatedErrorMessage = useSelector(state => state.user.profileEdit.errorMessage);
-    const errorMessage = useSelector(state => state.user.profile.errorMessage);
+    // const errorMessage = useSelector(state => state.user.profile.errorMessage);
 
     useEffect(() => {
         if (requestState === RequestState.COMPLETED){

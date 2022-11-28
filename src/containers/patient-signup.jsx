@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import FooterComponent from "../components/footer/footer";
 import { PatientSignupComponent } from "../components/patient-signup/patient-signup";
 import { PathConstants } from "../lib/path-constants";
+import { toUTCDate } from "../lib/time-util";
 import { RequestState, UserRole } from "../lib/types";
 import { onLoadUserLoginSignupPage, signup } from "../store/actions/user";
 import Header from "./header";
@@ -36,7 +37,10 @@ export default function PatientSignup(props) {
     }, [dispatch]);
 
     const onSubmit = (e) => {
-        dispatch(signup(user, UserRole.PATIENT));
+        dispatch(signup({
+            ...user,
+            dateOfBirth: toUTCDate(user.dateOfBirth)
+        }, UserRole.PATIENT));
     }
 
     const signupState = useSelector(state => state.user.state);

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { CounselorSignupComponent } from '../components/counselor-signup/counselor-signup';
 import FooterComponent from '../components/footer/footer';
 import { PathConstants } from '../lib/path-constants';
+import { toUTCDate } from '../lib/time-util';
 import { RequestState, UserRole } from '../lib/types';
 import { onLoadUserLoginSignupPage, signup } from '../store/actions/user';
 import Header from './header';
@@ -37,7 +38,10 @@ export default function CounselorSignupPage(props) {
     }, [dispatch]);
 
     const onSubmit = (e) => {
-        dispatch(signup(user, UserRole.COUNSELOR));
+        dispatch(signup({
+            ...user,
+            dateOfBirth: toUTCDate(user.dateOfBirth)
+        }, UserRole.COUNSELOR));
     }
 
     const signupState = useSelector(state => state.user.state);
