@@ -9,7 +9,7 @@ import './manager-data-analytics.css'
 
 const Container = styled.div`
     margin-left: 20%;
-    margin-right: 5%;
+    width: 100%;
 `
 
 export default function ManagerDataAnalyticsComponent({

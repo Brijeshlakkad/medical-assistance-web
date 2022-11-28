@@ -18,7 +18,9 @@
 }
 
 .dashboard-card-row {
-    margin: 0 -5px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .dashboard-card-row:after {

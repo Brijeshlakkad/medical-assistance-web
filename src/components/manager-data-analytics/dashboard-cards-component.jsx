@@ -38,6 +38,6 @@ export default function DashboardCardsComponent({ payload }) {
                     <p className='show-data-cards'>{payload.numHasDoctorAppointment}<span>({payload.numInProcessingDoctorAppointment})</span></p>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
