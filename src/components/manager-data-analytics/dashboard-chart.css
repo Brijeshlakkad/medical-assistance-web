@@ -1,14 +1,18 @@
 /* Float four columns side by side */
 .dashboard-chart-columns {
-    float: left;
+    /* float: left;
     padding: 0 10px;
-    padding-left: 2.1rem;
+    padding-left: 2.1rem; */
 }
 
 /* Remove extra left and right margins, due to padding */
 .dashboard-chart-row {
-    margin: 0 -5px;
+    /* margin: 0 -5px; */
     margin-top: 2rem;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: space-around;
 }
 
 /* Clear floats after the columns */
@@ -125,4 +129,14 @@
     left: 50%;
     margin-left: -60px;
     /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.right-piechart-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-input-container {
+    float: right;
 }

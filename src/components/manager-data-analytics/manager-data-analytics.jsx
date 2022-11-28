@@ -8,8 +8,10 @@ import DashboardChartsComponent from './dashboard-chart-component'
 import './manager-data-analytics.css'
 
 const Container = styled.div`
-    margin-left: 20%;
-    width: 100%;
+    position: absolute;
+    width: 80%;
+    top: 0;
+    left: 20%;
 `
 
 export default function ManagerDataAnalyticsComponent({

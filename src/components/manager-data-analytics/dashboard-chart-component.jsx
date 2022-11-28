@@ -16,7 +16,7 @@ export default function DashboardChartsComponent({ payload,
 }) {
     return (
         <div className='dashboard-chart-row'>
-            <div className='dashboard-chart-columns' style={{ width: "72%" }}>
+            <div className='dashboard-chart-columns regular-chart'>
                 <div className='dashboard-chart-cards'>
                     <div className='chart-toggle-header'>
                         <h3 id="charts-card-header" style={{ fontSize: "2rem" }}>New Users</h3>
@@ -37,8 +37,7 @@ export default function DashboardChartsComponent({ payload,
                     </div>
 
                     {chartCategory === 0 && <div id='users-by-day'>
-                        <h2 id='chart-by-month-heading'>New Users by Day</h2>
-                        <div>
+                        <div className='user-input-container'>
                             <div className='tooltip'>
                                 <input type="date"
                                     id='monthYear'
@@ -57,34 +56,36 @@ export default function DashboardChartsComponent({ payload,
                                 <span className="tooltiptext">Day, Month, Year</span>
                             </div>
                         </div>
+                        <h2 id='chart-by-month-heading'>New Users by Day</h2>
                         <CardByDayComponent payload={payload} />
                     </div>}
 
                     {chartCategory === 1 && <div id='users-by-week'>
-                        <h2 id='chart-by-month-heading '>New Users by Week</h2>
-                        <div className='tooltip'>
-                            <input type="week"
-                                id='monthWeekYear'
-                                name='monthWeekYear'
-                                min='2022-W32'
-                                className='month-selector'
-                                onChange={(e) => {
-                                    e.preventDefault();
-                                    const [startDate, endDate] = toRangeFromWeek(e.target.value);
-                                    onChangeInputValues(1, e.target.value);
-                                    onChange(startDate, endDate);
-                                }}
-                                value={inputValues[1]}
-                            />
-                            <span className="tooltiptext">Month Week, Year</span>
+                        <div className='user-input-container'>
+                            <div className='tooltip'>
+                                <input type="week"
+                                    id='monthWeekYear'
+                                    name='monthWeekYear'
+                                    min='2022-W32'
+                                    className='month-selector'
+                                    onChange={(e) => {
+                                        e.preventDefault();
+                                        const [startDate, endDate] = toRangeFromWeek(e.target.value);
+                                        onChangeInputValues(1, e.target.value);
+                                        onChange(startDate, endDate);
+                                    }}
+                                    value={inputValues[1]}
+                                />
+                                <span className="tooltiptext">Month Week, Year</span>
+                            </div>
                         </div>
+                        <h2 id='chart-by-month-heading '>New Users by Week</h2>
 
                         <ChartByWeekComponent payload={payload} />
                     </div>}
 
                     {chartCategory === 2 && <div id='users-by-month'>
-                        <h2 id='chart-by-month-heading'>New Users by Month</h2>
-                        <div>
+                        <div className='user-input-container'>
                             <div className='tooltip'>
                                 <input type="month"
                                     id='monthYear'
@@ -103,12 +104,13 @@ export default function DashboardChartsComponent({ payload,
                                 <span className="tooltiptext">Month Year</span>
                             </div>
                         </div>
+                        <h2 id='chart-by-month-heading'>New Users by Month</h2>
                         <ChartByMonthComponent payload={payload} />
                     </div>}
                 </div>
             </div>
-
-            <div className='dashboard-chart-columns' style={{ width: "19%" }}>
+            <div className='horizontal-space'></div>
+            <div className='dashboard-chart-columns pie-chart'>
                 <div className='dashboard-chart-cards right-piechart-card'>
                     <h3 id="pie-chart-card-header" style={{ fontSize: "2rem", marginBottom: "3rem" }}>Assessments over Users</h3>
                     <PieChartForTotalAssessmentsComponent
