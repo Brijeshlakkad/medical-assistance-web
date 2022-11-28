@@ -27,8 +27,8 @@ export default function AdminLogin() {
 
     useEffect(() => {
         if (loginState === RequestState.COMPLETED) {
-            // redirect to AdminHome page.
-            navigate(PathConstants.ManagerHome);
+            // redirect to ManagerDataAnalytics page.
+            navigate(PathConstants.ManagerDataAnalytics);
         }
     }, [navigate, loginState]);
 

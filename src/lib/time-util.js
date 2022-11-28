@@ -11,6 +11,18 @@ export function toUTCDate(date = new Date()) {
 }
 
 /**
+ * converts the given date into UTC timezone date format and removes the time.
+ * @param {Date} date
+ * @returns UTC Date.
+ */
+ export function toUTCDateInDate(date = new Date()) {
+  date = new Date(date);
+  return new Date(
+    date.getTime() + new Date().getTimezoneOffset() * 60000
+  );
+}
+
+/**
  * converts the given date into UTC timezone date format. This method preserves both the date and time.
  * @param {Date} date
  * @returns UTC Date in JSON string format.
@@ -75,4 +87,13 @@ export function toReadableDateFormat(receviedAppointmentDateTime) {
     ", " +
     appointmentDateTime.toLocaleTimeString();
   return finalDateTime;
+}
+
+
+export const toStartHourDate = (date) => {
+  return new Date(toUTCDateInDate(new Date(date)).setHours(0, 0, 0, 0)).getTime();
+}
+
+export const toEndHourDate = (date) => {
+  return new Date(toUTCDateInDate(new Date(date)).setHours(23, 59, 59, 999)).getTime();
 }

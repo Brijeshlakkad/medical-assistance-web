@@ -30,15 +30,12 @@ export const PathConstants = {
   DoctorPatientDetails: "/doctor/patient/:patientId",
   Internal_DoctorPatientDetails: "/doctor/patient/",
 
-  /* Manager */
-  ManagerDataAnalytics: "/manager/analytics",
-
   /* Social Media Links */
   Instagram: "../../https://www.instagram.com/",
 
   /* Manager */
   ManagerLogin: "/admin/login",
-  ManagerHome: "/admin/home",
+  ManagerDataAnalytics: "/admin/analytics",
   ManagePatient: "/admin/patient",
   ManageDoctor: "/admin/doctor",
   ManageCounselor: "/admin/counselor",

@@ -1,5 +1,5 @@
 import { RequestState } from "../../lib/types";
-import { ADMIN_CREATE_USER_ERROR, ADMIN_CREATE_USER_FETCHING, ADMIN_CREATE_USER_SUCCESS, ADMIN_GET_COUNSELOR_ERROR, ADMIN_GET_COUNSELOR_FETCHING, ADMIN_GET_COUNSELOR_SUCCESS, ADMIN_GET_DOCTOR_ERROR, ADMIN_GET_DOCTOR_FETCHING, ADMIN_GET_DOCTOR_SUCCESS, ADMIN_GET_PATIENT_ERROR, ADMIN_GET_PATIENT_FETCHING, ADMIN_GET_PATIENT_SUCCESS, ADMIN_REMOVE_COUNSELOR_ERROR, ADMIN_REMOVE_COUNSELOR_FETCHING, ADMIN_REMOVE_COUNSELOR_SUCCESS, ADMIN_REMOVE_DOCTOR_ERROR, ADMIN_REMOVE_DOCTOR_FETCHING, ADMIN_REMOVE_DOCTOR_SUCCESS, ADMIN_REMOVE_PATIENT_ERROR, ADMIN_REMOVE_PATIENT_FETCHING, ADMIN_REMOVE_PATIENT_SUCCESS } from "../types";
+import { ADMIN_CREATE_USER_ERROR, ADMIN_CREATE_USER_FETCHING, ADMIN_CREATE_USER_SUCCESS, ADMIN_GET_COUNSELOR_ERROR, ADMIN_GET_COUNSELOR_FETCHING, ADMIN_GET_COUNSELOR_SUCCESS, ADMIN_GET_DOCTOR_ERROR, ADMIN_GET_DOCTOR_FETCHING, ADMIN_GET_DOCTOR_SUCCESS, ADMIN_GET_PATIENT_ERROR, ADMIN_GET_PATIENT_FETCHING, ADMIN_GET_PATIENT_SUCCESS, ADMIN_REMOVE_COUNSELOR_ERROR, ADMIN_REMOVE_COUNSELOR_FETCHING, ADMIN_REMOVE_COUNSELOR_SUCCESS, ADMIN_REMOVE_DOCTOR_ERROR, ADMIN_REMOVE_DOCTOR_FETCHING, ADMIN_REMOVE_DOCTOR_SUCCESS, ADMIN_REMOVE_PATIENT_ERROR, ADMIN_REMOVE_PATIENT_FETCHING, ADMIN_REMOVE_PATIENT_SUCCESS, ADMIN_REPORT_ERROR, ADMIN_REPORT_FETCHING, ADMIN_REPORT_PARAMETERS_ERROR, ADMIN_REPORT_PARAMETERS_FETCHING, ADMIN_REPORT_PARAMETERS_SUCCESS, ADMIN_REPORT_SUCCESS } from "../types";
 
 const initialState = {
 	patient: {
@@ -18,6 +18,11 @@ const initialState = {
 		state: RequestState.NULL,
 		payload: "",
 		errorMessage: ""
+	},
+	reportParameters: {
+	},
+	reportData: {
+
 	}
 }
 
@@ -200,6 +205,59 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				createRequest: {
+					state: RequestState.ERROR,
+					errorMessage: action.errorMessage
+				}
+			}
+		}
+
+		case ADMIN_REPORT_FETCHING: {
+			return {
+				...state,
+				reportData: {
+					state: RequestState.FETCHING
+				}
+			}
+		}
+		case ADMIN_REPORT_SUCCESS: {
+			return {
+				...state,
+				reportData: {
+					state: RequestState.COMPLETED,
+					payload: action.payload
+				}
+			}
+		}
+		case ADMIN_REPORT_ERROR: {
+			return {
+				...state,
+				reportData: {
+					state: RequestState.ERROR,
+					errorMessage: action.errorMessage
+				}
+			}
+		}
+		case ADMIN_REPORT_PARAMETERS_FETCHING: {
+			return {
+				...state,
+				reportParameters: {
+					state: RequestState.FETCHING
+				}
+			}
+		}
+		case ADMIN_REPORT_PARAMETERS_SUCCESS: {
+			return {
+				...state,
+				reportParameters: {
+					state: RequestState.COMPLETED,
+					payload: action.payload
+				}
+			}
+		}
+		case ADMIN_REPORT_PARAMETERS_ERROR: {
+			return {
+				...state,
+				reportParameters: {
 					state: RequestState.ERROR,
 					errorMessage: action.errorMessage
 				}

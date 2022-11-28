@@ -1,66 +1,42 @@
-import React, { Component } from 'react'
+import React from 'react';
 import {
-    ComposedChart,
-    Line,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    Legend,
+    CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis,
+    YAxis
 } from 'recharts';
+// import data from './data.json';
 
-const data = [{
-    name: '6',
-    users: 0,
-}, {
-    name: '8',
-    users: 9,
-}, {
-    name: '10',
-    users: 0,
-}, {
-    name: '12',
-    users: 12,
-}, {
-    name: '14',
-    users: 5,
-}, {
-    name: '16',
-    users: 21,
-}, {
-    name: '18',
-    users: 11,
-}, {
-    name: '20',
-    users: 9,
-}, {
-    name: '22',
-    users: 8,
-}, {
-    name: '24',
-    users: 2,
-},
-]
-
-export default class ChartByMonthComponent extends Component {
-    render() {
-        return (
-            <ComposedChart width={800}
-                height={400}
-                data={data}
-                margin={{
-                    top: 20,
-                    right: 20,
-                    bottom: 20,
-                    left: 20,
-                }}>
-                <CartesianGrid stroke="#f5f5f5" />
-                <XAxis dataKey="name" scale="value" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="users" stroke="#413ea0" />
-            </ComposedChart>
-        )
-    }
+export default function ChartByMonthComponent({ payload }) {
+    const data = React.useMemo(() => {
+        let data = {};
+        payload.patients.forEach((patient) => {
+            const hour = new Date(patient.createdAt).getHours();
+            if (data.hasOwnProperty(hour)) {
+                data[hour].users++;
+            } else {
+                data[hour] = {
+                    hours: hour,
+                    users: 1
+                };
+            }
+        })
+        return Object.values(data);
+    }, [payload]);
+    return (
+        <ComposedChart width={800}
+            height={400}
+            data={data}
+            margin={{
+                top: 20,
+                right: 20,
+                bottom: 20,
+                left: 20,
+            }}>
+            <CartesianGrid stroke="#f5f5f5" />
+            <XAxis dataKey="hours" scale="value" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line dataKey="users" fill="#8884d8" />
+        </ComposedChart>
+    )
 }

@@ -3,42 +3,37 @@ import CardByDayComponent from './chart-component/card-by-day'
 import ChartByMonthComponent from './chart-component/chart-by-month'
 import ChartByWeekComponent from './chart-component/chart-by-week'
 import PieChartForTotalAssessmentsComponent from './pie-charts/pie-chart-total-assessments'
-import { MotionPrimary } from '../../css/colors'
 
+import { toEndHourDate, toStartHourDate } from '../../lib/time-util'
 import './dashboard-chart.css'
 
-function blockDayUser() {
-    document.getElementById('users-by-month').style.display = "none";
-    document.getElementById('users-by-week').style.display = "none";
-    document.getElementById('users-by-day').style.display = "block";
-
-    document.getElementById('user-day-button').style.backgroundColor = MotionPrimary;
-    document.getElementById('user-week-button').style.backgroundColor = "";
-    document.getElementById('user-month-button').style.backgroundColor = "";
-}
-
-function blockWeekUser() {
-    document.getElementById('users-by-month').style.display = "none";
-    document.getElementById('users-by-week').style.display = "block";
-    document.getElementById('users-by-day').style.display = "none";
-
-    document.getElementById('user-week-button').style.backgroundColor = MotionPrimary;
-    document.getElementById('user-day-button').style.backgroundColor = "";
-    document.getElementById('user-month-button').style.backgroundColor = "";
-}
-
-function blockMonthUser() {
-    document.getElementById('users-by-week').style.display = "none";
-    document.getElementById('users-by-month').style.display = "block";
-    document.getElementById('users-by-day').style.display = "none";
-
-    document.getElementById('user-month-button').style.backgroundColor = MotionPrimary;
-    document.getElementById('user-day-button').style.backgroundColor = "";
-    document.getElementById('user-week-button').style.backgroundColor = "";
+function getDateOfISOWeek(w, y) {
+    var simple = new Date(y, 0, 1 + (w - 1) * 7);
+    var dow = simple.getDay();
+    var ISOweekStart = simple;
+    if (dow <= 4)
+        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+    else
+        ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+    return ISOweekStart;
 }
 
 
-export default function DashboardChartsComponent() {
+function getDateRangeOfWeek(w, y) {
+    var startDate = getDateOfISOWeek(w, y);
+    // easily get ending date by adding 6 days more
+    var endDate = getDateOfISOWeek(w, y);
+    endDate.setDate(endDate.getDate() + 6);
+    return [startDate, endDate];
+}
+
+export default function DashboardChartsComponent({ payload,
+    onChange,
+    chartCategory,
+    onChangeChartCategory,
+    inputValues,
+    onChangeInputValues
+}) {
     return (
         <div className='dashboard-chart-row'>
             <div className='dashboard-chart-columns' style={{ width: "72%" }}>
@@ -46,69 +41,100 @@ export default function DashboardChartsComponent() {
                     <div className='chart-toggle-header'>
                         <h3 id="charts-card-header" style={{ fontSize: "2rem" }}>New Users</h3>
                         <div className='chart-toggle-area'>
-                            <button id='user-day-button' onClick={blockDayUser} className='chart-toggle-button'>Day</button>
-                            <button id='user-week-button' onClick={blockWeekUser} className='chart-toggle-button'>Week</button>
-                            <button id='user-month-button' onClick={blockMonthUser} className='chart-toggle-button'>Month</button>
+                            <button id='user-day-button' onClick={(e) => {
+                                e.preventDefault();
+                                onChangeChartCategory(0);
+                            }} className='chart-toggle-button'>Day</button>
+                            <button id='user-week-button' onClick={(e) => {
+                                e.preventDefault();
+                                onChangeChartCategory(1);
+                            }} className='chart-toggle-button'>Week</button>
+                            <button id='user-month-button' onClick={(e) => {
+                                e.preventDefault();
+                                onChangeChartCategory(2);
+                            }} className='chart-toggle-button'>Month</button>
                         </div>
                     </div>
 
-                    <div id='users-by-day'>
+                    {chartCategory === 0 && <div id='users-by-day'>
                         <h2 id='chart-by-month-heading'>New Users by Day</h2>
                         <div>
-                            <form className='month-selector-form' /*onSubmit={someFunction} */>
-                                <div className='tooltip'>
-                                    <input type="date"
-                                        id='monthYear'
-                                        name='monthYear'
-                                        min='2022-07'
-                                        className='month-selector'
-                                    >
-                                    </input>
-                                    <span class="tooltiptext">Day, Month, Year</span>
-                                </div>
-                            </form>
-
-                        </div>
-                        <CardByDayComponent></CardByDayComponent>
-                    </div>
-
-                    <div id='users-by-month'>
-                        <h2 id='chart-by-month-heading'>New Users by Month</h2>
-                        <div>
-                            <form className='month-selector-form' /*onSubmit={someFunction} */>
-                                <div className='tooltip'>
-                                    <input type="month"
-                                        id='monthYear'
-                                        name='monthYear'
-                                        min='2022-07'
-                                        className='month-selector'
-                                    >
-                                    </input>
-                                    <span class="tooltiptext">Month Year</span>
-                                </div>
-                            </form>
-
-                        </div>
-                        <ChartByMonthComponent></ChartByMonthComponent>
-                    </div>
-
-                    <div id='users-by-week'>
-                        <h2 id='chart-by-month-heading '>New Users by Week</h2>
-                        <form className='month-selector-form' /*onSubmit={someFunction} */>
                             <div className='tooltip'>
-                                <input type="week"
-                                    id='monthWeekYear'
-                                    name='monthWeekYear'
-                                    min='2022-W32'
+                                <input type="date"
+                                    id='monthYear'
+                                    name='monthYear'
+                                    min='2022-07-01'
                                     className='month-selector'
+                                    onChange={(e) => {
+                                        e.preventDefault();
+                                        onChangeInputValues('day', e.target.value);
+                                        onChange(toStartHourDate(e.target.value), toEndHourDate(e.target.value));
+                                    }}
+                                    value={inputValues.day}
                                 >
                                 </input>
-                                <span class="tooltiptext">Month Week, Year</span>
+                                <span className="tooltiptext">Day, Month, Year</span>
                             </div>
-                        </form>
+                        </div>
+                        <CardByDayComponent payload={payload} />
+                    </div>}
 
-                        <ChartByWeekComponent></ChartByWeekComponent>
-                    </div>
+                    {chartCategory === 1 && <div id='users-by-week'>
+                        <h2 id='chart-by-month-heading '>New Users by Week</h2>
+                        <div className='tooltip'>
+                            <input type="week"
+                                id='monthWeekYear'
+                                name='monthWeekYear'
+                                min='2022-W32'
+                                className='month-selector'
+                                onChange={(e) => {
+                                    e.preventDefault();
+                                    let [year, week] = e.target.value.split("-");
+                                    week = week.substring(1);
+                                    const [startDate, endDate] = getDateRangeOfWeek(week, year);
+                                    onChangeInputValues('week', e.target.value);
+                                    onChange(toStartHourDate(startDate), toEndHourDate(endDate));
+                                }}
+                                value={inputValues.week}
+                            />
+                            <span className="tooltiptext">Month Week, Year</span>
+                        </div>
+
+                        <ChartByWeekComponent payload={payload} />
+                    </div>}
+
+                    {chartCategory === 2 && <div id='users-by-month'>
+                        <h2 id='chart-by-month-heading'>New Users by Month</h2>
+                        <div>
+                            <div className='tooltip'>
+                                <input type="month"
+                                    id='monthYear'
+                                    name='monthYear'
+                                    min='2022-07'
+                                    className='month-selector'
+                                    value={inputValues.month}
+                                    onChange={(e) => {
+                                        e.preventDefault();
+                                        onChangeInputValues('month', e.target.value);
+                                        let [year, month] = e.target.value.split("-");
+                                        var firstDay = new Date();
+                                        firstDay.setFullYear(year);
+                                        firstDay.setMonth(Number(month) - 1);
+                                        firstDay.setDate(1);
+
+                                        var lastDay = new Date();
+                                        lastDay.setFullYear(year);
+                                        lastDay.setMonth(Number(month));
+                                        lastDay.setDate(1);
+                                        onChange(toStartHourDate(firstDay), toStartHourDate(lastDay));
+                                    }}
+                                >
+                                </input>
+                                <span className="tooltiptext">Month Year</span>
+                            </div>
+                        </div>
+                        <ChartByMonthComponent payload={payload} />
+                    </div>}
                 </div>
             </div>
 
@@ -118,8 +144,6 @@ export default function DashboardChartsComponent() {
                     <PieChartForTotalAssessmentsComponent style={{ width: "400px" }}></PieChartForTotalAssessmentsComponent>
                 </div>
             </div>
-
-            <div className='analytics-extra-space'></div>
         </div>
     )
 }

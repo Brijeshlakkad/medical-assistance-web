@@ -1,8 +1,11 @@
 import styled from "styled-components"
 
-export function VerticalSpace({ height }) {
-    const Container = styled.div`
+const Container = styled.div((height) => {
+    return `
         height: ${typeof height === 'number' ? height : 4}rem;
     `
-    return <Container />
+})
+
+export function VerticalSpace({ height }) {
+    return <Container height={height} />
 }

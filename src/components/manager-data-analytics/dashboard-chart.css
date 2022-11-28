@@ -62,18 +62,6 @@
     background-color: lightcoral;
 }
 
-#users-by-month {
-    display: block;
-}
-
-#users-by-week {
-    display: none;
-}
-
-#users-by-day {
-    display: none;
-}
-
 #chart-by-month-heading {
     text-align: center;
 }
