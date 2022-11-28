@@ -23,8 +23,8 @@ export function CreateUserComponent({
           onSubmit();
         }}
       >
-        {
-          (userRole === UserRole.COUNSELOR || userRole === UserRole.DOCTOR) && <>
+        {(userRole === UserRole.COUNSELOR || userRole === UserRole.DOCTOR) && (
+          <>
             <label>Counselor Registration Number</label>
             <input
               type="text"
@@ -37,7 +37,7 @@ export function CreateUserComponent({
               }}
             />
           </>
-        }
+        )}
         <label>Full Name</label>
         <input
           type="text"
@@ -124,7 +124,7 @@ export function CreateUserComponent({
         <label>Phone Number</label>
         <input
           type="tel"
-          placeholder="123456789"
+          placeholder="1234567890"
           required={true}
           autoComplete="true"
           pattern="[0-9]{10}"
@@ -141,12 +141,12 @@ export function CreateUserComponent({
 
         {requestState === RequestState.ERROR && (
           <div className="error-message">
-             <ErrorMessage>{errorMessage}</ErrorMessage> 
+            <ErrorMessage>{errorMessage}</ErrorMessage>
           </div>
         )}
         {requestState === RequestState.COMPLETED && (
           <div className="success-message">
-             <SucessMessage>User created successfully</SucessMessage> 
+            <SucessMessage>User created successfully</SucessMessage>
           </div>
         )}
       </form>
