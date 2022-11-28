@@ -1,5 +1,7 @@
 import React from 'react'
+import { RequestState } from '../../lib/types';
 import { ErrorMessage } from '../elements/error-message';
+import { SucessMessage } from '../elements/success-message';
 import "./edit-styles.css"
 
 
@@ -7,14 +9,14 @@ const EditInfoComponent = ({
     user,
     onFieldChange,
     onSubmit,
-    signupState,
+    requestState,
     errorMessage,
-    userInfo
-})=> {
+    onPressBack
+}) => {
     return (
         <div className='card'>
             <h2>Edit Profile</h2>
-            <hr/><br/>
+            <hr /><br />
             <form onSubmit={(e) => {
                 e.preventDefault();
                 onSubmit();
@@ -74,7 +76,7 @@ const EditInfoComponent = ({
                     <option value="Nova Scotia">Nova Scotia</option>
                     <option value="New Brunswik">New Brunswik</option>
                 </select>
-                <br/>
+                <br />
                 <label>Phone Number</label>
                 <input type='tel' placeholder='123456789'
                     required={true}
@@ -86,11 +88,18 @@ const EditInfoComponent = ({
                     }} />
                 <input type='submit' className="user-signup-button" value='Update'></input>
 
-                {signupState && <div className="error-message">
+                {requestState === RequestState.ERROR && <div className="error-message">
                     <ErrorMessage>
                         {errorMessage}
                     </ErrorMessage>
                 </div>}
+                {requestState === RequestState.COMPLETED && <div className="error-message">
+                    <SucessMessage>
+                        <span>Your profile was updated!</span>
+                    </SucessMessage>
+                </div>}
+
+                <div className='go-back'><button onClick={onPressBack}>Go back</button></div>
             </form >
         </div >
     )

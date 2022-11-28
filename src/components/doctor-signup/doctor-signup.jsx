@@ -137,10 +137,10 @@ export function DoctorSignupComponent({
                     <br />
                     <div id="message">
                         <h3 id="passwordValidationPopup">Password must contain the following:</h3>
-                        <p id="passwordLetter" class="invalid">A <b>lowercase</b> letter</p>
-                        <p id="passwordCapital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-                        <p id="passwordNumber" class="invalid">A <b>number</b></p>
-                        <p id="passwordLength" class="invalid">Minimum <b>8 characters</b></p>
+                        <p id="passwordLetter" className="invalid">A <b>lowercase</b> letter</p>
+                        <p id="passwordCapital" className="invalid">A <b>capital (uppercase)</b> letter</p>
+                        <p id="passwordNumber" className="invalid">A <b>number</b></p>
+                        <p id="passwordLength" className="invalid">Minimum <b>8 characters</b></p>
                     </div>
 
                     <label>Re-type Password</label>

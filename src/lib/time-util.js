@@ -76,3 +76,9 @@ export function toReadableDateFormat(receviedAppointmentDateTime) {
     appointmentDateTime.toLocaleTimeString();
   return finalDateTime;
 }
+
+
+export const toBirthDateFormat = (date) => {
+  date = new Date(date);
+  return `${date.getFullYear()}-${String(date.getMonth()).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}

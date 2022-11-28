@@ -59,23 +59,25 @@ export default function CounselorLOP(props) {
     }
 
     return (
-        patientListState !== RequestState.COMPLETED ?
-            <LoadingComponent /> :
-            <>
-                <Header />
-                <ListOfPatient
-                    role={UserRole.COUNSELOR}
-                    patientListPayload={patientListPayload}
-                    onForwardToDoctor={onForwardToDoctor}
-                    appointmentState={appointmentState}
-                    appointmentErrorMessage={appointmentErrorMessage}
-                    onRejectPatient={onRejectPatient}
-                    rejectPatientPayload={{
-                        state: rejectPatientState,
-                        errorMessage: rejectPatientErrorMessage
-                    }}
-                />
-                <FooterComponent />
-            </>
+        <>
+            <Header />
+            {
+                patientListState !== RequestState.COMPLETED ?
+                    <LoadingComponent /> :
+                    <ListOfPatient
+                        role={UserRole.COUNSELOR}
+                        patientListPayload={patientListPayload}
+                        onForwardToDoctor={onForwardToDoctor}
+                        appointmentState={appointmentState}
+                        appointmentErrorMessage={appointmentErrorMessage}
+                        onRejectPatient={onRejectPatient}
+                        rejectPatientPayload={{
+                            state: rejectPatientState,
+                            errorMessage: rejectPatientErrorMessage
+                        }}
+                    />
+            }
+            <FooterComponent />
+        </>
     );
 }

@@ -1,7 +1,7 @@
+import { UserRole } from "./types";
+
 export const PathConstants = {
   Home: "/",
-
-  EditUserInfo: "/edit",
 
   /* Patient */
   PatientLogin: "/patient/login",
@@ -9,6 +9,7 @@ export const PathConstants = {
   PatientHome: "/patient/home",
   AssessmentPage: "/patient/assessment",
   StatusPage: "/patient/status",
+  PatientEditProfile: "/patient/edit",
 
   /* Counselor */
   CounselorLogin: "/counselor/login",
@@ -20,6 +21,7 @@ export const PathConstants = {
   Internal_CounselorToDoctor: "/counselor/doctors/",
   CounselorPatientDetails: "/counselor/patient/:patientId",
   Internal_CounselorPatientDetails: "/counselor/patient/",
+  CounselorEditProfile: "/counselor/edit",
 
   /* Doctor */
   DoctorLogin: "/doctor/login",
@@ -29,7 +31,19 @@ export const PathConstants = {
   DoctorSchedule: "/doctor/view-schedule",
   DoctorPatientDetails: "/doctor/patient/:patientId",
   Internal_DoctorPatientDetails: "/doctor/patient/",
+  DoctorEditProfile: "/doctor/edit",
 
   /* Social Media Links */
-  Instagram: "../../https://www.instagram.com/"
+  Instagram: "../../https://www.instagram.com/",
+
+  /* Manager */
+  ManagerLogin: "/admin/login",
+  ManagerHome: "/admin/home",
+  ManagePatient: "/admin/patient",
+  ManageDoctor: "/admin/doctor",
+  ManageCounselor: "/admin/counselor",
+  ManagerCreate: "/admin/create",
+  ManagerCreatePatient: `/admin/create/${UserRole.PATIENT}`,
+  ManagerCreateCounselor: `/admin/create/${UserRole.COUNSELOR}`,
+  ManagerCreateDoctor: `/admin/create/${UserRole.DOCTOR}`
 };

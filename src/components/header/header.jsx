@@ -22,7 +22,9 @@ export default function HeaderComponent({
                 {userRole === UserRole.COUNSELOR && <Link to={PathConstants.CounselorSchedule}>View Schedule</Link>}
                 {userRole === UserRole.DOCTOR && <Link to={PathConstants.DoctorLOP}>List of Patients</Link>}
                 {userRole === UserRole.DOCTOR && <Link to={PathConstants.DoctorSchedule}>View Schedule</Link>}
-                {userRole !== UserRole.NULL && <Link to={PathConstants.EditUserInfo}>Edit</Link>}
+                {userRole === UserRole.PATIENT && <Link to={PathConstants.PatientEditProfile}>Edit</Link>}
+                {userRole === UserRole.COUNSELOR && <Link to={PathConstants.CounselorEditProfile}>Edit</Link>}
+                {userRole === UserRole.DOCTOR && <Link to={PathConstants.DoctorEditProfile}>Edit</Link>}
             </div>
         </div>
     )
