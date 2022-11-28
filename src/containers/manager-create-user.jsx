@@ -4,6 +4,7 @@ import { CreateUserComponent } from "../components/create-user-component/create-
 import FooterComponent from "../components/footer/footer";
 import { ManagerSidebar } from "../components/manager-sidebar/manager-sidebar";
 import { SideNavContainerComponent } from "../components/side-nav-container/side-nav-container";
+import { toUTCDate } from "../lib/time-util";
 import { RequestState } from "../lib/types";
 import { createUser } from "../store/actions/admin";
 
@@ -38,7 +39,10 @@ export default function ManagerCreateUser({ role }) {
   // }, [dispatch]);
 
   const onSubmit = (e) => {
-    dispatch(createUser(user, role));
+    dispatch(createUser({
+      ...user,
+      dateOfBirth: toUTCDate(user.dateOfBirth)
+    }, role));
   };
 
   const requestState = useSelector((state) => state.admin.createRequest.state);
