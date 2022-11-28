@@ -2,5 +2,5 @@
     font-size: 3rem;
     justify-content: center;
     display: flex;
-    overflow: scroll;
+    overflow: hidden;
 }
