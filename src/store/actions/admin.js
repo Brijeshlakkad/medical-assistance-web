@@ -168,7 +168,6 @@ export const createUser = (user, userRole) => async (dispatch) => {
     dispatch({ type: ADMIN_CREATE_USER_FETCHING });
     request(`admin/${CREATE_USER_APIs[userRole]}`, "POST", null, user)
         .then((resp) => {
-            console.log("resp", resp);
             if (resp && resp.data && resp.data.success) {
                 dispatch({
                     type: ADMIN_CREATE_USER_SUCCESS,
@@ -194,7 +193,6 @@ export const fetchReport = (startDateTime, endDateTime) => async (dispatch) => {
     dispatch({ type: ADMIN_REPORT_FETCHING });
     request(`admin/report`, "GET", { startDateTime, endDateTime }, null)
         .then((resp) => {
-            console.log("resp", resp);
             if (resp && resp.data) {
                 dispatch({
                     type: ADMIN_REPORT_SUCCESS,

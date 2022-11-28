@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FooterComponent from '../components/footer/footer';
-import HeaderComponent from '../components/header/header';
 import ManagerDataAnalyticsComponent from '../components/manager-data-analytics/manager-data-analytics';
+import { ManagerSidebar } from '../components/manager-sidebar/manager-sidebar';
+import { SideNavContainerComponent } from '../components/side-nav-container/side-nav-container';
 import { toEndHourDate, toStartHourDate, toUTCDateInDate } from '../lib/time-util';
 import { fetchReport, fetchReportParameters } from '../store/actions/admin';
 
@@ -30,7 +30,6 @@ export default function ManagerDataAnalytics() {
     const reportDataErrorMessage = useSelector(state => state.admin.reportData.errorMessage);
 
     const onDateRangeChanged = (startDateTime, endDateTime) => {
-        console.log("startDateTime, endDateTime", new Date(startDateTime), new Date(endDateTime));
         dispatch(fetchReport(startDateTime, endDateTime));
     }
 
@@ -51,20 +50,22 @@ export default function ManagerDataAnalytics() {
 
     return (
         <>
-            <HeaderComponent />
-            <ManagerDataAnalyticsComponent
-                reportParametersRequestState={reportParametersRequestState}
-                reportDataRequestState={reportDataRequestState}
-                reportParameters={reportParameters}
-                reportParametersErrorMessage={reportParametersErrorMessage}
-                reportData={reportData}
-                reportDataErrorMessage={reportDataErrorMessage}
-                onDateRangeChanged={onDateRangeChanged}
-                chartCategory={chartCategory}
-                onChangeChartCategory={setChartCategory}
-                inputValues={inputValues}
-                onChangeInputValues={onChangeInputValues}
-            />
+            <SideNavContainerComponent>
+                <ManagerSidebar />
+                <ManagerDataAnalyticsComponent
+                    reportParametersRequestState={reportParametersRequestState}
+                    reportDataRequestState={reportDataRequestState}
+                    reportParameters={reportParameters}
+                    reportParametersErrorMessage={reportParametersErrorMessage}
+                    reportData={reportData}
+                    reportDataErrorMessage={reportDataErrorMessage}
+                    onDateRangeChanged={onDateRangeChanged}
+                    chartCategory={chartCategory}
+                    onChangeChartCategory={setChartCategory}
+                    inputValues={inputValues}
+                    onChangeInputValues={onChangeInputValues}
+                />
+            </SideNavContainerComponent>
             <FooterComponent />
         </>
     )

@@ -23,7 +23,6 @@ export default function ChartByMonthComponent({ payload }) {
         payload.patients.forEach((patient) => {
             const createdDate = toUTCDateInDate(patient.createdAt);
             const currentDate = createdDate.getDate();
-            console.log(currentDate);
             data[currentDate].users++;
         })
         return Object.values(data);

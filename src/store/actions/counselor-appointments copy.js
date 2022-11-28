@@ -30,11 +30,9 @@ export const fetchAppointmentsForDate = (date) => async (dispatch) => {
     if (!date) {
         return;
     }
-    console.log("fetchAppointmentsForDate", date);
     dispatch({ type: COUNSELOR_APPOINTMENTS_FOR_DATE_FETCHING, date });
     request(`counselor/patient/appointments`, "POST", null, { date })
         .then((resp) => {
-            console.log("resp", resp)
             if (resp && resp.data) {
                 dispatch({
                     type: COUNSELOR_APPOINTMENTS_FOR_DATE_SUCCESS,

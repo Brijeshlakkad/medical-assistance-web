@@ -144,7 +144,6 @@ export const updateProfile = (user, role) => async (dispatch) => {
     dispatch({ type: USER_PROFILE_UPDATE_FETCHING });
     request(PROFILE_APIS[role], "PATCH", null, user)
         .then((resp) => {
-            console.log("resp", resp)
             if (resp && resp.data) {
                 dispatch({
                     type: USER_PROFILE_UPDATE_SUCCESS,

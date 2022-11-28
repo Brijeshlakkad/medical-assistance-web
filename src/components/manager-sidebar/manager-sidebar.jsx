@@ -1,9 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { PathConstants } from "../../lib/path-constants";
-import "./manager-sidebar.css";
 import { logout } from "../../store/actions/user";
-import { useDispatch } from "react-redux";
+import "./manager-sidebar.css";
 
 export function ManagerSidebar() {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export function ManagerSidebar() {
       >
         <h2 style={{ textAlign: "center" }}>Admin Dashboard</h2>
         <div className="sidebar-menu">
-          <Link className="sidebar-links">Report</Link>
+          <Link className="sidebar-links" to={PathConstants.ManagerDataAnalytics}>Report</Link>
           <Link className="sidebar-links" to={PathConstants.ManagePatient}>
             Manage Patient
           </Link>

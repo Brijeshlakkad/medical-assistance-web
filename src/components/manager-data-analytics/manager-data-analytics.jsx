@@ -1,10 +1,16 @@
 import React from 'react'
+import styled from 'styled-components'
 import { RequestState } from '../../lib/types'
 import { LoadingComponent } from '../loading/loading'
 import { VerticalSpace } from '../vertical-space/vertical-space'
 import DashboardCardsComponent from './dashboard-cards-component'
 import DashboardChartsComponent from './dashboard-chart-component'
 import './manager-data-analytics.css'
+
+const Container = styled.div`
+    margin-left: 20%;
+    margin-right: 5%;
+`
 
 export default function ManagerDataAnalyticsComponent({
     reportParametersRequestState,
@@ -20,7 +26,7 @@ export default function ManagerDataAnalyticsComponent({
     onChangeInputValues
 }) {
     return (
-        <>
+        <Container>
             <div>
                 <h3 className='dashboard-content'>
                     Dashboard
@@ -44,6 +50,6 @@ export default function ManagerDataAnalyticsComponent({
                     />
             }
             <VerticalSpace height={10} />
-        </>
+        </Container>
     )
 }

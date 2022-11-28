@@ -21,7 +21,6 @@ export default function ChartByWeekComponent({ payload }) {
         }
         payload.patients.forEach((patient) => {
             const day = (toUTCDateInDate(patient.createdAt)).getDay();
-            console.log("day", day);
             data[day].users++;
         })
         return Object.values(data);
