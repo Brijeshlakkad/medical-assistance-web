@@ -4,12 +4,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PathConstants } from "../../lib/path-constants";
-import { RequestState, UserRole } from "../../lib/types";
+import { UserRole } from "../../lib/types";
 import { RejectModal } from "../reject-modal/reject-modal";
 import { PaginationComponent } from "../pagination/pagination";
 import { VerticalSpace } from "../vertical-space/vertical-space";
 import "./manager-edit-counselor.css";
 import { toReadableDateFormat, toUTCDateTime } from "../../lib/time-util";
+import { useCallback } from "react";
 
 function searchByEmail() {
   var input, filter, table, tr, td, i, txtValue;
@@ -105,23 +106,31 @@ export function ManagerEditCounselor({
       search: `page=${page}`,
     });
   };
+  const onRejectAction = useCallback(
+    (confirm, data) => {
+      if (confirm && typeof onRemove == "function") {
+        onRemove(data.emailAddress);
+      }
+    },
+    [onRemove]
+  );
 
-  // const [rejectModalVisibility, setRejectModalVisibility] = useState({
-  //   isOpen: false,
-  // });
+  const [rejectModalVisibility, setRejectModalVisibility] = useState({
+    isOpen: false,
+  });
 
-  // function onOpenRejectModal(patientRecord) {
-  //   setRejectModalVisibility({
-  //     isOpen: true,
-  //     ...patientRecord,
-  //   });
-  // }
+  function onOpenRejectModal(patientRecord) {
+    setRejectModalVisibility({
+      isOpen: true,
+      ...patientRecord,
+    });
+  }
 
-  // function onCloseRejectModal() {
-  //   setRejectModalVisibility({
-  //     isOpen: false,
-  //   });
-  // }
+  function onCloseRejectModal() {
+    setRejectModalVisibility({
+      isOpen: false,
+    });
+  }
 
   return (
     <>
@@ -176,13 +185,7 @@ export function ManagerEditCounselor({
                     <Button
                       title="Remove"
                       className={classNames("dangerous")}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        //   onOpenRejectModal(record.emailAddress);
-
-                        if (rejectRequestState !== RequestState.FETCHING)
-                          onRemove(record.emailAddress);
-                      }}
+                      onClick={() => onOpenRejectModal(record)}
                     >
                       Remove
                     </Button>
@@ -199,14 +202,14 @@ export function ManagerEditCounselor({
             first={payload.first}
             last={payload.last}
           />
-          {/* {rejectModalVisibility.isOpen && (
+          {rejectModalVisibility.isOpen && (
             <RejectModal
               isOpen={rejectModalVisibility}
               data={rejectModalVisibility}
               onClose={onCloseRejectModal}
-              onAction={onRemove}
+              onAction={onRejectAction}
             />
-          )} */}
+          )}
           <VerticalSpace height={4} />
         </div>
       </div>

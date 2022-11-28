@@ -106,7 +106,7 @@ export default function AddPatientComponent({
           <label>Phone Number</label>
           <input
             type="tel"
-            placeholder="123456789"
+            placeholder="1234567890"
             required={true}
             autoComplete="true"
             pattern="[0-9]{10}"

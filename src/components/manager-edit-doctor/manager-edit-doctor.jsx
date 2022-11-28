@@ -1,11 +1,14 @@
 import classNames from "classnames";
 import React from "react";
+import { useState } from "react";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PathConstants } from "../../lib/path-constants";
 import { toReadableDateFormat, toUTCDateTime } from "../../lib/time-util";
-import { RequestState, UserRole } from "../../lib/types";
+import { UserRole } from "../../lib/types";
 import { PaginationComponent } from "../pagination/pagination";
+import { RejectModal } from "../reject-modal/reject-modal";
 import { VerticalSpace } from "../vertical-space/vertical-space";
 import "./manager-edit-doctor.css";
 
@@ -100,6 +103,33 @@ export function ManagerEditDoctor({
   const onPageChange = (page) => {
     navigate({ pathname: PathConstants.ManageDoctor, search: `page=${page}` });
   };
+
+  const onRejectAction = useCallback(
+    (confirm, data) => {
+      if (confirm && typeof onRemove == "function") {
+        onRemove(data.emailAddress);
+      }
+    },
+    [onRemove]
+  );
+
+  const [rejectModalVisibility, setRejectModalVisibility] = useState({
+    isOpen: false,
+  });
+
+  function onOpenRejectModal(patientRecord) {
+    setRejectModalVisibility({
+      isOpen: true,
+      ...patientRecord,
+    });
+  }
+
+  function onCloseRejectModal() {
+    setRejectModalVisibility({
+      isOpen: false,
+    });
+  }
+
   return (
     <>
       <div className="manager-edit-doctor-container">
@@ -153,11 +183,7 @@ export function ManagerEditDoctor({
                     <Button
                       title="Remove"
                       className={classNames("dangerous")}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (rejectRequestState !== RequestState.FETCHING)
-                          onRemove(record.emailAddress);
-                      }}
+                      onClick={() => onOpenRejectModal(record)}
                     >
                       Remove
                     </Button>
@@ -174,6 +200,14 @@ export function ManagerEditDoctor({
             first={payload.first}
             last={payload.last}
           />
+          {rejectModalVisibility.isOpen && (
+            <RejectModal
+              isOpen={rejectModalVisibility}
+              data={rejectModalVisibility}
+              onClose={onCloseRejectModal}
+              onAction={onRejectAction}
+            />
+          )}
           <VerticalSpace height={4} />
         </div>
       </div>
