@@ -1,16 +1,19 @@
 import classNames from "classnames";
 import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PathConstants } from "../../lib/path-constants";
 import { RequestState, UserRole } from "../../lib/types";
+import { RejectModal } from "../reject-modal/reject-modal";
 import { PaginationComponent } from "../pagination/pagination";
 import { VerticalSpace } from "../vertical-space/vertical-space";
 import "./manager-edit-counselor.css";
+import { toReadableDateFormat, toUTCDateTime } from "../../lib/time-util";
 
 function searchByEmail() {
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("mySearch");
+  input = document.getElementById("myManagerSearch");
   filter = input.value.toUpperCase();
   table = document.getElementById("myCounselorList");
 
@@ -89,11 +92,37 @@ const Button = styled.div`
   }
 `;
 
-export function ManagerEditCounselor({ payload, onRemove, rejectRequestState, rejectErrorMessage }) {
+export function ManagerEditCounselor({
+  payload,
+  onRemove,
+  rejectRequestState,
+  rejectErrorMessage,
+}) {
   const navigate = useNavigate();
   const onPageChange = (page) => {
-    navigate({ pathname: PathConstants.ManageCounselor, search: `page=${page}` });
+    navigate({
+      pathname: PathConstants.ManageCounselor,
+      search: `page=${page}`,
+    });
   };
+
+  // const [rejectModalVisibility, setRejectModalVisibility] = useState({
+  //   isOpen: false,
+  // });
+
+  // function onOpenRejectModal(patientRecord) {
+  //   setRejectModalVisibility({
+  //     isOpen: true,
+  //     ...patientRecord,
+  //   });
+  // }
+
+  // function onCloseRejectModal() {
+  //   setRejectModalVisibility({
+  //     isOpen: false,
+  //   });
+  // }
+
   return (
     <>
       <div className="manager-edit-counselor-container">
@@ -111,7 +140,9 @@ export function ManagerEditCounselor({ payload, onRemove, rejectRequestState, re
             <Button
               title="Add Counselor"
               className={classNames("forward")}
-              onClick={() => navigate(`${PathConstants.ManagerCreate}/${UserRole.COUNSELOR}`)}
+              onClick={() =>
+                navigate(`${PathConstants.ManagerCreate}/${UserRole.COUNSELOR}`)
+              }
             >
               Add Counselor
             </Button>
@@ -134,28 +165,30 @@ export function ManagerEditCounselor({ payload, onRemove, rejectRequestState, re
                 <th>Profile Created On</th>
                 <th>Remove Counselor</th>
               </tr>
-              {
-                payload.content.map((record) => (
-                  <tr key={`${record.emailAddress}`}>
-                    <td>{record.fullName}</td>
-                    <td>{record.emailAddress}</td>
-                    <td>{record.createdAt}</td>
-                    <td>
-                      <Button
-                        title="Remove"
-                        className={classNames("dangerous")}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (rejectRequestState !== RequestState.FETCHING)
-                            onRemove(record.emailAddress);
-                        }}
-                      >
-                        Remove
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              }
+              {payload.content.map((record) => (
+                <tr key={`${record.emailAddress}`}>
+                  <td>{record.fullName}</td>
+                  <td>{record.emailAddress}</td>
+                  <td>
+                    {toReadableDateFormat(toUTCDateTime(record.createdAt))}
+                  </td>
+                  <td>
+                    <Button
+                      title="Remove"
+                      className={classNames("dangerous")}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        //   onOpenRejectModal(record.emailAddress);
+
+                        if (rejectRequestState !== RequestState.FETCHING)
+                          onRemove(record.emailAddress);
+                      }}
+                    >
+                      Remove
+                    </Button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <br></br>
@@ -166,6 +199,14 @@ export function ManagerEditCounselor({ payload, onRemove, rejectRequestState, re
             first={payload.first}
             last={payload.last}
           />
+          {/* {rejectModalVisibility.isOpen && (
+            <RejectModal
+              isOpen={rejectModalVisibility}
+              data={rejectModalVisibility}
+              onClose={onCloseRejectModal}
+              onAction={onRemove}
+            />
+          )} */}
           <VerticalSpace height={4} />
         </div>
       </div>

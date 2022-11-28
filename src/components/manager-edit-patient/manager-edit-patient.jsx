@@ -3,14 +3,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PathConstants } from "../../lib/path-constants";
-import { RequestState } from "../../lib/types";
+import { RequestState, UserRole } from "../../lib/types";
 import { PaginationComponent } from "../pagination/pagination";
 import { VerticalSpace } from "../vertical-space/vertical-space";
+import { toReadableDateFormat, toUTCDateTime } from "../../lib/time-util";
 import "./manager-edit-patient.css";
 
 function searchByEmail() {
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("mySearch");
+  input = document.getElementById("myManagerSearch");
   filter = input.value.toUpperCase();
   table = document.getElementById("myPatientList");
 
@@ -89,11 +90,17 @@ const Button = styled.div`
   }
 `;
 
-export function ManagerEditPatient({ payload, onRemove, rejectRequestState, rejectErrorMessage }) {
+export function ManagerEditPatient({
+  payload,
+  onRemove,
+  rejectRequestState,
+  rejectErrorMessage,
+}) {
   const navigate = useNavigate();
   const onPageChange = (page) => {
     navigate({ pathname: PathConstants.ManagePatient, search: `page=${page}` });
   };
+
   return (
     <>
       <div className="manager-edit-patient-container">
@@ -111,9 +118,9 @@ export function ManagerEditPatient({ payload, onRemove, rejectRequestState, reje
             <Button
               title="Add Patient"
               className={classNames("forward")}
-              onClick={(e) => {
-                navigate(PathConstants.ManagerAddPatient);
-              }}
+              onClick={(e) =>
+                navigate(`${PathConstants.ManagerCreate}/${UserRole.PATIENT}`)
+              }
             >
               Add Patient
             </Button>
@@ -136,28 +143,29 @@ export function ManagerEditPatient({ payload, onRemove, rejectRequestState, reje
                 <th>Profile Created On</th>
                 <th>Remove Patient</th>
               </tr>
-              {
-                payload.content.map((record) => (
-                  <tr key={`${record.emailAddress}`}>
-                    <td>{record.fullName}</td>
-                    <td>{record.emailAddress}</td>
-                    <td>{record.createdAt}</td>
-                    <td>
-                      <Button
-                        title="Remove"
-                        className={classNames("dangerous")}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (rejectRequestState !== RequestState.FETCHING)
-                            onRemove(record.emailAddress);
-                        }}
-                      >
-                        Remove
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              }
+
+              {payload.content.map((record) => (
+                <tr key={`${record.emailAddress}`}>
+                  <td>{record.fullName}</td>
+                  <td>{record.emailAddress}</td>
+                  <td>
+                    {toReadableDateFormat(toUTCDateTime(record.createdAt))}
+                  </td>
+                  <td>
+                    <Button
+                      title="Remove"
+                      className={classNames("dangerous")}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (rejectRequestState !== RequestState.FETCHING)
+                          onRemove(record.emailAddress);
+                      }}
+                    >
+                      Remove
+                    </Button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <br></br>
