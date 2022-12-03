@@ -26,6 +26,7 @@ import ManageDoctor from "./containers/manage-doctor";
 import ManagePatient from "./containers/manage-patient";
 import ManagerCreateUser from "./containers/manager-create-user";
 import ManagerDataAnalytics from './containers/manager-data-analytics';
+import MessageModal from "./containers/message-modal";
 import Login from "./containers/patient-login";
 import Signup from "./containers/patient-signup";
 import StatusPage from './containers/status-page';
@@ -58,37 +59,40 @@ function App() {
   });
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={PathConstants.Home} element={<LandingPage />} />
-        <Route path={PathConstants.PatientLogin} element={<Login />} />
-        <Route path={PathConstants.PatientSignup} element={<Signup />} />
-        <Route path={PathConstants.StatusPage} element={<StatusPage />} />
-        <Route path={PathConstants.CounselorPatientDetails} element={<CounselorPatientDetails />} />
-        <Route path={PathConstants.AssessmentPage} element={<AssessmentPage />} />
-        <Route path={PathConstants.CounselorLogin} element={<CounselorLogin />} />
-        <Route path={PathConstants.CounselorSignup} element={<CounselorSignupPage />} />
-        <Route path={PathConstants.CounselorSchedule} element={<CounselorViewSchedule />} />
-        <Route path={PathConstants.DoctorSchedule} element={<DoctorViewSchedule />} />
-        <Route path={PathConstants.DoctorLogin} element={<DoctorLoginPage />} />
-        <Route path={PathConstants.DoctorSignup} element={<DoctorSignupPage />} />
-        <Route path={PathConstants.CounselorLOP} element={<CounselorLOP />} />
-        <Route path={PathConstants.DoctorLOP} element={<DoctorLOP />} />
-        <Route path={PathConstants.DoctorPatientDetails} element={<DoctorPatientDetails />} />
-        <Route path={PathConstants.CounselorToDoctor} element={<ForwardToDoctor />} />
-        <Route path={PathConstants.ManagerDataAnalytics} element={<ManagerDataAnalytics />} />
-        <Route path={PathConstants.PatientEditProfile} element={<EditUserInfo role={UserRole.PATIENT} />} />
-        <Route path={PathConstants.CounselorEditProfile} element={<EditUserInfo role={UserRole.COUNSELOR} />} />
-        <Route path={PathConstants.DoctorEditProfile} element={<EditUserInfo role={UserRole.DOCTOR} />} />
-        <Route path={PathConstants.ManagerLogin} element={<AdminLogin />} />
-        <Route path={PathConstants.ManagePatient} element={<ManagePatient />} />
-        <Route path={PathConstants.ManageDoctor} element={<ManageDoctor />} />
-        <Route path={PathConstants.ManageCounselor} element={<ManageCounselor />} />
-        <Route path={PathConstants.ManagerCreatePatient} element={<ManagerCreateUser role={UserRole.PATIENT} />} />
-        <Route path={PathConstants.ManagerCreateCounselor} element={<ManagerCreateUser role={UserRole.COUNSELOR} />} />
-        <Route path={PathConstants.ManagerCreateDoctor} element={<ManagerCreateUser role={UserRole.DOCTOR} />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path={PathConstants.Home} element={<LandingPage />} />
+          <Route path={PathConstants.PatientLogin} element={<Login />} />
+          <Route path={PathConstants.PatientSignup} element={<Signup />} />
+          <Route path={PathConstants.StatusPage} element={<StatusPage />} />
+          <Route path={PathConstants.CounselorPatientDetails} element={<CounselorPatientDetails />} />
+          <Route path={PathConstants.AssessmentPage} element={<AssessmentPage />} />
+          <Route path={PathConstants.CounselorLogin} element={<CounselorLogin />} />
+          <Route path={PathConstants.CounselorSignup} element={<CounselorSignupPage />} />
+          <Route path={PathConstants.CounselorSchedule} element={<CounselorViewSchedule />} />
+          <Route path={PathConstants.DoctorSchedule} element={<DoctorViewSchedule />} />
+          <Route path={PathConstants.DoctorLogin} element={<DoctorLoginPage />} />
+          <Route path={PathConstants.DoctorSignup} element={<DoctorSignupPage />} />
+          <Route path={PathConstants.CounselorLOP} element={<CounselorLOP />} />
+          <Route path={PathConstants.DoctorLOP} element={<DoctorLOP />} />
+          <Route path={PathConstants.DoctorPatientDetails} element={<DoctorPatientDetails />} />
+          <Route path={PathConstants.CounselorToDoctor} element={<ForwardToDoctor />} />
+          <Route path={PathConstants.ManagerDataAnalytics} element={<ManagerDataAnalytics />} />
+          <Route path={PathConstants.PatientEditProfile} element={<EditUserInfo role={UserRole.PATIENT} />} />
+          <Route path={PathConstants.CounselorEditProfile} element={<EditUserInfo role={UserRole.COUNSELOR} />} />
+          <Route path={PathConstants.DoctorEditProfile} element={<EditUserInfo role={UserRole.DOCTOR} />} />
+          <Route path={PathConstants.ManagerLogin} element={<AdminLogin />} />
+          <Route path={PathConstants.ManagePatient} element={<ManagePatient />} />
+          <Route path={PathConstants.ManageDoctor} element={<ManageDoctor />} />
+          <Route path={PathConstants.ManageCounselor} element={<ManageCounselor />} />
+          <Route path={PathConstants.ManagerCreatePatient} element={<ManagerCreateUser role={UserRole.PATIENT} />} />
+          <Route path={PathConstants.ManagerCreateCounselor} element={<ManagerCreateUser role={UserRole.COUNSELOR} />} />
+          <Route path={PathConstants.ManagerCreateDoctor} element={<ManagerCreateUser role={UserRole.DOCTOR} />} />
+        </Routes>
+      </BrowserRouter>
+      <MessageModal />
+    </>
   );
 }
 

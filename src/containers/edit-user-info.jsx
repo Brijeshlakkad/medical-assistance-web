@@ -24,7 +24,6 @@ const EditUserInfo = ({ role }) => {
     const editRequestState = useSelector(state => state.user.profileEdit.editState);
     const profile = useSelector(state => state.user.profile.payload);
     const profileUpdated = useSelector(state => state.user.profileEdit.payload);
-    const profileUpdatedErrorMessage = useSelector(state => state.user.profileEdit.errorMessage);
     // const errorMessage = useSelector(state => state.user.profile.errorMessage);
 
     useEffect(() => {
@@ -43,7 +42,7 @@ const EditUserInfo = ({ role }) => {
                 dateOfBirth: toBirthDateFormat(profileUpdated.dateOfBirth)
             });
         }
-    }, [setUser, editRequestState, profileUpdated]);
+    }, [dispatch, setUser, editRequestState, profileUpdated]);
 
     const onFieldChange = (fieldName, value) => {
         setUser({
@@ -76,8 +75,6 @@ const EditUserInfo = ({ role }) => {
                         {user && Object.keys(user).length && showForm && <EditInfoComponent
                             role={role}
                             user={user}
-                            requestState={editRequestState}
-                            errorMessage={profileUpdatedErrorMessage}
                             onFieldChange={onFieldChange}
                             onSubmit={onSubmit}
                             onPressBack={onPressBack}

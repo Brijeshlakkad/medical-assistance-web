@@ -1,16 +1,11 @@
-import React from 'react'
-import { RequestState } from '../../lib/types';
-import { ErrorMessage } from '../elements/error-message';
-import { SucessMessage } from '../elements/success-message';
-import "./edit-styles.css"
+import React from 'react';
+import "./edit-styles.css";
 
 
 const EditInfoComponent = ({
     user,
     onFieldChange,
     onSubmit,
-    requestState,
-    errorMessage,
     onPressBack
 }) => {
     return (
@@ -87,17 +82,6 @@ const EditInfoComponent = ({
                         onFieldChange("phoneNumber", e.target.value);
                     }} />
                 <input type='submit' className="user-signup-button" value='Update'></input>
-
-                {requestState === RequestState.ERROR && <div className="error-message">
-                    <ErrorMessage>
-                        {errorMessage}
-                    </ErrorMessage>
-                </div>}
-                {requestState === RequestState.COMPLETED && <div className="error-message">
-                    <SucessMessage>
-                        <span>Your profile was updated!</span>
-                    </SucessMessage>
-                </div>}
 
                 <div className='go-back'><button onClick={onPressBack}>Go back</button></div>
             </form >

@@ -2,6 +2,7 @@ import { PLEASE_TRY_AGAIN, SOMETHING_WENT_WRONG } from "../../lib/messages";
 import request from "../../lib/request";
 import { UserRole } from "../../lib/types";
 import { ONLOAD_LOGIN_SIGNUP_PAGE, USER_LOGIN_SIGNUP_ERROR, USER_LOGIN_SIGNUP_FETCHING, USER_LOGIN_SIGNUP_SUCCESS, USER_LOGOUT, USER_PROFILE_ERROR, USER_PROFILE_FETCHING, USER_PROFILE_SUCCESS, USER_PROFILE_UPDATE_ERROR, USER_PROFILE_UPDATE_FETCHING, USER_PROFILE_UPDATE_SUCCESS } from "../types";
+import { openSuccessMessageModal } from "./gui";
 
 const LOGIN_APIS = {
     [UserRole.PATIENT]: `patient/login`,
@@ -149,7 +150,9 @@ export const updateProfile = (user, role) => async (dispatch) => {
                     type: USER_PROFILE_UPDATE_SUCCESS,
                     payload: resp.data
                 });
+                dispatch(openSuccessMessageModal("Your profile was updated!"));
             } else {
+                dispatch(openSuccessMessageModal(SOMETHING_WENT_WRONG));
                 dispatch({
                     type: USER_PROFILE_UPDATE_ERROR,
                     errorMessage: SOMETHING_WENT_WRONG
@@ -157,6 +160,8 @@ export const updateProfile = (user, role) => async (dispatch) => {
             }
         })
         .catch((exception) => {
+            if (exception.data.message)
+                dispatch(openSuccessMessageModal(exception.data.message));
             // handle error.
             dispatch({
                 type: USER_PROFILE_UPDATE_ERROR,

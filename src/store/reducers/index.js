@@ -5,6 +5,7 @@ import counselorAppointmentsReducer, { counselorAppointmentsInitialState } from 
 import counselorDoctorListReducer, { counselorDoctorListInitialState } from "./counselor-lod"
 import doctorReducer, { doctorInitialState } from "./doctor"
 import doctorAppointmentsReducer, { doctorAppointmentsInitialState } from "./doctor-appointments"
+import guiReducer, { guiInitialState } from "./gui"
 import localesReducer, { localesInitialState } from "./locales"
 import patientReducer, { patientInitialState } from "./patient"
 import userReducer, { userInitialState } from "./user"
@@ -12,6 +13,9 @@ import userReducer, { userInitialState } from "./user"
 export const initialState = {
 	locales: localesInitialState,
 	user: userInitialState,
+
+	/* Gui */
+	gui: guiInitialState,
 
 	/* Patient */
 	patient: patientInitialState,
@@ -32,6 +36,9 @@ export const initialState = {
 export default combineReducers({
 	locales: localesReducer,
 	user: userReducer,
+
+	/* Gui */
+	gui: guiReducer,
 
 	/* Patient */
 	patient: patientReducer,
