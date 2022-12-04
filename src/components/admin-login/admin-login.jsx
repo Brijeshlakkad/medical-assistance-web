@@ -1,6 +1,5 @@
-import React from 'react'
-import { ErrorMessage } from '../elements/error-message'
-import './admin-login.css'
+import React from 'react';
+import './admin-login.css';
 
 function showPassword() {
     var x = document.getElementById("myInput");
@@ -16,9 +15,7 @@ export function AdminLoginComponent({
     setEmail,
     password,
     setPassword,
-    onClick,
-    errorMessage,
-    loginState
+    onClick
 }) {
     return (
         <div className='login-form'>
@@ -52,11 +49,6 @@ export function AdminLoginComponent({
                 <input type='submit' className='user-login-button' value="Login" ></input>
 
             </form >
-            {loginState && <div className="error-message">
-                <ErrorMessage>
-                    {errorMessage}
-                </ErrorMessage>
-            </div>}
             {/* <div className='signup-box'>
                 <span>No Account?</span>
                 <br />

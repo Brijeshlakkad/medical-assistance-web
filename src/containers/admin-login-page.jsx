@@ -12,8 +12,7 @@ export default function AdminLogin() {
 
     const dispatch = useDispatch();
 
-    const loginState = useSelector(state => state.user.state);
-    const errorMessage = useSelector(state => state.user.errorMessage);
+    const loginState = useSelector(state => state.user.loginState);
 
     const navigate = useNavigate();
 
@@ -34,7 +33,5 @@ export default function AdminLogin() {
         password={password}
         setPassword={setPassword}
         onClick={onClick}
-        errorMessage={errorMessage}
-        loginState={loginState}
     />
 }
