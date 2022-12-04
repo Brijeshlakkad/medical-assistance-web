@@ -1,11 +1,10 @@
 import { RequestState, UserRole } from "../../lib/types";
-import { ONLOAD_LOGIN_SIGNUP_PAGE, USER_LOGIN_SIGNUP_ERROR, USER_LOGIN_SIGNUP_FETCHING, USER_LOGIN_SIGNUP_SUCCESS, USER_LOGOUT, USER_PROFILE_ERROR, USER_PROFILE_FETCHING, USER_PROFILE_SUCCESS, USER_PROFILE_UPDATE_ERROR, USER_PROFILE_UPDATE_FETCHING, USER_PROFILE_UPDATE_SUCCESS } from "../types";
+import { RESET_USER_LOGIN, RESET_USER_SIGNUP, USER_LOGIN_ERROR, USER_LOGIN_FETCHING, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_PROFILE_ERROR, USER_PROFILE_FETCHING, USER_PROFILE_SUCCESS, USER_PROFILE_UPDATE_ERROR, USER_PROFILE_UPDATE_FETCHING, USER_PROFILE_UPDATE_SUCCESS, USER_SIGNUP_ERROR, USER_SIGNUP_FETCHING, USER_SIGNUP_SUCCESS } from "../types";
 
 const initialState = {
-	state: RequestState.NULL,
+	loginState: RequestState.NULL,
+	signupState: RequestState.NULL,
 	role: UserRole.NULL,
-	loginErrorMessage: "",
-	signupErrorMessage: "",
 	profile: {
 		state: RequestState.NULL
 	},
@@ -17,35 +16,66 @@ const initialState = {
 const reducer = (state, action) => {
 	if (typeof state === 'undefined') state = initialState;
 	switch (action.type) {
-		case USER_LOGIN_SIGNUP_SUCCESS:
+		case USER_LOGIN_SUCCESS:
 			return {
 				...state,
-				state: RequestState.COMPLETED,
-				errorMessage: "",
+				loginState: RequestState.COMPLETED,
 				user: action.user,
 				role: action.role
 			}
-		case USER_LOGIN_SIGNUP_FETCHING:
+		case USER_LOGIN_FETCHING:
 			return {
 				...state,
-				state: RequestState.FETCHING,
-				errorMessage: "",
+				loginState: RequestState.FETCHING,
+				user: null,
 				role: UserRole.NULL
 			}
-		case USER_LOGIN_SIGNUP_ERROR:
+		case USER_LOGIN_ERROR:
 			return {
 				...state,
-				state: RequestState.ERROR,
-				errorMessage: action.errorMessage,
+				loginState: RequestState.ERROR,
+				user: null,
 				role: UserRole.NULL
 			}
+		case RESET_USER_LOGIN: {
+			return {
+				...state,
+				loginState: RequestState.NULL,
+				user: null,
+				role: UserRole.NULL
+			}
+		}
+		case USER_SIGNUP_SUCCESS:
+			return {
+				...state,
+				signupState: RequestState.COMPLETED,
+				user: null,
+				role: UserRole.NULL
+			}
+		case USER_SIGNUP_FETCHING:
+			return {
+				...state,
+				signupState: RequestState.FETCHING,
+				user: null,
+				role: UserRole.NULL
+			}
+		case USER_SIGNUP_ERROR:
+			return {
+				...state,
+				signupState: RequestState.ERROR,
+				user: null,
+				role: UserRole.NULL
+			}
+		case RESET_USER_SIGNUP: {
+			return {
+				...state,
+				signupState: RequestState.NULL,
+				user: null,
+				role: UserRole.NULL
+			}
+		}
 		case USER_LOGOUT:
 			return initialState;
-		case ONLOAD_LOGIN_SIGNUP_PAGE:
-			return {
-				...state,
-				errorMessage: ""
-			}
 		case USER_PROFILE_FETCHING:
 			return {
 				...state,

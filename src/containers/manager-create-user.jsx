@@ -34,10 +34,6 @@ export default function ManagerCreateUser({ role }) {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   // dispatch(onLoadUserLoginSignupPage());
-  // }, [dispatch]);
-
   const onSubmit = (e) => {
     dispatch(createUser({
       ...user,

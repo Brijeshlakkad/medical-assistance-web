@@ -6,7 +6,8 @@ import FooterComponent from "../components/footer/footer";
 import { PathConstants } from "../lib/path-constants";
 import { toUTCDate } from "../lib/time-util";
 import { RequestState, UserRole } from "../lib/types";
-import { onLoadUserLoginSignupPage, signup } from "../store/actions/user";
+import { signup } from "../store/actions/user";
+import { RESET_USER_SIGNUP } from "../store/types";
 import Header from "./header";
 
 export default function DoctorSignup(props) {
@@ -32,9 +33,9 @@ export default function DoctorSignup(props) {
     }
 
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
-        dispatch(onLoadUserLoginSignupPage());
+        dispatch({ type: RESET_USER_SIGNUP });
     }, [dispatch]);
 
     const onSubmit = (e) => {
@@ -44,15 +45,14 @@ export default function DoctorSignup(props) {
         }, UserRole.DOCTOR));
     }
 
-    const signupState = useSelector(state => state.user.state);
-    const errorMessage = useSelector(state => state.user.errorMessage);
+    const signupState = useSelector(state => state.user.signupState);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         if (signupState === RequestState.COMPLETED) {
-            // redirect to DoctorLOP page.
-            navigate(PathConstants.DoctorLOP);
+            // redirect to DoctorLogin page.
+            navigate(PathConstants.DoctorLogin);
         }
     }, [navigate, signupState]);
 
@@ -63,8 +63,6 @@ export default function DoctorSignup(props) {
                 user={user}
                 onFieldChange={onFieldChange}
                 onSubmit={onSubmit}
-                signupState={signupState}
-                errorMessage={errorMessage}
             />
             <FooterComponent />
         </>

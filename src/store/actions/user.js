@@ -1,8 +1,8 @@
 import { PLEASE_TRY_AGAIN, SOMETHING_WENT_WRONG } from "../../lib/messages";
 import request from "../../lib/request";
 import { UserRole } from "../../lib/types";
-import { ONLOAD_LOGIN_SIGNUP_PAGE, USER_LOGIN_SIGNUP_ERROR, USER_LOGIN_SIGNUP_FETCHING, USER_LOGIN_SIGNUP_SUCCESS, USER_LOGOUT, USER_PROFILE_ERROR, USER_PROFILE_FETCHING, USER_PROFILE_SUCCESS, USER_PROFILE_UPDATE_ERROR, USER_PROFILE_UPDATE_FETCHING, USER_PROFILE_UPDATE_SUCCESS } from "../types";
-import { openSuccessMessageModal } from "./gui";
+import { USER_LOGIN_ERROR, USER_LOGIN_FETCHING, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_PROFILE_ERROR, USER_PROFILE_FETCHING, USER_PROFILE_SUCCESS, USER_PROFILE_UPDATE_ERROR, USER_PROFILE_UPDATE_FETCHING, USER_PROFILE_UPDATE_SUCCESS, USER_SIGNUP_ERROR, USER_SIGNUP_FETCHING, USER_SIGNUP_SUCCESS } from "../types";
+import { openErrorMessageModal, openSuccessMessageModal } from "./gui";
 
 const LOGIN_APIS = {
     [UserRole.PATIENT]: `patient/login`,
@@ -27,28 +27,30 @@ export const login = (emailId, password, role) => async (dispatch) => {
     if (!emailId || !password || !role || !LOGIN_APIS[role]) {
         return;
     }
-    dispatch({ type: USER_LOGIN_SIGNUP_FETCHING });
+    dispatch({ type: USER_LOGIN_FETCHING });
     request(LOGIN_APIS[role], "POST", null, { emailId, password })
         .then((resp) => {
             if (resp.data && resp.data.loginSuccess) {
                 // save token to localStorage
                 localStorage.setItem("USER", resp.data.accessToken);
                 dispatch({
-                    type: USER_LOGIN_SIGNUP_SUCCESS,
+                    type: USER_LOGIN_SUCCESS,
                     user: resp.data.user,
                     role: role
                 });
             } else {
+                dispatch(openErrorMessageModal(resp.data.errorMessage));
                 dispatch({
-                    type: USER_LOGIN_SIGNUP_ERROR,
+                    type: USER_LOGIN_ERROR,
                     errorMessage: resp.data.errorMessage
                 });
             }
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.message));
             dispatch({
-                type: USER_LOGIN_SIGNUP_ERROR,
+                type: USER_LOGIN_ERROR,
                 errorMessage: PLEASE_TRY_AGAIN
             });
         });
@@ -58,20 +60,19 @@ export const signup = (user, role) => async (dispatch) => {
     if (!role || !SIGNUP_APIS[role]) {
         return;
     }
-    dispatch({ type: USER_LOGIN_SIGNUP_FETCHING });
+    dispatch({ type: USER_SIGNUP_FETCHING });
     request(SIGNUP_APIS[role], "POST", null, { ...user })
         .then((resp) => {
             if (resp.data && resp.data.loginSuccess) {
                 // save token to localStorage
-                localStorage.setItem("USER", resp.data.accessToken);
+                dispatch(openSuccessMessageModal("Your signup was successful! Please, login!"));
                 dispatch({
-                    type: USER_LOGIN_SIGNUP_SUCCESS,
-                    user: resp.data.user,
-                    role: role
+                    type: USER_SIGNUP_SUCCESS
                 });
             } else if (resp.data) {
+                dispatch(openErrorMessageModal(resp.data.errorMessage));
                 dispatch({
-                    type: USER_LOGIN_SIGNUP_ERROR,
+                    type: USER_SIGNUP_ERROR,
                     errorMessage: resp.data.errorMessage
                 });
             } else {
@@ -81,9 +82,10 @@ export const signup = (user, role) => async (dispatch) => {
         .catch((exception) => {
             localStorage.removeItem("USER");
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.message));
             dispatch({
-                type: USER_LOGIN_SIGNUP_ERROR,
-                errorMessage: PLEASE_TRY_AGAIN
+                type: USER_SIGNUP_ERROR,
+                errorMessage: exception.data.message
             });
         });
 }
@@ -96,16 +98,9 @@ export const logout = () => (dispatch) => {
 
 export const setUser = (user, role) => (dispatch) => {
     dispatch({
-        type: USER_LOGIN_SIGNUP_SUCCESS,
+        type: USER_LOGIN_SUCCESS,
         user: user,
         role: role
-    })
-}
-
-
-export const onLoadUserLoginSignupPage = () => (dispatch) => {
-    dispatch({
-        type: ONLOAD_LOGIN_SIGNUP_PAGE
     })
 }
 
@@ -122,6 +117,7 @@ export const fetchProfile = (role) => async (dispatch) => {
                     payload: resp.data
                 });
             } else {
+                dispatch(openErrorMessageModal(SOMETHING_WENT_WRONG));
                 dispatch({
                     type: USER_PROFILE_ERROR,
                     errorMessage: SOMETHING_WENT_WRONG
@@ -129,6 +125,7 @@ export const fetchProfile = (role) => async (dispatch) => {
             }
         })
         .catch((exception) => {
+            dispatch(openErrorMessageModal(exception.data.message));
             // handle error.
             dispatch({
                 type: USER_PROFILE_ERROR,
@@ -152,7 +149,7 @@ export const updateProfile = (user, role) => async (dispatch) => {
                 });
                 dispatch(openSuccessMessageModal("Your profile was updated!"));
             } else {
-                dispatch(openSuccessMessageModal(SOMETHING_WENT_WRONG));
+                dispatch(openErrorMessageModal(SOMETHING_WENT_WRONG));
                 dispatch({
                     type: USER_PROFILE_UPDATE_ERROR,
                     errorMessage: SOMETHING_WENT_WRONG
@@ -160,8 +157,7 @@ export const updateProfile = (user, role) => async (dispatch) => {
             }
         })
         .catch((exception) => {
-            if (exception.data.message)
-                dispatch(openSuccessMessageModal(exception.data.message));
+            dispatch(openErrorMessageModal(exception.data.message));
             // handle error.
             dispatch({
                 type: USER_PROFILE_UPDATE_ERROR,

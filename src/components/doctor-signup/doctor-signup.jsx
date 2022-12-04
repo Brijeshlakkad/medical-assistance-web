@@ -1,7 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { PathConstants } from '../../lib/path-constants';
-import { ErrorMessage } from '../elements/error-message';
 import '../patient-signup/patient-signup.css';
 
 function showPassword() {
@@ -82,9 +81,7 @@ function passwordKeyUp() {
 export function DoctorSignupComponent({
     user,
     onFieldChange,
-    onSubmit,
-    signupState,
-    errorMessage
+    onSubmit
 }) {
     return (
         <>
@@ -222,12 +219,6 @@ export function DoctorSignupComponent({
                     <br />
                     <br />
                     <input type='submit' className="user-signup-button" value='Signup'></input>
-
-                    {signupState && <div className="error-message">
-                        <ErrorMessage>
-                            {errorMessage}
-                        </ErrorMessage>
-                    </div>}
                     <div className='login-box'>
                         <span>No Account?</span>
                         <br />

@@ -5,7 +5,8 @@ import CounselorLoginComponent from '../components/counselor-login/counselor-log
 import FooterComponent from '../components/footer/footer';
 import { PathConstants } from '../lib/path-constants';
 import { RequestState, UserRole } from '../lib/types';
-import { login, onLoadUserLoginSignupPage } from '../store/actions/user';
+import { login } from '../store/actions/user';
+import { RESET_USER_LOGIN } from '../store/types';
 import Header from './header';
 
 export default function CounselorLogin() {
@@ -14,12 +15,11 @@ export default function CounselorLogin() {
 
     const dispatch = useDispatch();
 
-    useEffect(()=>{
-        dispatch(onLoadUserLoginSignupPage());
+    useEffect(() => {
+        dispatch({ type: RESET_USER_LOGIN });
     }, [dispatch]);
 
-    const loginState = useSelector(state => state.user.state);
-    const errorMessage = useSelector(state => state.user.errorMessage);
+    const loginState = useSelector(state => state.user.loginState);
 
     const navigate = useNavigate();
 
@@ -43,8 +43,6 @@ export default function CounselorLogin() {
                 password={password}
                 setPassword={setPassword}
                 onClick={onClick}
-                errorMessage={errorMessage}
-                loginState={loginState}
             />
             <FooterComponent />
         </>

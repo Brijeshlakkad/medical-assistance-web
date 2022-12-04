@@ -1,5 +1,4 @@
 import React from "react";
-import { ErrorMessage } from "../elements/error-message";
 import './patient-signup.css';
 
 function showPassword() {
@@ -80,9 +79,7 @@ function passwordKeyUp() {
 export function PatientSignupComponent({
     user,
     onFieldChange,
-    onSubmit,
-    signupState,
-    errorMessage
+    onSubmit
 }) {
     return (
         <>
@@ -215,12 +212,6 @@ export function PatientSignupComponent({
                     <br />
                     <br />
                     <input type='submit' className="user-signup-button" value='Signup'></input>
-
-                    {signupState && <div className="error-message">
-                        <ErrorMessage>
-                            {errorMessage}
-                        </ErrorMessage>
-                    </div>}
                 </form >
             </div >
             <div className='extra'>

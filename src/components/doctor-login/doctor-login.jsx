@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { PathConstants } from '../../lib/path-constants';
-import { ErrorMessage } from '../elements/error-message';
 import '../patient-login/patient-login.css';
 
 function showPassword() {
@@ -18,9 +17,7 @@ export default function DoctorLoginComponent({
     setEmail,
     password,
     setPassword,
-    onClick,
-    errorMessage,
-    loginState
+    onClick
 }) {
     return (
         <div className='login-form'>
@@ -54,11 +51,6 @@ export default function DoctorLoginComponent({
                 <input type='submit' className='user-login-button' value='Login'></input>
 
             </form>
-            {loginState && <div className="error-message">
-                <ErrorMessage>
-                    {errorMessage}
-                </ErrorMessage>
-            </div>}
             <div className='signup-box'>
                 <span>No Account?</span>
                 <br />

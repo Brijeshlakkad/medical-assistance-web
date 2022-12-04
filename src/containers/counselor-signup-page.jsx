@@ -6,7 +6,8 @@ import FooterComponent from '../components/footer/footer';
 import { PathConstants } from '../lib/path-constants';
 import { toUTCDate } from '../lib/time-util';
 import { RequestState, UserRole } from '../lib/types';
-import { onLoadUserLoginSignupPage, signup } from '../store/actions/user';
+import { signup } from '../store/actions/user';
+import { RESET_USER_SIGNUP } from '../store/types';
 import Header from './header';
 
 export default function CounselorSignupPage(props) {
@@ -33,8 +34,8 @@ export default function CounselorSignupPage(props) {
 
     const dispatch = useDispatch();
 
-    useEffect(()=>{
-        dispatch(onLoadUserLoginSignupPage());
+    useEffect(() => {
+        dispatch({ type: RESET_USER_SIGNUP });
     }, [dispatch]);
 
     const onSubmit = (e) => {
@@ -44,15 +45,14 @@ export default function CounselorSignupPage(props) {
         }, UserRole.COUNSELOR));
     }
 
-    const signupState = useSelector(state => state.user.state);
-    const errorMessage = useSelector(state => state.user.errorMessage);
+    const signupState = useSelector(state => state.user.signupState);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         if (signupState === RequestState.COMPLETED) {
-            // redirect to CounselorLOP page.
-            navigate(PathConstants.CounselorLOP);
+            // redirect to CounselorLogin page.
+            navigate(PathConstants.CounselorLogin);
         }
     }, [navigate, signupState]);
 
@@ -64,8 +64,6 @@ export default function CounselorSignupPage(props) {
                 user={user}
                 onFieldChange={onFieldChange}
                 onSubmit={onSubmit}
-                signupState={signupState}
-                errorMessage={errorMessage}
             />
             <FooterComponent></FooterComponent>
         </>
