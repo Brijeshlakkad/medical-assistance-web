@@ -1,6 +1,7 @@
 import request from "../../lib/request";
 import { DOCTOR_PATIENT_CLEAR, DOCTOR_PATIENT_ERROR, DOCTOR_PATIENT_FETCHING, DOCTOR_PATIENT_LIST_ERROR, DOCTOR_PATIENT_LIST_FETCHING, DOCTOR_PATIENT_LIST_SUCCESS, DOCTOR_PATIENT_SUCCESS, DOCTOR_REJECT_PATIENT_ERROR, DOCTOR_REJECT_PATIENT_FETCHING, DOCTOR_REJECT_PATIENT_SUCCESS, ONLOAD_DOCTOR_PATIENT_LIST } from "../types";
 import { onLoadDoctorAppointmentPage } from "./doctor-appointments";
+import { openErrorMessageModal } from "./gui";
 
 export const fetchPatientList = () => async (dispatch) => {
     dispatch({ type: DOCTOR_PATIENT_LIST_FETCHING });
@@ -20,9 +21,10 @@ export const fetchPatientList = () => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: DOCTOR_PATIENT_LIST_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -46,9 +48,10 @@ export const fetchPatient = (patientId) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: DOCTOR_PATIENT_ERROR,
-                errorMessage: exception.data.message,
+                errorMessage: exception.data.errorMessage,
                 patientId: patientId
             });
         });
@@ -77,9 +80,10 @@ export const rejectPatient = (patientRecordId) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: DOCTOR_REJECT_PATIENT_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }

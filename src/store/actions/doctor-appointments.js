@@ -1,6 +1,7 @@
 import { PLEASE_TRY_AGAIN } from "../../lib/messages";
 import request from "../../lib/request";
 import { DOCTOR_APPOINTMENTS_ERROR, DOCTOR_APPOINTMENTS_FETCHING, DOCTOR_APPOINTMENTS_FOR_DATE_ERROR, DOCTOR_APPOINTMENTS_FOR_DATE_FETCHING, DOCTOR_APPOINTMENTS_FOR_DATE_SUCCESS, DOCTOR_APPOINTMENTS_SUCCESS, DOCTOR_MAKE_APPOINTMENT_ERROR, DOCTOR_MAKE_APPOINTMENT_FETCHING, DOCTOR_MAKE_APPOINTMENT_SUCCESS, ONLOAD_DOCTOR_APPOINTMENTS } from "../types";
+import { openErrorMessageModal } from "./gui";
 
 export const fetchAppointments = (page) => async (dispatch) => {
     dispatch({ type: DOCTOR_APPOINTMENTS_FETCHING });
@@ -20,6 +21,7 @@ export const fetchAppointments = (page) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: DOCTOR_APPOINTMENTS_ERROR,
                 errorMessage: PLEASE_TRY_AGAIN
@@ -48,6 +50,7 @@ export const fetchAppointmentsForDate = (date) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: DOCTOR_APPOINTMENTS_FOR_DATE_ERROR,
                 errorMessage: exception.data.errorMessage,
@@ -82,6 +85,7 @@ export const makeAppointment = (patientRecordId, startDateTime, endDateTime) => 
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: DOCTOR_MAKE_APPOINTMENT_ERROR,
                 errorMessage: exception.data.errorMessage,

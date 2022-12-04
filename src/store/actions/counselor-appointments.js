@@ -1,5 +1,6 @@
 import request from "../../lib/request";
 import { COUNSELOR_APPOINTMENTS_ERROR, COUNSELOR_APPOINTMENTS_FETCHING, COUNSELOR_APPOINTMENTS_FOR_DATE_ERROR, COUNSELOR_APPOINTMENTS_FOR_DATE_FETCHING, COUNSELOR_APPOINTMENTS_FOR_DATE_SUCCESS, COUNSELOR_APPOINTMENTS_SUCCESS, COUNSELOR_MAKE_APPOINTMENT_ERROR, COUNSELOR_MAKE_APPOINTMENT_FETCHING, COUNSELOR_MAKE_APPOINTMENT_SUCCESS, ONLOAD_COUNSELOR_APPOINTMENTS } from "../types";
+import { openErrorMessageModal } from "./gui";
 
 export const fetchAppointments = (page) => async (dispatch) => {
     dispatch({ type: COUNSELOR_APPOINTMENTS_FETCHING });
@@ -19,6 +20,7 @@ export const fetchAppointments = (page) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: COUNSELOR_APPOINTMENTS_ERROR,
                 errorMessage: exception.data.errorMessage
@@ -27,6 +29,9 @@ export const fetchAppointments = (page) => async (dispatch) => {
 }
 
 export const fetchAppointmentsForDate = (date) => async (dispatch) => {
+    if (!date) {
+        return;
+    }
     dispatch({ type: COUNSELOR_APPOINTMENTS_FOR_DATE_FETCHING, date });
     request(`counselor/patient/appointments`, "POST", null, { date })
         .then((resp) => {
@@ -46,6 +51,7 @@ export const fetchAppointmentsForDate = (date) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: COUNSELOR_APPOINTMENTS_FOR_DATE_ERROR,
                 errorMessage: exception.data.errorMessage,
@@ -80,6 +86,7 @@ export const makeAppointment = (patientRecordId, startDateTime, endDateTime) => 
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: COUNSELOR_MAKE_APPOINTMENT_ERROR,
                 errorMessage: exception.data.errorMessage,

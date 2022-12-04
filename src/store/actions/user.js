@@ -48,7 +48,7 @@ export const login = (emailId, password, role) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
-            dispatch(openErrorMessageModal(exception.data.message));
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: USER_LOGIN_ERROR,
                 errorMessage: PLEASE_TRY_AGAIN
@@ -82,10 +82,10 @@ export const signup = (user, role) => async (dispatch) => {
         .catch((exception) => {
             localStorage.removeItem("USER");
             // handle error.
-            dispatch(openErrorMessageModal(exception.data.message));
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: USER_SIGNUP_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -125,11 +125,11 @@ export const fetchProfile = (role) => async (dispatch) => {
             }
         })
         .catch((exception) => {
-            dispatch(openErrorMessageModal(exception.data.message));
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             // handle error.
             dispatch({
                 type: USER_PROFILE_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -157,11 +157,11 @@ export const updateProfile = (user, role) => async (dispatch) => {
             }
         })
         .catch((exception) => {
-            dispatch(openErrorMessageModal(exception.data.message));
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             // handle error.
             dispatch({
                 type: USER_PROFILE_UPDATE_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }

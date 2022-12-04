@@ -5,6 +5,7 @@ import {
   ONLOAD_PATIENT_STATUS_PAGE,
   PATIENT_ASSESSMENT_QUESTIONS_ERROR, PATIENT_ASSESSMENT_QUESTIONS_SUCCESS, PATIENT_ASSESSMENT_SUBMIT_ERROR, PATIENT_ASSESSMENT_SUBMIT_FETCHING, PATIENT_ASSESSMENT_SUBMIT_SUCCESS, PATIENT_RECORD_STATUS_ERROR, PATIENT_RECORD_STATUS_FETCHING, PATIENT_RECORD_STATUS_SUCCESS
 } from "../types";
+import { openErrorMessageModal } from "./gui";
 
 const ASSETMENT_ID = "635b203cf4d8b811f7a0ac0b";
 export const getAssessmentQuestions = () => async (dispatch) => {
@@ -27,6 +28,7 @@ export const getAssessmentQuestions = () => async (dispatch) => {
     })
     .catch((exception) => {
       // handle error.
+      dispatch(openErrorMessageModal(exception.data.errorMessage));
       dispatch({
         type: PATIENT_ASSESSMENT_QUESTIONS_ERROR,
         errorMessage: SOMETHING_WENT_WRONG,
@@ -64,6 +66,7 @@ export const submitAssessmentQuestions =
       })
       .catch((exception) => {
         // handle error.
+        dispatch(openErrorMessageModal(exception.data.errorMessage));
         dispatch({
           type: PATIENT_ASSESSMENT_SUBMIT_ERROR,
           errorMessage: exception.data.errorMessage,
@@ -92,9 +95,10 @@ export const fetchPatientRecordStatus = () => async (dispatch) => {
     })
     .catch((exception) => {
       // handle error.
+      dispatch(openErrorMessageModal(exception.data.errorMessage));
       dispatch({
         type: PATIENT_RECORD_STATUS_ERROR,
-        errorMessage: exception.data.message
+        errorMessage: exception.data.errorMessage
       });
     });
 };

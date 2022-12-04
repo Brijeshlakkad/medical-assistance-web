@@ -29,6 +29,7 @@ import {
     ADMIN_REPORT_PARAMETERS_SUCCESS,
     ADMIN_REPORT_SUCCESS
 } from "../types";
+import { openErrorMessageModal } from "./gui";
 
 export const fetchPatients = (page) => async (dispatch) => {
     dispatch({ type: ADMIN_GET_PATIENT_FETCHING });
@@ -40,6 +41,7 @@ export const fetchPatients = (page) => async (dispatch) => {
                     payload: resp.data,
                 });
             } else {
+                dispatch(openErrorMessageModal(resp.data.errorMessage));
                 dispatch({
                     type: ADMIN_GET_PATIENT_ERROR,
                     errorMessage: resp.data.errorMessage
@@ -48,9 +50,10 @@ export const fetchPatients = (page) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: ADMIN_GET_PATIENT_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -66,9 +69,10 @@ export const removePatient = (emailAddress) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: ADMIN_REMOVE_PATIENT_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -83,6 +87,7 @@ export const fetchCounselors = (page) => async (dispatch) => {
                     payload: resp.data,
                 });
             } else {
+                dispatch(openErrorMessageModal(resp.data.message));
                 dispatch({
                     type: ADMIN_GET_COUNSELOR_ERROR,
                     errorMessage: resp.data.errorMessage
@@ -91,9 +96,10 @@ export const fetchCounselors = (page) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: ADMIN_GET_COUNSELOR_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -109,9 +115,10 @@ export const removeCounselor = (emailAddress) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: ADMIN_REMOVE_COUNSELOR_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -126,6 +133,7 @@ export const fetchDoctors = (page) => async (dispatch) => {
                     payload: resp.data,
                 });
             } else {
+                dispatch(openErrorMessageModal(resp.data.errorMessage));
                 dispatch({
                     type: ADMIN_GET_DOCTOR_ERROR,
                     errorMessage: resp.data.errorMessage
@@ -134,9 +142,10 @@ export const fetchDoctors = (page) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: ADMIN_GET_DOCTOR_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -152,9 +161,10 @@ export const removeDoctor = (emailAddress) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: ADMIN_REMOVE_DOCTOR_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -174,6 +184,7 @@ export const createUser = (user, userRole) => async (dispatch) => {
                     payload: resp.data
                 });
             } else {
+                dispatch(openErrorMessageModal(resp.data.errorMessage));
                 dispatch({
                     type: ADMIN_CREATE_USER_ERROR,
                     errorMessage: resp.data.errorMessage
@@ -182,9 +193,10 @@ export const createUser = (user, userRole) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: ADMIN_CREATE_USER_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -199,6 +211,7 @@ export const fetchReport = (startDateTime, endDateTime) => async (dispatch) => {
                     payload: resp.data
                 });
             } else {
+                dispatch(openErrorMessageModal(resp.data.errorMessage));
                 dispatch({
                     type: ADMIN_REPORT_ERROR,
                     errorMessage: resp.data.errorMessage
@@ -207,9 +220,10 @@ export const fetchReport = (startDateTime, endDateTime) => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: ADMIN_REPORT_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
@@ -224,6 +238,7 @@ export const fetchReportParameters = () => async (dispatch) => {
                     payload: resp.data
                 });
             } else {
+                dispatch(openErrorMessageModal(resp.data.errorMessage));
                 dispatch({
                     type: ADMIN_REPORT_PARAMETERS_ERROR,
                     errorMessage: resp.data.errorMessage
@@ -232,9 +247,10 @@ export const fetchReportParameters = () => async (dispatch) => {
         })
         .catch((exception) => {
             // handle error.
+            dispatch(openErrorMessageModal(exception.data.errorMessage));
             dispatch({
                 type: ADMIN_REPORT_PARAMETERS_ERROR,
-                errorMessage: exception.data.message
+                errorMessage: exception.data.errorMessage
             });
         });
 }
