@@ -25,7 +25,7 @@ export function CreateUserComponent({
       >
         {(userRole === UserRole.COUNSELOR || userRole === UserRole.DOCTOR) && (
           <>
-            <label>Counselor Registration Number</label>
+            <label>{UserRoleToTitle[userRole]} Registration Number</label>
             <input
               type="text"
               placeholder="Please Enter Your Registration Number"

@@ -47,7 +47,7 @@ export function ListOfDoctor({
                         onClick={() => {
                           onSelect(doctorRecord.registrationNumber);
                           alert(
-                            `Your appointment with ${activePatient.patient.fullName} has been confirmed`
+                            ` ${activePatient.patient.fullName} has been has been appointed to Dr. ${doctorRecord.fullName}`
                           );
                         }}
                       >
