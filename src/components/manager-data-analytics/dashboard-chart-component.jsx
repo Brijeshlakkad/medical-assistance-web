@@ -19,7 +19,7 @@ export default function DashboardChartsComponent({ payload,
             <div className='dashboard-chart-columns regular-chart'>
                 <div className='dashboard-chart-cards'>
                     <div className='chart-toggle-header'>
-                        <h3 id="charts-card-header" style={{ fontSize: "2rem" }}>New Users</h3>
+                        <h3 id="charts-card-header" style={{ fontSize: "2rem" }}>New Patients</h3>
                         <div className='chart-toggle-area'>
                             <button id='user-day-button' onClick={(e) => {
                                 e.preventDefault();
@@ -56,7 +56,7 @@ export default function DashboardChartsComponent({ payload,
                                 <span className="tooltiptext">Day, Month, Year</span>
                             </div>
                         </div>
-                        <h2 id='chart-by-month-heading'>New Users by Day</h2>
+                        <h2 id='chart-by-month-heading'>New Patients by Day</h2>
                         <CardByDayComponent payload={payload} />
                     </div>}
 
@@ -79,7 +79,7 @@ export default function DashboardChartsComponent({ payload,
                                 <span className="tooltiptext">Month Week, Year</span>
                             </div>
                         </div>
-                        <h2 id='chart-by-month-heading '>New Users by Week</h2>
+                        <h2 id='chart-by-month-heading '>New Patients by Week</h2>
 
                         <ChartByWeekComponent payload={payload} />
                     </div>}
@@ -104,7 +104,7 @@ export default function DashboardChartsComponent({ payload,
                                 <span className="tooltiptext">Month Year</span>
                             </div>
                         </div>
-                        <h2 id='chart-by-month-heading'>New Users by Month</h2>
+                        <h2 id='chart-by-month-heading'>New Patients by Month</h2>
                         <ChartByMonthComponent payload={payload} />
                     </div>}
                 </div>
@@ -112,7 +112,7 @@ export default function DashboardChartsComponent({ payload,
             <div className='horizontal-space'></div>
             <div className='dashboard-chart-columns pie-chart'>
                 <div className='dashboard-chart-cards right-piechart-card'>
-                    <h3 id="pie-chart-card-header" style={{ fontSize: "2rem", marginBottom: "3rem" }}>Assessments over Users</h3>
+                    <h3 id="pie-chart-card-header" style={{ fontSize: "2rem", marginBottom: "3rem" }}>Assessments over Patients</h3>
                     <PieChartForTotalAssessmentsComponent
                         payload={payload}
                         style={{ width: "400px" }}

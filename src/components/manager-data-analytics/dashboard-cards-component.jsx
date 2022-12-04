@@ -10,7 +10,7 @@ export default function DashboardCardsComponent({ payload }) {
             <div className='dashboard-card-columns'>
                 <div className='dashboard-card-cards cards-color-users'>
                     <FontAwesomeIcon icon={faUser} className='users-cards'></FontAwesomeIcon>
-                    <h3 style={{ fontSize: "1.7rem" }}>Total Users</h3>
+                    <h3 style={{ fontSize: "1.7rem" }}>Total Patients</h3>
                     <p className='show-data-cards'>{payload.numTotal}</p>
                 </div>
             </div>
