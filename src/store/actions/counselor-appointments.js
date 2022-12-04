@@ -1,6 +1,6 @@
 import request from "../../lib/request";
 import { COUNSELOR_APPOINTMENTS_ERROR, COUNSELOR_APPOINTMENTS_FETCHING, COUNSELOR_APPOINTMENTS_FOR_DATE_ERROR, COUNSELOR_APPOINTMENTS_FOR_DATE_FETCHING, COUNSELOR_APPOINTMENTS_FOR_DATE_SUCCESS, COUNSELOR_APPOINTMENTS_SUCCESS, COUNSELOR_MAKE_APPOINTMENT_ERROR, COUNSELOR_MAKE_APPOINTMENT_FETCHING, COUNSELOR_MAKE_APPOINTMENT_SUCCESS, ONLOAD_COUNSELOR_APPOINTMENTS } from "../types";
-import { openErrorMessageModal } from "./gui";
+import { openErrorMessageModal, openSuccessMessageModal } from "./gui";
 
 export const fetchAppointments = (page) => async (dispatch) => {
     dispatch({ type: COUNSELOR_APPOINTMENTS_FETCHING });
@@ -71,18 +71,11 @@ export const makeAppointment = (patientRecordId, startDateTime, endDateTime) => 
         endDateTime
     })
         .then((resp) => {
-            if (resp && resp.data) {
-                dispatch({
-                    type: COUNSELOR_MAKE_APPOINTMENT_SUCCESS,
-                    id: patientRecordId
-                });
-            } else {
-                dispatch({
-                    type: COUNSELOR_MAKE_APPOINTMENT_ERROR,
-                    errorMessage: resp.data.errorMessage,
-                    id: patientRecordId
-                });
-            }
+            dispatch(openSuccessMessageModal("Your appointment was booked!"));
+            dispatch({
+                type: COUNSELOR_MAKE_APPOINTMENT_SUCCESS,
+                id: patientRecordId
+            });
         })
         .catch((exception) => {
             // handle error.

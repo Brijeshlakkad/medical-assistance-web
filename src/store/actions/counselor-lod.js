@@ -1,6 +1,6 @@
 import request from "../../lib/request";
 import { COUNSELOR_ASSIGN_DOCTOR_ERROR, COUNSELOR_ASSIGN_DOCTOR_FETCHING, COUNSELOR_ASSIGN_DOCTOR_SUCCESS, COUNSELOR_DOCTOR_LIST_ERROR, COUNSELOR_DOCTOR_LIST_FETCHING, COUNSELOR_DOCTOR_LIST_SUCCESS, COUNSELOR_PATIENT_LOD_ERROR, COUNSELOR_PATIENT_LOD_FETCHING, COUNSELOR_PATIENT_LOD_SUCCESS } from "../types";
-import { openErrorMessageModal } from "./gui";
+import { openErrorMessageModal, openSuccessMessageModal } from "./gui";
 
 export const fetchDoctorList = (page) => async (dispatch) => {
     dispatch({ type: COUNSELOR_DOCTOR_LIST_FETCHING });
@@ -67,6 +67,7 @@ export const assignDoctorToPatient = (activePatientId, doctorRegistrationNumber)
         doctorRegistrationNumber
     })
         .then((resp) => {
+            dispatch(openSuccessMessageModal("Patient record forwarded successfully!"));
             dispatch({
                 type: COUNSELOR_ASSIGN_DOCTOR_SUCCESS,
                 activePatientId

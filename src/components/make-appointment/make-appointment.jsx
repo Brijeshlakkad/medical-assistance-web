@@ -103,9 +103,6 @@ export function MakeAppointment({
           onStartTimeSelect={({ availableTimeslot }) => {
             onUpdateVisibility(false);
             onMakeAppointment(availableTimeslot);
-            alert(
-              `Your appointment with ${patient.fullName} has been confirmed`
-            );
           }}
           lang_cancelButtonText="Cancel"
           lang_confirmButtonText="Confirm"

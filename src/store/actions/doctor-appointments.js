@@ -1,7 +1,7 @@
 import { PLEASE_TRY_AGAIN } from "../../lib/messages";
 import request from "../../lib/request";
 import { DOCTOR_APPOINTMENTS_ERROR, DOCTOR_APPOINTMENTS_FETCHING, DOCTOR_APPOINTMENTS_FOR_DATE_ERROR, DOCTOR_APPOINTMENTS_FOR_DATE_FETCHING, DOCTOR_APPOINTMENTS_FOR_DATE_SUCCESS, DOCTOR_APPOINTMENTS_SUCCESS, DOCTOR_MAKE_APPOINTMENT_ERROR, DOCTOR_MAKE_APPOINTMENT_FETCHING, DOCTOR_MAKE_APPOINTMENT_SUCCESS, ONLOAD_DOCTOR_APPOINTMENTS } from "../types";
-import { openErrorMessageModal } from "./gui";
+import { openErrorMessageModal, openSuccessMessageModal } from "./gui";
 
 export const fetchAppointments = (page) => async (dispatch) => {
     dispatch({ type: DOCTOR_APPOINTMENTS_FETCHING });
@@ -70,18 +70,11 @@ export const makeAppointment = (patientRecordId, startDateTime, endDateTime) => 
         endDateTime
     })
         .then((resp) => {
-            if (resp && resp.data) {
-                dispatch({
-                    type: DOCTOR_MAKE_APPOINTMENT_SUCCESS,
-                    id: patientRecordId
-                });
-            } else {
-                dispatch({
-                    type: DOCTOR_MAKE_APPOINTMENT_ERROR,
-                    errorMessage: resp.data.errorMessage,
-                    id: patientRecordId
-                });
-            }
+            dispatch(openSuccessMessageModal("Your appointment was booked!"));
+            dispatch({
+                type: DOCTOR_MAKE_APPOINTMENT_SUCCESS,
+                id: patientRecordId
+            });
         })
         .catch((exception) => {
             // handle error.
