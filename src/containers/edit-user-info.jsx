@@ -5,7 +5,7 @@ import InfoComponent from '../components/edit-user-info/info-component'
 import FooterComponent from '../components/footer/footer'
 import { LoadingComponent } from '../components/loading/loading'
 import { VerticalSpace } from '../components/vertical-space/vertical-space'
-import { toBirthDateFormat, toUTCDate } from '../lib/time-util'
+import { toBirthDateFormat, toUTCDate, toUTCDateTime } from '../lib/time-util'
 import { RequestState } from '../lib/types'
 import { fetchProfile, updateProfile } from '../store/actions/user'
 import Header from './header'
@@ -27,7 +27,7 @@ const EditUserInfo = ({ role }) => {
     // const errorMessage = useSelector(state => state.user.profile.errorMessage);
 
     useEffect(() => {
-        if (requestState === RequestState.COMPLETED){
+        if (requestState === RequestState.COMPLETED) {
             setUser({
                 ...profile,
                 dateOfBirth: toBirthDateFormat(profile.dateOfBirth)
@@ -36,10 +36,10 @@ const EditUserInfo = ({ role }) => {
     }, [setUser, requestState, profile]);
 
     useEffect(() => {
-        if (editRequestState === RequestState.COMPLETED){
+        if (editRequestState === RequestState.COMPLETED) {
             setUser({
                 ...profileUpdated,
-                dateOfBirth: toBirthDateFormat(profileUpdated.dateOfBirth)
+                dateOfBirth: toBirthDateFormat(toUTCDateTime(profileUpdated.dateOfBirth))
             });
         }
     }, [dispatch, setUser, editRequestState, profileUpdated]);
@@ -78,7 +78,7 @@ const EditUserInfo = ({ role }) => {
                             onFieldChange={onFieldChange}
                             onSubmit={onSubmit}
                             onPressBack={onPressBack}
-                            />}
+                        />}
                     </div>
             }
             <VerticalSpace height={10} />
