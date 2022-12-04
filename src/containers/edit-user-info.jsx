@@ -5,7 +5,7 @@ import InfoComponent from '../components/edit-user-info/info-component'
 import FooterComponent from '../components/footer/footer'
 import { LoadingComponent } from '../components/loading/loading'
 import { VerticalSpace } from '../components/vertical-space/vertical-space'
-import { toBirthDateFormat, toUTCDate, toUTCDateTime } from '../lib/time-util'
+import { toUTCDate } from '../lib/time-util'
 import { RequestState } from '../lib/types'
 import { fetchProfile, updateProfile } from '../store/actions/user'
 import Header from './header'
@@ -28,23 +28,30 @@ const EditUserInfo = ({ role }) => {
 
     useEffect(() => {
         if (requestState === RequestState.COMPLETED) {
-            setUser({
-                ...profile,
-                dateOfBirth: toBirthDateFormat(profile.dateOfBirth)
-            });
+            const dateTokens = String(profile.dateOfBirth).split("T");
+            if (dateTokens.length > 0) {
+                setUser({
+                    ...profile,
+                    dateOfBirth: dateTokens[0]
+                });
+            }
         }
     }, [setUser, requestState, profile]);
 
     useEffect(() => {
         if (editRequestState === RequestState.COMPLETED) {
-            setUser({
-                ...profileUpdated,
-                dateOfBirth: toBirthDateFormat(toUTCDateTime(profileUpdated.dateOfBirth))
-            });
+            const dateTokens = String(profileUpdated.dateOfBirth).split("T");
+            if (dateTokens.length > 0) {
+                setUser({
+                    ...profileUpdated,
+                    dateOfBirth: dateTokens[0]
+                });
+            }
         }
     }, [dispatch, setUser, editRequestState, profileUpdated]);
 
     const onFieldChange = (fieldName, value) => {
+        console.log("fieldName", fieldName, value);
         setUser({
             ...user,
             [fieldName]: value
@@ -52,6 +59,7 @@ const EditUserInfo = ({ role }) => {
     }
 
     const onSubmit = (event) => {
+        console.log("onSubmit", user, toUTCDate(user.dateOfBirth));
         const updatedUser = {
             ...user,
             dateOfBirth: toUTCDate(user.dateOfBirth)
