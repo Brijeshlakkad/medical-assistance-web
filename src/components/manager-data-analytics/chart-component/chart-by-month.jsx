@@ -8,12 +8,12 @@ import {
     Tooltip,
     Legend,
 } from 'recharts';
-import { toUTCDateInDate } from '../../../lib/time-util';
+import { toUTCDateInDate, toUTCDateTime } from '../../../lib/time-util';
 
 export default function ChartByMonthComponent({ payload }) {
     const data = React.useMemo(() => {
         let data = {};
-        for (let i = 0; i <= 30; i++) {
+        for (let i = 1; i <= 31; i++) {
             data[i] = {
                 months: i,
                 users: 0
@@ -21,7 +21,7 @@ export default function ChartByMonthComponent({ payload }) {
         }
 
         payload.patients.forEach((patient) => {
-            const createdDate = toUTCDateInDate(patient.createdAt);
+            const createdDate = toUTCDateInDate(toUTCDateTime(patient.createdAt));
             const currentDate = createdDate.getDate();
             data[currentDate].users++;
         })

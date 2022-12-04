@@ -15,7 +15,7 @@ export function toUTCDate(date = new Date()) {
  * @param {Date} date
  * @returns UTC Date.
  */
-export function toUTCDateInDate(date = new Date()) {
+export function toUTCDateInDate(date) {
   date = new Date(date);
   return new Date(
     date.getTime() + new Date().getTimezoneOffset() * 60000

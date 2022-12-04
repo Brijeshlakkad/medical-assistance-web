@@ -8,7 +8,7 @@ import {
     Tooltip,
     Legend,
 } from 'recharts';
-import { getDayName, toUTCDateInDate } from '../../../lib/time-util';
+import { getDayName, toUTCDateInDate, toUTCDateTime } from '../../../lib/time-util';
 
 export default function ChartByWeekComponent({ payload }) {
     const data = React.useMemo(() => {
@@ -20,7 +20,7 @@ export default function ChartByWeekComponent({ payload }) {
             }
         }
         payload.patients.forEach((patient) => {
-            const day = (toUTCDateInDate(patient.createdAt)).getDay();
+            const day = (toUTCDateInDate(toUTCDateTime(patient.createdAt))).getDay();
             data[day].users++;
         })
         return Object.values(data);
