@@ -6,6 +6,12 @@
     border-radius: 1.8rem;
     height: 250px;
     max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+    align-content: space-between;
+    justify-content: space-between;
 }
 
 .dashboard-card-cards:hover {
@@ -62,6 +68,7 @@
     color: black;
     text-shadow: 1px 1px 2px black, 0 0 35px blue, 0 0 18px darkblue;
     font-family: "Lucida Console", "Courier New", monospace;
+    margin: 0;
     margin-bottom: 1rem;
 }
 
@@ -79,4 +86,36 @@
 
 .pie-chart {
     /* width: 19%; */
+}
+
+.dashboard-card-row .tooltip {
+    position: relative;
+    /* display: inline-block; */
+}
+
+.dashboard-card-row .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    margin-top: 0.2rem;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 2;
+}
+
+.dashboard-card-row .tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.dashboard-card-row .tooltip .tooltiptext {
+    width: 120px;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+    /* Use half of the width (120/2 = 60), to center the tooltip */
 }

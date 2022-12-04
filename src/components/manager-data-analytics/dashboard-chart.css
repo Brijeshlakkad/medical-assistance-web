@@ -99,12 +99,12 @@
 
 }
 
-.tooltip {
+.dashboard-chart-row .tooltip {
     position: relative;
     display: inline-block;
 }
 
-.tooltiptext {
+.dashboard-chart-row .tooltiptext {
     visibility: hidden;
     width: 120px;
     background-color: black;
@@ -119,11 +119,11 @@
     z-index: 2;
 }
 
-.tooltip:hover .tooltiptext {
+.dashboard-chart-row .tooltip:hover .tooltiptext {
     visibility: visible;
 }
 
-.tooltip .tooltiptext {
+.dashboard-chart-row .tooltip .tooltiptext {
     width: 120px;
     top: 100%;
     left: 50%;
