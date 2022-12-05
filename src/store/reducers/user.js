@@ -21,7 +21,8 @@ const reducer = (state, action) => {
 				...state,
 				loginState: RequestState.COMPLETED,
 				user: action.user,
-				role: action.role
+				role: action.role,
+				status: action.status
 			}
 		case USER_LOGIN_FETCHING:
 			return {

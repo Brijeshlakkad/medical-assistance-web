@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import FooterComponent from "../components/footer/footer";
 import { PatientLoginComponent } from "../components/patient-login/patient-login";
 import { PathConstants } from "../lib/path-constants";
-import { RequestState, UserRole } from "../lib/types";
+import { PatientRecordStatus, RequestState, UserRole } from "../lib/types";
 import { login } from "../store/actions/user";
 import { RESET_USER_LOGIN } from "../store/types";
 import Header from "./header";
@@ -19,6 +19,7 @@ export default function PatientLogin() {
     }, [dispatch]);
 
     const loginState = useSelector(state => state.user.loginState);
+    const patientRecordStatus = useSelector(state => state.user.status);
 
     const navigate = useNavigate();
 
@@ -28,10 +29,15 @@ export default function PatientLogin() {
 
     useEffect(() => {
         if (loginState === RequestState.COMPLETED) {
-            // redirect to AssessmentPage page.
-            navigate(PathConstants.AssessmentPage);
+            if (patientRecordStatus.patientRecordStatus === PatientRecordStatus.NULL) {
+                // redirect to AssessmentPage page.
+                navigate(PathConstants.AssessmentPage);
+            } else {
+                // redirect to StatusPage page.
+                navigate(PathConstants.StatusPage);
+            }
         }
-    }, [navigate, loginState]);
+    }, [navigate, loginState, patientRecordStatus]);
 
     return <>
         <Header />

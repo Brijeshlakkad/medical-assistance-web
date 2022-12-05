@@ -33,10 +33,13 @@ export const login = (emailId, password, role) => async (dispatch) => {
             if (resp.data && resp.data.loginSuccess) {
                 // save token to localStorage
                 localStorage.setItem("USER", resp.data.accessToken);
+
+                const status = role === UserRole.PATIENT ? resp.data.status : null;
                 dispatch({
                     type: USER_LOGIN_SUCCESS,
                     user: resp.data.user,
-                    role: role
+                    role: role,
+                    status
                 });
             } else {
                 dispatch(openErrorMessageModal(resp.data.errorMessage));
