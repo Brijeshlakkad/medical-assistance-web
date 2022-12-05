@@ -16,7 +16,7 @@ function searchByEmail() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myManagerSearch");
   filter = input.value.toUpperCase();
-  table = document.getElementById("myPatientList");
+  table = document.getElementById("myDoctorList");
 
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
