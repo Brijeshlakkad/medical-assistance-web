@@ -71,7 +71,7 @@ export function toReadableDateFormat(receviedAppointmentDateTime) {
     "Dec",
   ];
   var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const appointmentDateTime = fromUTCDate(receviedAppointmentDateTime);
+  const appointmentDateTime = fromUTCDate(toUTCDateTime(receviedAppointmentDateTime));
 
   const month = appointmentDateTime.getMonth();
   const day = appointmentDateTime.getDay();
