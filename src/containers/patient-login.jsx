@@ -29,7 +29,8 @@ export default function PatientLogin() {
 
     useEffect(() => {
         if (loginState === RequestState.COMPLETED) {
-            if (patientRecordStatus.patientRecordStatus === PatientRecordStatus.NULL) {
+            if (patientRecordStatus == null ||
+                patientRecordStatus.patientRecordStatus === PatientRecordStatus.NULL) {
                 // redirect to AssessmentPage page.
                 navigate(PathConstants.AssessmentPage);
             } else {
